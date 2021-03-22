@@ -1,57 +1,28 @@
-# Project Name
+---
+page_type: sample
+languages:
+- json
+products:
+- azure-digital-twins
+name: Azure Digital Twins getting started samples
+description: Contains getting started samples for Azure Digital Twins.
+urlFragment: digital-twins-getting-started
+---
 
-(short, 1-3 sentenced, description of the project)
+# Azure Digital Twins getting started samples
 
-## Features
+These samples can help you get started with Azure Digital Twins.
 
-This project framework provides the following features:
+## Contents
 
-* Feature 1
-* Feature 2
-* ...
+This project contains the following folders.
 
-## Getting Started
-
-### Prerequisites
-
-(ideally very short, if any)
-
-- OS
-- Library version
-- ...
-
-### Installation
-
-(ideally very short)
-
-- npm install [package name]
-- mvn install
-- ...
-
-### Quickstart
-(Add steps to get up and running quickly)
-
-1. git clone [repository clone url]
-2. cd [respository name]
-3. ...
-
-
-## Demo
-
-A demo app is included to show how to use the project.
-
-To run the demo, follow these steps:
-
-(Add steps to start up the demo)
-
-1.
-2.
-3.
+| Folder | Description |
+| --- | --- |
+| [models](/models) | Contains sets of "getting started" models to illustrate how certain subjects might be modeled in Digital Twins Definition Language (DTDL). |
 
 ## Resources
 
-(Any additional resources or related projects)
-
-- Link to supporting information
-- Link to similar sample
-- ...
+- [Azure Digital Twins documentation](https://docs.microsoft.com/azure/digital-twins/)
+- [**DTDL Models** in the Azure Digital Twins documentation](https://docs.microsoft.com/azure/digital-twins/concepts-models)
+- [DTDL v2 spec](https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md)
