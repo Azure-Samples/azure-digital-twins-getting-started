@@ -1,5 +1,5 @@
 {
-  "@id": "dtmi:com:hellem:dtsample:sensor;1",
+  "@id": "dtmi:com:adt:dtsample:sensor;1",
   "@type": "Interface",
   "@context": "dtmi:dtdl:context;2",
   "displayName": "Sensor",
