@@ -1,5 +1,5 @@
 {
-    "@id": "dtmi:com:hellem:dtsample:floor;1",
+    "@id": "dtmi:com:adt:dtsample:floor;1",
     "@type": "Interface",
     "@context": "dtmi:dtdl:context;2",
     "displayName": "Floor",
@@ -22,10 +22,10 @@
       },       
       {
         "@type": "Relationship",
-        "@id": "dtmi:com:hellem:dtsample:floor:rel_has_rooms;1",
+        "@id": "dtmi:com:adt:dtsample:floor:rel_has_rooms;1",
         "name": "rel_has_rooms",
         "displayName": "Floor has rooms",
-        "target": "dtmi:com:hellem:dtsample:room;1"
+        "target": "dtmi:com:adt:dtsample:room;1"
       }      
     ]
   }
