@@ -1,5 +1,5 @@
 {
-  "@id": "dtmi:com:hellem:dtsample:home;1",
+  "@id": "dtmi:com:adt:dtsample:home;1",
   "@type": "Interface",
   "@context": "dtmi:dtdl:context;2",
   "displayName": "Home",
@@ -11,10 +11,10 @@
     },    
     {
       "@type": "Relationship",
-      "@id": "dtmi:com:hellem:dtsample:home:rel_has_floors;1",
+      "@id": "dtmi:com:adt:dtsample:home:rel_has_floors;1",
       "name": "rel_has_floors",
       "displayName": "Home has floors",
-      "target": "dtmi:com:hellem:dtsample:floor;1"
+      "target": "dtmi:com:adt:dtsample:floor;1"
     }
   ]
 }

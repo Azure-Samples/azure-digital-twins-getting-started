@@ -1,5 +1,5 @@
 {
-  "@id": "dtmi:com:hellem:dtsample:room;1",
+  "@id": "dtmi:com:adt:dtsample:room;1",
   "@type": "Interface",
   "@context": "dtmi:dtdl:context;2",
   "displayName": "Room",
@@ -13,19 +13,19 @@
       "@type": ["Property", "Temperature"],
       "name": "temperature",
       "unit": "degreeFahrenheit",
-      "schema": "double",      
+      "schema": "double"     
     },
     {
       "@type": "Property",
       "name": "humidity",
-      "schema": "double",      
+      "schema": "double"      
     },     
     {
       "@type": "Relationship",
-      "@id": "dtmi:com:hellem:dtsample:room:rel_has_sensors;1",
+      "@id": "dtmi:com:adt:dtsample:room:rel_has_sensors;1",
       "name": "rel_has_sensors",
       "displayName": "Room has sensors",
-      "target": "dtmi:com:hellem:dtsample:sensor;1"
+      "target": "dtmi:com:adt:dtsample:sensor;1"
     }
   ]
 }
