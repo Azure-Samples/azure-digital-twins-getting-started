@@ -1,0 +1,48 @@
+{
+  "@id": "dtmi:com:adt:dtsample:home;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Home",
+  "extends": "dtmi:com:adt:dtsample:core;1",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "address",
+      "schema": {
+        "@type": "Object",
+        "fields": [
+          {
+            "name": "street",
+            "schema": "string"
+          },
+          {
+            "name": "city",
+            "schema": "string"
+          },
+          {
+            "name": "state",
+            "schema": "string"
+          },
+          {
+            "name": "zip",
+            "schema": "string"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Relationship",
+      "@id": "dtmi:com:adt:dtsample:home:rel_has_floors;1",
+      "name": "rel_has_floors",
+      "displayName": "Home has floors",
+      "target": "dtmi:com:adt:dtsample:floor;1",
+      "properties": [
+        {
+          "@type": "Property",
+          "name": "lastOccupied",
+          "schema": "dateTime"
+        }
+      ]
+    }
+  ]
+}
