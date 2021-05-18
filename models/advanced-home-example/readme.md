@@ -10,31 +10,31 @@
 
 Both humidty and temperature are semantic type (from basic double).
 
-<img src="../../images/adv-home-semantic.png" style="max-width: 400px" alt="semantic types" />
+<img src="../../images/adv-home-semantic.png" style="max-width: 400px" alt="screen shot of semantic types dtdl example" />
 
 ## Complex Type
 
 Added a new address complex type to collect address information on the `Home` model.
 
-<img src="../../images/adv-home-object.png" style="max-width: 400px" alt="complex type" />
+<img src="../../images/adv-home-object.png" style="max-width: 400px" alt="screen shot of a complex type dtdl example" />
 
 ## Inheritance
 Added the ICore.json to include an id and name. 
 
-<img src="../../images/adv-home-core.png" style="max-width: 400px" alt="inheritance" />
+<img src="../../images/adv-home-core.png" style="max-width: 400px" alt="screen shot of inheritance dtdl example" />
 
 The `dtmi:com:adt:dtsample:core;1` is extended by the `Home`, `Floor`, and `Room` models.
 
-<img src="../../images/adv-home-inheritance.png" style="max-width: 400px" alt="inheritance extended" />
+<img src="../../images/adv-home-inheritance.png" style="max-width: 400px" alt="screen shot of inheritance extended dtdl example" />
 
 ## Relationship Properties
 
 Relationship `dtmi:com:adt:dtsample:home:rel_has_floors;1` on the `Home` model has a newly added property.
 
-<img src="../../images/adv-home-rel.png" style="max-width: 400px" alt="relationship properties" />
+<img src="../../images/adv-home-rel.png" style="max-width: 400px" alt="screen shot of relationship properties dtdl example" />
 
 ## Non-Targeted Relationship
 
 Removed the target property on the `dtmi:com:adt:dtsample:room:rel_has_sensors;1` on the `Room` model.
 
-<img src="../../images/adv-home-nontarget.png" style="max-width: 400px" alt="non-targeted relationship" />
+<img src="../../images/adv-home-nontarget.png" style="max-width: 400px" alt="screen shot of non-targeted relationship dtdl example" />
