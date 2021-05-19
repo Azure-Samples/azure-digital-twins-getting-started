@@ -1,0 +1,34 @@
+{
+  "@id": "dtmi:com:adt:dtsample:floor;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Floor",
+  "extends": "dtmi:com:adt:dtsample:core;1",
+  "contents": [
+    {
+      "@type": [
+        "Property",
+        "Temperature"
+      ],
+      "name": "temperature",
+      "unit": "degreeFahrenheit",
+      "schema": "double"
+    },
+    {
+      "@type": [
+        "Property",
+        "Humidity"
+      ],
+      "name": "humidity",
+      "unit": "gramPerCubicMetre",
+      "schema": "double"
+    },
+    {
+      "@type": "Relationship",
+      "@id": "dtmi:com:adt:dtsample:floor:rel_has_rooms;1",
+      "name": "rel_has_rooms",
+      "displayName": "Floor has rooms",
+      "target": "dtmi:com:adt:dtsample:room;1"
+    }
+  ]
+}
