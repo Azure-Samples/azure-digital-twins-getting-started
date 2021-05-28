@@ -14,8 +14,8 @@
       },
       {
         "@type": "Component",
-        "name": "thermastat",
-        "schema": "dtmi:com:adt:dtsample:thermastat;1"
+        "name": "thermostat",
+        "schema": "dtmi:com:adt:dtsample:thermostat;1"
       },
       {
         "@type": "Relationship",
@@ -27,9 +27,9 @@
   },
   {
     "@context": "dtmi:dtdl:context;2",
-    "@id": "dtmi:com:adt:dtsample:thermastat;1",
+    "@id": "dtmi:com:adt:dtsample:thermostat;1",
     "@type": "Interface",
-    "displayName": "thermastat component",
+    "displayName": "thermostat component",
     "contents": [
       {
         "@type": ["Property", "Temperature"],
