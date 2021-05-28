@@ -1,33 +1,42 @@
-{
-  "@id": "dtmi:com:adt:dtsample:room;1",
-  "@type": "Interface",
-  "@context": "dtmi:dtdl:context;2",
-  "displayName": "Room",
-  "extends": "dtmi:com:adt:dtsample:core;1",
-  "contents": [
-    {
-      "@type": [
-        "Property",
-        "Temperature"
-      ],
-      "name": "temperature",
-      "unit": "degreeFahrenheit",
-      "schema": "double"
-    },
-    {
-      "@type": [
-        "Property",
-        "Humidity"
-      ],
-      "name": "humidity",
-      "unit": "gramPerCubicMetre",
-      "schema": "double"
-    },
-    {
-      "@type": "Relationship",
-      "@id": "dtmi:com:adt:dtsample:room:rel_has_sensors;1",
-      "name": "rel_has_sensors",
-      "displayName": "Room has sensors"      
-    }
-  ]
-}
+[
+  {
+    "@id": "dtmi:com:adt:dtsample:room;1",
+    "@type": "Interface",
+    "@context": "dtmi:dtdl:context;2",
+    "displayName": "Room",
+    "extends": "dtmi:com:adt:dtsample:core;1",
+    "contents": [
+      {
+        "@type": ["Property", "Humidity"],
+        "name": "humidity",
+        "unit": "gramPerCubicMetre",
+        "schema": "double"
+      },
+      {
+        "@type": "Component",
+        "name": "thermostat",
+        "schema": "dtmi:com:adt:dtsample:thermostat;1"
+      },
+      {
+        "@type": "Relationship",
+        "@id": "dtmi:com:adt:dtsample:room:rel_has_sensors;1",
+        "name": "rel_has_sensors",
+        "displayName": "Room has sensors"
+      }
+    ]
+  },
+  {
+    "@context": "dtmi:dtdl:context;2",
+    "@id": "dtmi:com:adt:dtsample:thermostat;1",
+    "@type": "Interface",
+    "displayName": "thermostat component",
+    "contents": [
+      {
+        "@type": ["Property", "Temperature"],
+        "name": "temperature",
+        "unit": "degreeFahrenheit",
+        "schema": "double"
+      }
+    ]
+  }
+]
