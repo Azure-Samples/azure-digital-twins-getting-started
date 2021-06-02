@@ -32,7 +32,7 @@
     "displayName": "thermostat component",
     "contents": [
       {
-        "@type": ["Property", "Temperature"],
+        "@type": ["Telemetry", "Temperature"],
         "name": "temperature",
         "unit": "degreeFahrenheit",
         "schema": "double"
