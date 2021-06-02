@@ -20,7 +20,7 @@ This project contains the following folders.
 | Folder | Description |
 | --- | --- |
 | [models](/models) | Contains sets of "getting started" models to illustrate how certain subjects might be modeled in Digital Twins Definition Language (DTDL). |
-| [adx-queries](/adx-queries) | Contains sample queries that can be run with the Azure Digital Twins query plugin for Azure Data Explorer (coming soon). |
+| [adt-adx-queries](/adt-adx-queries) | Contains sample queries that can be run with the Azure Digital Twins query plugin for Azure Data Explorer (coming soon). |
 
 
 ## Resources

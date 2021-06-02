@@ -1,4 +1,4 @@
-# ADX plugin sample queries and walkthrough
+# Azure Digital Twins query plugin for ADX: Sample queries and walkthrough
 
 This folder contains sample queries that can be run with the Azure Digital Twins query plugin for Azure Data Explorer (coming soon). This README contains a walkthrough for how to run the sample queries using the sample data in this repository.
 
@@ -29,7 +29,7 @@ To get you up and running with the plugin, these instructions provide an example
 
 1. On the left pane, click on the **Upload a Model** button (cloud icon with upward arrow).
 
-    ![Screenshot of the Upload a Model icon in Azure Digital Twins Explorer.](../images/adx-queries/upload-model.png)
+    ![Screenshot of the Upload a Model icon in Azure Digital Twins Explorer.](../images/adt-adx-queries/upload-model.png)
 
     1. Go to the folder where you downloaded the repository. Navigate into *<folder>/model/energy-grid-example*.
 
@@ -37,7 +37,7 @@ To get you up and running with the plugin, these instructions provide an example
 
 1. In the middle pane, click the **Import Graph** button (also a cloud icon with upward arrow).
 
-    ![Screenshot of the Import Graph icon in Azure Digital Twins Explorer.](../images/adx-queries/import-graph.png)
+    ![Screenshot of the Import Graph icon in Azure Digital Twins Explorer.](../images/adt-adx-queries/import-graph.png)
 
     1. Within *<folder>/model/energy-grid-example*, select **distributionGrid.xlsx** to import it.
 
@@ -49,7 +49,7 @@ To get you up and running with the plugin, these instructions provide an example
 
 1. Update the PowerRequirement value to 500 and save it (using the disc button circled in red below) to patch the twin.
 
-    ![Screenshot of updating and saving a value in Azure Digital Twins Explorer.](../images/adx-queries/save-patch.png)
+    ![Screenshot of updating and saving a value in Azure Digital Twins Explorer.](../images/adt-adx-queries/save-patch.png)
 
 ## Step 2: Run joint Azure Digital Twins/ADX queries
 
@@ -59,11 +59,11 @@ To get you up and running with the plugin, these instructions provide an example
 
 1. To run a query in ADX, click on the query to highlight it and press the Run button.
 
-    ![Screenshot of running an ADX query in the Azure portal.](../images/adx-queries/adx-query.png)
+    ![Screenshot of running a query with the Azure Digital Twins query plugin for ADX in the Azure portal.](../images/adt-adx-queries/adx-query.png)
 
-Want even more fun?  Build an ADX dashboard with charts from your new ADX queries! ADX also offers integrations with third party visualization packages such as [Power BI](https://docs.microsoft.com/azure/data-explorer/power-bi-best-practices), Grafana, Tableau and others.
+Want even more fun? Build an ADX dashboard with charts from your new Azure Digital Twins/ADX queries! ADX also offers integrations with third party visualization packages such as [Power BI](https://docs.microsoft.com/azure/data-explorer/power-bi-best-practices), Grafana, Tableau and others.
 
-![Screenshot of the Import Graph icon in Azure Digital Twins Explorer.](../images/adx-queries/adx-dashboard.png)
+![Screenshot of the Import Graph icon in Azure Digital Twins Explorer.](../images/adt-adx-queries/adx-dashboard.png)
 
 ## Step 3: Delete all resources
 
