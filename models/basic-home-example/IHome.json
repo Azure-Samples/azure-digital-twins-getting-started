@@ -7,12 +7,7 @@
     {
       "@type": "Property",
       "name": "id",
-      "schema": "string"      
-    },
-    {
-      "@type": "Telemetry",
-      "name": "Temperature",
-      "schema": "double"      
+      "schema": "string"     
     },    
     {
       "@type": "Relationship",
