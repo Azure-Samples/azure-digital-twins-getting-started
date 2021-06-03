@@ -8,13 +8,11 @@
 
 ## Semantic Types
 
-In the `Room` model, both the Humidty property and Temperature telemetry on the component are semantic type (from basic double).
+In the `Sensor` model, both the Humidity property and Temperature telemetry are semantic type (from basic double).
 
-<img src="../../images/adv-home-semantic-properties.png" style="max-width: 400px" alt="screen shot of semantic types dtdl example" />
-...
-<img src="../../images/adv-home-semantic-telemtry.png" style="max-width: 400px" alt="screen shot of semantic types dtdl example" />
+<img src="../../images/adv-home-semantic.png" style="max-width: 400px" alt="screen shot of semantic types dtdl example" />
 
-The same is true for Humidity and Temperature on the `Sensor` model.
+The same is true for the `Room` model's Humidity property.
 
 ## Complex Type
 
