@@ -7,7 +7,7 @@
     {
       "@type": "Property",
       "name": "id",
-      "schema": "string"      
+      "schema": "string"     
     },    
     {
       "@type": "Relationship",
