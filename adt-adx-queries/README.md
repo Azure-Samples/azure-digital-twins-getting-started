@@ -1,6 +1,6 @@
 # Azure Digital Twins query plugin for ADX: Sample queries and walkthrough
 
-This folder contains sample queries that can be run with the Azure Digital Twins query plugin for Azure Data Explorer (coming soon). This README contains a walkthrough for how to run the sample queries using the sample data in this repository.
+This folder contains sample queries that can be run with the Azure Digital Twins query plugin for Azure Data Explorer. This README contains a walkthrough for how to run the sample queries using the sample data in this repository.
 
 To get you up and running with the plugin, these instructions provide an example scenario where you will combine data in a sample twin graph in Azure Digital Twins with sample time series data in Azure Data Explorer. More specifically, you will use the queries to understand the operational behavior of various portions of an example power distribution grid. You are also welcome to use the plugin with your own application.  
 
