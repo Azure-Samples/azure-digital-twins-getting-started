@@ -29,7 +29,7 @@
     "@context": "dtmi:dtdl:context;2",
     "@id": "dtmi:com:adt:dtsample:thermostat;1",
     "@type": "Interface",
-    "displayName": "thermostat component",
+    "displayName": "thermostat",
     "contents": [
       {
         "@type": ["Property", "Temperature"],
