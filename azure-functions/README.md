@@ -16,3 +16,7 @@ The outcome of this function is to get the average floor temp and humidity value
 2. Get a list of all the rooms on the floor and get the humidity and temp properties for each
 3. Calculate the average temp and humidity across all the rooms
 4. Update the temp and humidity properties on the floor
+
+## Publishing an Azure Function
+
+See [this documentation](https://docs.microsoft.com/en-us/azure/digital-twins/tutorial-end-to-end#set-up-the-sample-function-app) on the steps to publish and setup an azure function to work with Azure Digital Twins
