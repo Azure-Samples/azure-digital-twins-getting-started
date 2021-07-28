@@ -1,5 +1,13 @@
 # Azure Function Examples
 
+These Azure Functions are to be used as examples to process ingested data as well as twin updates. It assumes you already setup your Azure Digital Twin instance with ingress and/or egress steps completed.
+
+#### Learn more
+
+[How to ingest iot hub data](https://docs.microsoft.com/en-us/azure/digital-twins/how-to-ingest-iot-hub-data?tabs=portal)
+
+[How to manage endpoints and routes](https://docs.microsoft.com/en-us/azure/digital-twins/how-to-manage-routes?tabs=portal%2Cportal2%2Cportal3)
+
 ## Incoming Messages
 
 This function is used to process data as it is ingested into Event Hub and then sets the property values of the device twins in Azure Digital Twins. In this instance, the messages come from devices in IoT Hub that are used to track temperature and humidity values.
