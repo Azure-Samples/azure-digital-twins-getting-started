@@ -4,9 +4,8 @@ These Azure Functions are to be used as examples to process ingested data as wel
 
 #### Learn more
 
-[How to ingest iot hub data](https://docs.microsoft.com/en-us/azure/digital-twins/how-to-ingest-iot-hub-data?tabs=portal)
-
-[How to manage endpoints and routes](https://docs.microsoft.com/en-us/azure/digital-twins/how-to-manage-routes?tabs=portal%2Cportal2%2Cportal3)
+- [How to ingest iot hub data](https://docs.microsoft.com/en-us/azure/digital-twins/how-to-ingest-iot-hub-data?tabs=portal)
+- [How to manage endpoints and routes](https://docs.microsoft.com/en-us/azure/digital-twins/how-to-manage-routes?tabs=portal%2Cportal2%2Cportal3)
 
 ## Incoming Messages
 
