@@ -1,0 +1,24 @@
+{
+  "version": "2.0",
+  "logging": {
+    "applicationInsights": {
+      "samplingExcludedTypes": "Request",
+      "samplingSettings": {
+        "isEnabled": true
+      }
+    }
+  },
+  "extensions": {
+    "eventHubs": {
+      "batchCheckpointFrequency": 10,
+      "eventProcessorOptions": {
+        "maxBatchSize": 10,
+        "prefetchCount": 10
+      },
+      "initialOffsetOptions": {
+        "type": "fromEnd",
+        "enqueuedTime": ""
+      }
+    }
+  }
+}
