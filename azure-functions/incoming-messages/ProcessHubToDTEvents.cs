@@ -23,13 +23,13 @@ namespace AdtDevKitFunctions
 
 
         /// <summary>
-        /// This function is used to process the data as it is ingested into event hub and then sets the property 
-        /// values of the devices in azure digital twins. In this instance, the messages come devices in IoT Hub 
+        /// This function is used to process data as it is ingested into Event Hub and then sets the property 
+        /// values of the devices in Azure Digital Twins. In this instance, the messages come from devices in IoT Hub 
         /// that are used to track temperature and humidity values.
         /// 
-        /// 1) each message contains humidity and temperature data. Temp is in celsius format and needs to be converted into fahrenheit
-        /// 2) humidity and temp need to be rounded up
-        /// 3) devices are a 1-1 match to a room, we need to update the temp and humidity properties for the associated room
+        /// 1) each message contains humidity and temperature data. Temperature is in Celsius format and needs to be converted into Fahrenheit
+        /// 2) humidity and temperature need to be rounded up
+        /// 3) devices are a 1-1 match to a room, need to update the temperature and humidity properties for the associated room
         /// </summary>
         /// <param name="message"></param>
         /// <param name="log"></param>
@@ -41,7 +41,7 @@ namespace AdtDevKitFunctions
 
             log.LogInformation(message.Data.ToString());
 
-            // check for url, exit method if empty
+            // check for URL, exit method if empty
             if (_adtServiceUrl == null)
             {
                 log.LogError("Application setting \"ADT_SERVICE_URL\" not set");
@@ -50,7 +50,7 @@ namespace AdtDevKitFunctions
 
             try
             {
-                //Authenticate with Digital Twins
+                //Authenticate with Azure Digital Twins
                 credentials = new DefaultAzureCredential();
                 client = new DigitalTwinsClient(new Uri(_adtServiceUrl), credentials, new DigitalTwinsClientOptions { Transport = new HttpClientTransport(_httpClient) });
 
@@ -65,7 +65,7 @@ namespace AdtDevKitFunctions
                     string deviceId = (string)deviceMessage["systemProperties"]["iothub-connection-device-id"];
                     string body = deviceMessage["body"].ToString();
 
-                    // not all devices encode the body, so we need to check and decode as needed
+                    // not all devices encode the body, so check and decode as needed
                     if (this.IsBase64Encoded(body)) {
                         byte[] data = System.Convert.FromBase64String(body);
                         string decodedBody = System.Text.ASCIIEncoding.ASCII.GetString(data);
@@ -85,7 +85,7 @@ namespace AdtDevKitFunctions
                     double temperature = -99;
                     double humidity = -99;
 
-                    // convert temp to fahrenheit & round values
+                    // convert temperature to Fahrenheit & round values
                     if (temeratureData != null) { temperature = Math.Round(temeratureData.Value<double>() * 9 / 5 + 32, 2); }
                     if (humidityData != null) { humidity = Math.Round(humidityData.Value<double>(), 2); }
 

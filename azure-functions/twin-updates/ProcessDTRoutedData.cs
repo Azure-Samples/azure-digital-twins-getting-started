@@ -29,12 +29,12 @@ namespace TwinUpdatesSample
         private static string _adtServiceUrl = Environment.GetEnvironmentVariable("ADT_SERVICE_URL");
        
         /// <summary>
-        /// The outcome of this function is to get the average floor temp and humidity values based on the rooms on that floor. 
+        /// The outcome of this function is to get the average floor temperature and humidity values based on the rooms on that floor. 
         /// 
-        /// 1) Get the incoming relationship of the room. This will get the floor twin id
-        /// 2) Get a list of all the rooms on the floor and get the humidity and temp properties for each
-        /// 3) Calculate the average temp and humidity across all the rooms
-        /// 4) Update the temp and humidity properties on the floor
+        /// 1) Get the incoming relationship of the room. This will get the floor twin ID
+        /// 2) Get a list of all the rooms on the floor and get the humidity and temperature properties for each
+        /// 3) Calculate the average temperature and humidity across all the rooms
+        /// 4) Update the temperature and humidity properties on the floor
         /// </summary>
         /// <param name="eventGridEvent"></param>
         /// <param name="log"></param>
@@ -48,7 +48,7 @@ namespace TwinUpdatesSample
             DigitalTwinsClient client;
             DefaultAzureCredential credentials;           
 
-            // if no adt service url, log error and exit method 
+            // if no Azure Digital Twins service URL, log error and exit method 
             if (_adtServiceUrl == null)
             {
                 log.LogError("Application setting \"ADT_SERVICE_URL\" not set");
@@ -57,7 +57,7 @@ namespace TwinUpdatesSample
 
             try
             {
-                //Authenticate with Digital Twins
+                //Authenticate with Azure Digital Twins
                 credentials = new DefaultAzureCredential();
                 client = new DigitalTwinsClient(new Uri(_adtServiceUrl), credentials, new DigitalTwinsClientOptions { Transport = new HttpClientTransport(_httpClient) });
             }
@@ -124,7 +124,7 @@ namespace TwinUpdatesSample
                             });                            
                         }
 
-                        // if no rooms, then something went wrong and we should exit method
+                        // if no rooms, then something went wrong and method should exit
                         if (roomList.Count < 1)
                         {
                             log.LogError($"'roomList' is empty for floor ({floorId}). This should never happen.");
