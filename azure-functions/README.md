@@ -1,11 +1,13 @@
 # Azure Function Examples
 
-These Azure Functions are to be used as examples to process ingested data as well as twin updates. It assumes you already setup your Azure Digital Twin instance with ingress and/or egress steps completed.
+These Azure Functions are to be used as examples to process ingested data as well as twin updates. It assumes you have already set up your Azure Digital Twins instance with ingress and/or egress steps completed.
 
 #### Learn more
 
-- [How to ingest iot hub data](https://docs.microsoft.com/en-us/azure/digital-twins/how-to-ingest-iot-hub-data?tabs=portal)
-- [How to manage endpoints and routes](https://docs.microsoft.com/en-us/azure/digital-twins/how-to-manage-routes?tabs=portal%2Cportal2%2Cportal3)
+For instructions on creating an Azure Digital Twins instance and setting up data ingress and egress, see the following articles:
+- [Set up an instance and authentication](https://docs.microsoft.com/azure/digital-twins/how-to-set-up-instance-portal)
+- [Ingest telemetry from Iot Hub](https://docs.microsoft.com/azure/digital-twins/how-to-ingest-iot-hub-data)
+- [Manage endpoints and routes](https://docs.microsoft.com/azure/digital-twins/how-to-manage-routes)
 
 ## Incoming Messages
 
