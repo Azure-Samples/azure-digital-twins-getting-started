@@ -55,7 +55,7 @@ To get you up and running with the plugin, these instructions provide an example
 
 1. [Connect to the Samples database](https://dataexplorer.azure.com/clusters/help/databases/Samples) on the public ADX help cluster. The database features the table **SamplePowerRequirementHistorizedData** that contains historized property values over a one month period for selected digital twins in the graph.
 
-1. Example queries are found in the files in this GitHub folder. Copy and paste each query into ADX to run it.
+1. Example queries are found in the file sample-queries.kql in this GitHub folder. Copy and paste each query into ADX to run it.
 
 1. To run a query in ADX, click on the query to highlight it and press the Run button.
 
