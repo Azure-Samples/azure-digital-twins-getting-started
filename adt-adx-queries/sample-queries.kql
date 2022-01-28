@@ -1,3 +1,5 @@
+// These queries suppor the ADT/ADX plugin article on this page: https://github.com/Azure-Samples/azure-digital-twins-getting-started/tree/main/adt-adx-queries
+
 //Copy and paste each query below into ADX Explorer. To run a query, click on the query to highlight it and press the Run button. 
 //In each query, replace <your_ADT_endpoint> with your instance's endpoint. Your endpoint should be in quotes, start with https://, and be followed by a semicolon. 
 //For example: let ADTendpoint = "https://MyExampleADTinstance.api.wcus.digitaltwins.azure.net"; 
