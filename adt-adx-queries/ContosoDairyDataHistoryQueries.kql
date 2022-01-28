@@ -1,6 +1,8 @@
-//Copy and paste each query below into Azure Data Explorer. To run a query, click on the query to highlight it and press the Run button. 
-//In each query, replace <your_ADT_endpoint> with your instance's endpoint. Your endpoint should be in quotes, start with https://, and be followed by a semicolon. 
-//For example: let ADTendpoint = "https://MyExampleADTinstance.api.wcus.digitaltwins.azure.net"; 
+// These queries support the exercise on this page: https://docs.microsoft.com/en-us/azure/digital-twins/how-to-use-data-history
+
+// Copy and paste each query below into Azure Data Explorer. To run a query, click on the query to highlight it and press the Run button. 
+// In each query, replace <your_ADT_endpoint> with your instance's endpoint. Your endpoint should be in quotes, start with https://, and be followed by a semicolon. 
+// For example: let ADTendpoint = "https://MyExampleADTinstance.api.wcus.digitaltwins.azure.net"; 
 
 // Get a sample of the data history table
 <table-name>
