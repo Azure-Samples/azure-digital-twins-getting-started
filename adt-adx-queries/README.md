@@ -4,10 +4,8 @@ This folder contains sample queries and walkthrough information to use with the 
 
 | Folder/scenario | Description |
 | --- | --- |
-| Smart grid | This example focuses on using the query plugin, using existing time series data. |
-| Dairy operation (with data history) | This example leverages data history to create the time series data, then uses the plugin to query the data. |
+| Smart_grid | These example queries support a smart grid scenario. |
+| Dairy_operation | These example queries support a dairy operation scenario. |
 
-For more information on the query plugin and data history feature, see the Azure Digital Twins documentation:
+For more information on the query plugin, see the Azure Digital Twins documentation:
 * [Data history (with Azure Data Explorer)](https://docs.microsoft.com/azure/digital-twins/concepts-data-history)
-* [Querying with the Azure Data Explorer plugin](https://docs.microsoft.com/azure/digital-twins/concepts-data-explorer-plugin)
-* [Use data history with Azure Data Explorer](https://docs.microsoft.com/azure/digital-twins/how-to-use-data-history)
