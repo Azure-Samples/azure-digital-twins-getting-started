@@ -56,9 +56,11 @@ Then run the command below to create deploy the entire environment.
 
 The script above will do the following
 
-1. Create a new Resource Group in the location specified
-2. Deploy and configure Azure Resources for the Digital Twin
-3. Deploy All custom code for the application
+1. Create a new Resource Group deploy Azure Resources
+2. Configure Grafana Dashboards and connect it to the Azure Active Directory and Azure Data Explorer
+3. Configure Azure Digital Twins Data History
+4. Deploy All custom code for the applications
+5. Generate Links for the applications
 
 ## The Architecture
 
