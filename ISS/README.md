@@ -1,9 +1,11 @@
 # Tracking the ISS with Azure Digital Twins
 
-1. Populate Graph Structure
-2. Upload to Azure Samples Github
-3. Niggles in script
-4. finish walkthrough doc
+- [ ] Populate Graph Structure [here](./step-6-organize-iss-sensors.ps1)
+- [ ] Grafana Azure Active Directory Authentication [here](./step-2-configure-iss-dashboards.ps1)
+- [ ] Useful Azure Digital Twins Queries
+- [ ] Create a Dashboard for the ISS using the Graph Structure walkthrough document
+- [ ] Add Hololens src into [iss-hololens](./iss-hololens) directory with [string replacable parameters] which can be replaced by the powershell.
+- [ ] Add Option to deploy with IoT Hub ingestion rather than event hub ingestion
 
 This repository contains all the scripts and code to track the [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station) with Azure Digital Twins.
 
