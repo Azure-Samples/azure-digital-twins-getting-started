@@ -77,9 +77,15 @@ Once your bicep is installed, this digital twin exploer should open with the you
 
 ## Explore the Digital Twin
 
+Navigate to the azure digital twin explorer for the ISS digital twin.
+
+    https://explorer.digitaltwins.azure.net?eid=<your-digital-twin-host-name>&query=SELECT%20*%20From%20DigitalTwins
+
 You will see that you have a number of sensor twins already configured (this should be the case if the ISS Telemetry stream is working).
 
-At the moment there's not much graphical context to the sensors - so let's group the sensor's by their discipline (Mission Control Callsigns) by running the following script
+![auto provisioned twins](../images/ISS/iss-auto-provisioned-twins.png)
+
+At the moment there's not much graphical context to the sensors - so let's group the sensors by their discipline (Mission Control Callsigns) by running the following script
 
     ./step-6-organize-iss-sensors.ps1 <your-digitaltwins-name> <your-resource-group-name>
 
