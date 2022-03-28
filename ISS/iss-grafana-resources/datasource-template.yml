@@ -1,0 +1,20 @@
+# grafana/provisioning/datasources/datasource.yml
+apiVersion: 1
+ 
+deleteDatasources:
+  - name: azuredataexplorer
+    orgId: 1
+
+datasources:
+  - name: azuredataexplorer
+    type: grafana-azure-data-explorer-datasource
+    access: proxy
+    uid: "iss_adx_datasource"
+    jsonData:
+      clusterUrl: "[ADX_CLUSTER_URL]"
+      clientId: "[CLIENT_ID]"
+      subscriptionId: "[SUBSCRIPTION_ID]"
+      tenantId: "[TENANT_ID]"
+    secureJsonData:
+      clientSecret: "[CLIENT_SECRET]"
+

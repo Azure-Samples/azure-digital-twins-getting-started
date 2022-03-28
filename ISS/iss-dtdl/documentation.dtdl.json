@@ -1,0 +1,33 @@
+{
+    "@type": "Interface",
+    "@context": [
+     "dtmi:dtdl:context;2"
+    ],
+    "@id": "dtmi:com:iss:documentation;2",
+    "displayName": "Documentation",
+    "description": "Documentation Pertaining to a Component of the ISS",
+    "contents": [
+     {
+      "@type": "Property",
+      "name": "Documents",
+      "schema": {
+       "@type": "Map",
+       "mapKey": {
+        "name": "documentName",
+        "schema": "string"
+       },
+       "mapValue": {
+        "name": "documentUri",
+        "schema": "string"
+       }
+      },
+      "displayName": "Documents",
+      "writable": true
+     },
+     {
+      "@type": "Relationship",
+      "name": "PertainingTo",
+      "writable": true
+     }
+    ]
+   }

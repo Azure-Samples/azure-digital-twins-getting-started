@@ -1,0 +1,79 @@
+{
+    "@type": "Interface",
+    "@context": [
+     "dtmi:dtdl:context;2"
+    ],
+    "@id": "dtmi:com:iss:component;1",
+    "displayName": "ISS Component",
+    "description": "A Physical Component of the International Space Station",
+    "contents": [
+     {
+      "@type": "Property",
+      "name": "Name",
+      "schema": "string",
+      "description": "Name of the component",
+      "displayName": "Name",
+      "writable": true
+     },
+     {
+      "@type": "Property",
+      "name": "Type",
+      "schema": {
+       "@type": "Enum",
+       "displayName": "ISS Component Types",
+       "valueSchema": "string",
+       "enumValues": [
+        {
+         "name": "PressurisedModule",
+         "enumValue": "PressurisedModule",
+         "displayName": "Pressurised Module",
+         "description": "A Pressurised Module in which people can go"
+        },
+        {
+         "name": "UnPressurisedComponent",
+         "enumValue": "UnPressurisedComponent",
+         "displayName": "UnPressurised Component",
+         "description": "An Unpressurised Component such as an Airlock or a Solar Array"
+        },
+        {
+         "name": "SuperStructure",
+         "enumValue": "SuperStructure",
+         "displayName": "Super Structure",
+         "description": "A Super Structure Component of the ISS Such as a Truss"
+        }
+       ]
+      },
+      "displayName": "Type",
+      "writable": true
+     },
+     {
+      "@type": "Property",
+      "name": "Identifier",
+      "schema": "string",
+      "displayName": "Identifier",
+      "writable": true
+     },
+     {
+      "@type": "Property",
+      "name": "FriendlyName",
+      "schema": "string",
+      "description": "The Friendly name of the component i.e. Node is known as Tranquility",
+      "displayName": "Friendly Name",
+      "writable": true
+     },
+     {
+      "@type": "Relationship",
+      "name": "HasAttachment",
+      "displayName": "HasAttachment",
+      "writable": false,
+      "minMultiplicity": 0
+     },
+     {
+      "@type": "Relationship",
+      "name": "IsConnectedTo",
+      "displayName": "Is Connected To",
+      "writable": false,
+      "minMultiplicity": 0
+     }
+    ]
+   }
