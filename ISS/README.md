@@ -60,6 +60,12 @@ The script above will do the following
 2. Deploy and configure Azure Resources for the Digital Twin
 3. Deploy All custom code for the application
 
+## The Architecture
+
+Once the scripts (steps 1-5) are completed you should have the following architecture deployed in your Azure subscription.
+
+![ISS Architecture with event hub](../images/ISS/iss-architecture-event-hub-ingest.png)
+
 ## The code
 
 There are four applications which are deployed (automatically above) in order for this to work.
