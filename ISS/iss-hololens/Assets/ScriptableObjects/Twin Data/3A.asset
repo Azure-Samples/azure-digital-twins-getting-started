@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc4ab2590c544b4aa072768d2923e04, type: 3}
+  m_Name: 3A
+  m_EditorClassIdentifier: 
+  <TwinData>k__BackingField:
+    <Name>k__BackingField: Solar Panel 3A
+    <Dial1Value>k__BackingField: 278.1
+    <Dial2Value>k__BackingField: 40.15
+    <Dial3Value>k__BackingField: 160.7
+    <BarName>k__BackingField: Power output
+    <BarTwin>k__BackingField: 
+    <BarRangeData>k__BackingField: {fileID: 11400000, guid: 1ee2cdc18631637458c7b002ee1c9002, type: 2}
+    <Dial1Name>k__BackingField: Angle
+    <Dial1Twin>k__BackingField: S4000008
+    <Dial1RangeData>k__BackingField: {fileID: 11400000, guid: b60e7f319886c4844b2e63e70c5fbbea, type: 2}
+    <Dial2Name>k__BackingField: Current
+    <Dial2Twin>k__BackingField: S4000002
+    <Dial2RangeData>k__BackingField: {fileID: 11400000, guid: 82ffd107e531f6d419b9872fae577ccc, type: 2}
+    <Dial3Name>k__BackingField: Voltage
+    <Dial3RangeData>k__BackingField: {fileID: 11400000, guid: 20d9053adc0cd4b48a7a11e74c025a73, type: 2}
+    <Dial3Twin>k__BackingField: S4000001
