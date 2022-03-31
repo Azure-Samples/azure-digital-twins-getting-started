@@ -60,6 +60,7 @@ The script above will do the following
 2. Configure Grafana Dashboards and connect it to the Azure Active Directory and Azure Data Explorer
 3. Configure Azure Digital Twins Data History
 4. Deploy All custom code for the applications
+5. Configure the Hololens App to point at the deployed environment    
 5. Generate Links for the applications
 
 ## The Architecture
@@ -97,7 +98,7 @@ You will see that you have a number of sensor twins already configured (this sho
 
 At the moment there's not much graphical context to the sensors - so let's group the sensors by their discipline (Mission Control Callsigns) by running the following script
 
-    ./step-6-organize-iss-sensors.ps1 <your-digitaltwins-name> <your-resource-group-name>
+    ./step-7-organize-iss-sensors.ps1 <your-digitaltwins-name> <your-resource-group-name>
 
 
 

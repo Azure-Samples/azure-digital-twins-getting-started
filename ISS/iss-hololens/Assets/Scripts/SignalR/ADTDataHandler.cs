@@ -12,7 +12,7 @@ public class ADTDataHandler : MonoBehaviour
 {
     private SignalRService rService;
 
-    public string url = "[SignalR-URL]";
+    public string url = "[SIGNALR_URL]";
     public TwinGraphData twinGraphData;
     private TelemetryListener[] listeners;
 

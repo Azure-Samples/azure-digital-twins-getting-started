@@ -83,3 +83,4 @@ func azure functionapp publish $iss_signalr_broadcaster_name --csharp
 
 Set-Location ..
 Set-Location ..
+

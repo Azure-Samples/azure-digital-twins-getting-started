@@ -170,3 +170,6 @@ resource iss_signalr_broadcaster 'Microsoft.Web/sites@2021-03-01' = {
     authorization_egress_listen
   ]
 }
+
+
+output iss_signalr_broadcaster_url string = 'https://${iss_signalr_broadcaster.properties.defaultHostName}'
