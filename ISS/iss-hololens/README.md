@@ -21,8 +21,4 @@ To get started with the application, you must follow the instructions [here](htt
 
 Once you have successfully installed the [prequisites](#getting-started), you can build the application in unity.
 
-[BuildingHoloLens]
-
-[//]: # (Links)
-[GettingStarted]: https://docs.microsoft.com/en-gb/learn/modules/set-up-mixed-reality-azure-digital-twins-unity/4-unity-get-started
-[BuildingHoloLens]: https://docs.microsoft.com/en-gb/learn/modules/build-3d-scene-mixed-reality-unity/6-exercise-deploy?ns-enrollment-type=learningpath&ns-enrollment-id=learn.azure.build-mixed-reality-azure-digital-twins-unity
+More detailed instructions on how to build the Hololens app can be found [here](https://docs.microsoft.com/en-gb/learn/modules/build-3d-scene-mixed-reality-unity/6-exercise-deploy?ns-enrollment-type=learningpath&ns-enrollment-id=learn.azure.build-mixed-reality-azure-digital-twins-unity)
