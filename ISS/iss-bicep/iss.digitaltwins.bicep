@@ -20,4 +20,4 @@ resource iss_azure_digital_twins 'Microsoft.DigitalTwins/digitalTwinsInstances@2
 
 
 output iss_azure_digital_twins_host_name string = iss_azure_digital_twins.properties.hostName
-
+output iss_azure_digital_twins_principal_id string = iss_azure_digital_twins.identity.principalId

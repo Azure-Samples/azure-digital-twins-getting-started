@@ -8,6 +8,7 @@ if ($null -eq $deployment_job.Outputs.iss_adt_host_name.Value) {
 }
 
 $iss_adt_instance_name = $deployment_job.Outputs.iss_adt_instance_name.Value 
+$iss_adt_history_table = $deployment_job.Outputs.iss_adt_instance_name.Value 
 $iss_adx_history_cluster = $deployment_job.Outputs.iss_adx_history_cluster.Value
 $iss_adx_history_cluster_db = $deployment_job.Outputs.iss_adx_history_cluster_db.Value
 $iss_digital_twins_history_cluster_url = $deployment_job.Outputs.iss_digital_twins_history_cluster_url.Value
@@ -52,8 +53,9 @@ Write-Output 'Generating Grafana Azure Data Explorer Connection'
 ## Update Grafana Example Dashboards
 (Get-Content ./iss-grafana-resources/dashboard-templates/iss-position-dashboard-template.json).replace("[ISS_DATABASE_NAME]", $iss_adx_history_cluster_db) | Set-Content ./iss-grafana-resources/iss-position-dashboard.json
 (Get-Content ./iss-grafana-resources/dashboard-templates/iss-data-collection-statistics-template.json).replace("[ISS_DATABASE_NAME]", $iss_adx_history_cluster_db) | Set-Content ./iss-grafana-resources/iss-data-collection-statistics-dashboard.json
+(Get-Content ./iss-grafana-resources/dashboard-templates/iss-data-collection-statistics-template.json).replace("[ISS_DATABASE_TABLE_NAME]", $iss_adt_history_table.Replace("-", "_")) | Set-Content  ./iss-grafana-resources/iss-data-collection-statistics-dashboard.json
 
-(Get-Content ./iss-grafana-resources/iss-position-dashboard.json).replace("[ISS_DATABASE_TABLE_NAME]", $iss_adt_instance_name.Replace("-", "_")) | Set-Content ./iss-grafana-resources/iss-position-dashboard.json
+(Get-Content ./iss-grafana-resources/iss-position-dashboard.json).replace("[ISS_DATABASE_TABLE_NAME]", $iss_adt_history_table.Replace("-", "_")) | Set-Content ./iss-grafana-resources/iss-position-dashboard.json
 (Get-Content ./iss-grafana-resources/iss-data-collection-statistics-dashboard.json).replace("[ISS_DATABASE_TABLE_NAME]", $iss_adt_instance_name.Replace("-", "_")) | Set-Content ./iss-grafana-resources/iss-data-collection-statistics-dashboard.json
 
 ## Write Grafana Datasource Provisioning File

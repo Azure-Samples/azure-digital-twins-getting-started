@@ -208,7 +208,7 @@
       "pluginVersion": "8.4.4",
       "targets": [
         {
-          "database": "[ISS_DATABASE-NAME]",
+          "database": "[ISS_DATABASE_NAME]",
           "datasource": {
             "type": "grafana-azure-data-explorer-datasource",
             "uid": "iss_adx_datasource"
@@ -688,7 +688,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "ISS Position",
-  "uid": "pxbqnmb7z",
+  "uid": "iss_position",
   "version": 7,
   "weekStart": ""
 }

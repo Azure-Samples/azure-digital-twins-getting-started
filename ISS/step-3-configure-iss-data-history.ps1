@@ -8,6 +8,7 @@ if ($null -eq $deployment_job.Outputs.iss_adt_host_name.Value) {
 }
 
 $iss_adt_instance_name = $deployment_job.Outputs.iss_adt_instance_name.Value 
+$iss_adt_principal_id = $deployment_job.Outputs.iss_adt_principal_id.Value 
 $iss_adx_history_cluster = $deployment_job.Outputs.iss_adx_history_cluster.Value
 $iss_adx_history_cluster_db = $deployment_job.Outputs.iss_adx_history_cluster_db.Value
 $iss_adt_egress_event_hub = $deployment_job.Outputs.iss_adt_egress_event_hub.Value
@@ -20,6 +21,10 @@ $myId = $Azcontext[0].Account
 
 ## Assigne current user as Azure Digital Twins Data Owner
 az dt role-assignment create -n $iss_adt_instance_name --assignee $myId --role "Azure Digital Twins Data Owner"
+
+## Add App Registration for Grafana to the correct database as a reader so our queries work
+
+az kusto database add-principal --cluster-name $iss_adx_history_cluster --database-name $iss_adx_history_cluster_db --value name=$iss_adt_instance_name type="App" app-id=$iss_adt_principal_id role="Admin" fqn="aadapp=$iss_adt_principal_id" --resource-group $ResourceGroupName
 
 Write-Output 'Creating property update event route for '$iss_adt_instance_name
 

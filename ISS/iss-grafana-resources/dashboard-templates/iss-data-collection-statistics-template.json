@@ -340,7 +340,7 @@
       {
         "hide": 2,
         "name": "DataHistoryTable",
-        "query": "adt_dh_ah_iss_adt_02_weu",
+        "query": "[ISS_DATABASE_TABLE_NAME]",
         "skipUrlSync": false,
         "type": "constant"
       }
@@ -353,7 +353,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Data Collection Statistics",
-  "uid": "8_T_l-Bnk",
+  "uid": "iss_data_collection_stats",
   "version": 4,
   "weekStart": ""
 }

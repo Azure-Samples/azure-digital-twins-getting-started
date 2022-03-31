@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation.
+// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ public class ADTDataHandler : MonoBehaviour
 {
     private SignalRService rService;
 
-    public string url = "[SIGNALR_URL]";
+    public string url = "";
     public TwinGraphData twinGraphData;
     private TelemetryListener[] listeners;
 
