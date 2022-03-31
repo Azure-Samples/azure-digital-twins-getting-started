@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b6ca782f7114a54da88d1b751ddaa05, type: 3}
+  m_Name: Tranquility
+  m_EditorClassIdentifier: 
+  <TwinData>k__BackingField:
+    <Name>k__BackingField: Tranquility Module
+    <Dial1Value>k__BackingField: 0
+    <Dial2Value>k__BackingField: 0
+    <Dial3Value>k__BackingField: 0
+    <BarName>k__BackingField: O2 Production
+    <BarTwin>k__BackingField: NODE3000011
+    <BarRangeData>k__BackingField: {fileID: 11400000, guid: 6895e7de18d6604409e60f75f66b46ac, type: 2}
+    <Dial1Name>k__BackingField: ppCO2
+    <Dial1Twin>k__BackingField: NODE3000003
+    <Dial1RangeData>k__BackingField: {fileID: 11400000, guid: 06988a4a02bf2974e8df305b970d3877, type: 2}
+    <Dial2Name>k__BackingField: ppN2
+    <Dial2Twin>k__BackingField: NODE3000002
+    <Dial2RangeData>k__BackingField: {fileID: 11400000, guid: e771d845f7b4b7f428279c1d85b659ff, type: 2}
+    <Dial3Name>k__BackingField: ppO2
+    <Dial3RangeData>k__BackingField: {fileID: 11400000, guid: 673f63721d9fc9a4ba3cb2971e9ccc11, type: 2}
+    <Dial3Twin>k__BackingField: NODE3000001
