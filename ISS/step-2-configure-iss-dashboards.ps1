@@ -10,6 +10,7 @@ if ($null -eq $deployment_job.Outputs.iss_adt_host_name.Value) {
 $iss_adt_instance_name = $deployment_job.Outputs.iss_adt_instance_name.Value 
 $iss_adx_history_cluster = $deployment_job.Outputs.iss_adx_history_cluster.Value
 $iss_adx_history_cluster_db = $deployment_job.Outputs.iss_adx_history_cluster_db.Value
+$iss_digital_twins_history_cluster_url = $deployment_job.Outputs.iss_digital_twins_history_cluster_url.Value
 $iss_storage_account_name = $deployment_job.Outputs.iss_storage_account_name.Value
 $iss_grafana_name = $deployment_job.Outputs.iss_grafana_name.Value
 $iss_adt_dashboard_url = $deployment_job.Outputs.iss_adt_dashboard_url.Value
@@ -43,7 +44,7 @@ Write-Output 'Updating app registration'
 Write-Output 'Generating Grafana Azure Data Explorer Connection'
 ## Update Grafana Datasource Provisioning File - ISS Digital Twins
 (Get-Content ./iss-grafana-resources/datasource-template.yml).replace("[SUBSCRIPTION_ID]", $SubscriptionId) | Set-Content ./iss-grafana-resources/datasource.yml
-(Get-Content ./iss-grafana-resources/datasource.yml).replace("[ADX_CLUSTER_URL]", $iss_adx_cluster_url) | Set-Content ./iss-grafana-resources/datasource.yml
+(Get-Content ./iss-grafana-resources/datasource.yml).replace("[ADX_CLUSTER_URL]", $iss_digital_twins_history_cluster_url) | Set-Content ./iss-grafana-resources/datasource.yml
 (Get-Content ./iss-grafana-resources/datasource.yml).replace("[CLIENT_ID]", $iss_app_id) | Set-Content ./iss-grafana-resources/datasource.yml
 (Get-Content ./iss-grafana-resources/datasource.yml).replace("[TENANT_ID]", $iss_app_reg_details[1]) | Set-Content ./iss-grafana-resources/datasource.yml
 (Get-Content ./iss-grafana-resources/datasource.yml).replace("[CLIENT_SECRET]", $iss_app_reg_details[2]) | Set-Content ./iss-grafana-resources/datasource.yml
@@ -99,6 +100,8 @@ Set-AzStorageFileContent -ShareName $fileShare.Name -Source "./iss-grafana-resou
 
 ## Delete provisioning.yaml prevent credential leakage
 Remove-Item .\\iss-grafana-resources\\datasource.yml
+Remove-Item .\\iss-grafana-resources\\iss-position-dashboard.json
+Remove-Item .\\iss-grafana-resources\\iss-data-collection-statistics-dashboard.json
 
 ## Update Grafana Configurations in Azure
 Set-AzWebApp -ResourceGroupName $ResourceGroupName -Name $iss_grafana_name -AppSettings ($iss_grafana_settings)

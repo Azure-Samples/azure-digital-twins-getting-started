@@ -5,10 +5,10 @@ This directory contains all the scripts and code to track the [International Spa
 ## Outstanding Tasks
 
 - [ ] Populate Graph Structure [here](./step-6-organize-iss-sensors.ps1)
-- [ ] Grafana Azure Active Directory Authentication [here](./step-2-configure-iss-dashboards.ps1)
+- [x] Grafana Azure Active Directory Authentication [here](./step-2-configure-iss-dashboards.ps1)
 - [ ] Useful Azure Digital Twins Queries
 - [ ] Create a Dashboard for the ISS using the Graph Structure walkthrough document
-- [ ] Add Hololens src into [iss-hololens](./iss-hololens) directory with [string replacable parameters] which can be replaced by the powershell.
+- [x] Add Hololens src into [iss-hololens](./iss-hololens) directory with [string replacable parameters] which can be replaced by the powershell.
 - [ ] Add Option to deploy with IoT Hub ingestion rather than event hub ingestion
 
 
