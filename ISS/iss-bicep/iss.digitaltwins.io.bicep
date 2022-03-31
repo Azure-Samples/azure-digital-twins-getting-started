@@ -17,6 +17,7 @@ resource iss_io_server_farm 'Microsoft.Web/serverfarms@2021-03-01' = {
   location: resource_location
   tags: {
     'Created By': 'Azure Digital Twins - International Space Station Demo'
+    'hidden-title':'ISS Digital Twin - Ingest and Egress App Services'
   }
   kind:'linux'
   properties: {
@@ -52,6 +53,7 @@ resource iss_eventhub_namespace 'Microsoft.EventHub/namespaces@2021-11-01' = {
   location: resource_location
   tags: {
     'Created By': 'Azure Digital Twins - International Space Station Demo'
+    'hidden-title':'ISS Digital Twin - Ingest and Egress Eventhubs'
   }
   properties: {
     disableLocalAuth: false
@@ -131,6 +133,7 @@ resource iss_ground_position_adapter 'Microsoft.Web/sites@2021-03-01' = {
   location: resource_location
   tags: {
     'Created By': 'Azure Digital Twins - International Space Station Demo'
+    'hidden-title':'ISS Digital Twin - TLE Orbital Position Ingester'
   }
   properties: {
     enabled: true
@@ -189,6 +192,10 @@ resource iss_ground_position_adapter 'Microsoft.Web/sites@2021-03-01' = {
 
 resource iss_adapter 'Microsoft.Web/sites@2021-03-01' = {
   name: iss_adapter_name
+  tags: {
+    'Created By': 'Azure Digital Twins - International Space Station Demo'
+    'hidden-title':'ISS Digital Twin - Telemetry Ingester'
+  }
   kind: 'app,linux'
   location: resource_location
   properties: {
@@ -251,6 +258,10 @@ resource iss_adapter 'Microsoft.Web/sites@2021-03-01' = {
 resource iss_adt_ingestor 'Microsoft.Web/sites@2021-03-01' = {
   name: iss_adt_ingestor_name
   kind: 'functionapp'
+  tags: {
+    'Created By': 'Azure Digital Twins - International Space Station Demo'
+    'hidden-title':'ISS Digital Twin - ADT Ingester'
+  }
   location: resource_location
   properties: {
     enabled: true

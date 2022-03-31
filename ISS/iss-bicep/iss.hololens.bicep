@@ -58,6 +58,7 @@ resource iss_signalr_service 'Microsoft.SignalRService/signalR@2021-10-01' = {
   location: resource_location
   tags: {
     'Created By': 'Azure Digital Twins - International Space Station Demo'
+    'hidden-title':'ISS Digital Twin - Signalr Service'
   }
   name: iss_signalr_service_name
 }
@@ -87,6 +88,7 @@ resource iss_signalr_broadcaster 'Microsoft.Web/sites@2021-03-01' = {
   location: resource_location
   tags: {
     'Created By': 'Azure Digital Twins - International Space Station Demo'
+    'hidden-title':'ISS Digital Twin - Signalr Update Broadcaster'
   }
   properties: {
     enabled: true

@@ -6,6 +6,7 @@ resource iss_azure_digital_twins 'Microsoft.DigitalTwins/digitalTwinsInstances@2
   name: iss_digital_twins_name
   tags: {
     'Created By': 'Azure Digital Twins - International Space Station Demo'
+    'hidden-title': 'ISS Digital Twin - Operational State'
   }
   properties: {
     privateEndpointConnections: []

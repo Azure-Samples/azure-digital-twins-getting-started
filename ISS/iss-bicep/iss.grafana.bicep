@@ -17,6 +17,7 @@ resource iss_grafana_server_farm 'Microsoft.Web/serverfarms@2021-03-01' = {
   location: resource_location
   tags: {
     'Created By': 'Azure Digital Twins - International Space Station Demo'
+    'hidden-title':'ISS Digital Twin - Grafana Host'
   }
   kind:'linux'
   properties: {
@@ -46,6 +47,7 @@ resource iss_grafana 'Microsoft.Web/sites@2021-03-01' = {
   kind: 'app,linux,container'
   tags: {
     'Created By': 'Azure Digital Twins - International Space Station Demo'
+    'hidden-title':'ISS Digital Twin - Grafana Dashboards'
   }
   location: resource_location
   properties: {

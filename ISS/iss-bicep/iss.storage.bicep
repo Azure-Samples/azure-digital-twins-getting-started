@@ -6,6 +6,7 @@ resource iss_storage_account 'Microsoft.Storage/storageAccounts@2019-06-01' = {
   kind: 'StorageV2'
   tags: {
     'Created By': 'Azure Digital Twins - International Space Station Demo'
+    'hidden-title':'ISS Digital Twin - Blob/File Storage'
   }
   location: resource_location
   sku: {

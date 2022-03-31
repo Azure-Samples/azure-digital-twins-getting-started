@@ -13,6 +13,7 @@ resource iss_adx 'Microsoft.Kusto/clusters@2022-02-01' = {
   }
   tags: {
     'Created By': 'Azure Digital Twins - International Space Station Demo'
+    'hidden-title': 'ISS Digital Twin History'
   }
   properties: {
     trustedExternalTenants: []
