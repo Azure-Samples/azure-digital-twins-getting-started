@@ -44,7 +44,7 @@ Write-Output 'Deploying Azure Resoures to Resource group '+$ResourceGroupName
 $iss_bicep_template = $(Get-Location).Path + "\\iss-bicep\\iss.azure.bicep"
 $iss_deployment_name = "iss.azure"
 
-./step-1-deploy-iss-azure.ps1 $ResourceGroupName $ResourceSuffix $iss_bicep_template $iss_domain
+./step-1-deploy-iss-azure.ps1 $ResourceGroupName $ResourceSuffix $iss_bicep_template $subscriptionId $iss_domain
 ./step-2-configure-iss-dashboards.ps1 $ResourceGroupName $iss_deployment_name
 ./step-3-configure-iss-data-history.ps1 $ResourceGroupName $iss_deployment_name 
 ./step-4-publish-iss-applications.ps1 $ResourceGroupName $iss_deployment_name

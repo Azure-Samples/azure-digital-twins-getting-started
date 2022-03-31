@@ -68,6 +68,8 @@ Once the scripts (steps 1-5) are completed you should have the following archite
 
 ![ISS Architecture with event hub](../images/ISS/iss-architecture-event-hub-ingest.png)
 
+
+
 ## The code
 
 There are four applications which are deployed (automatically above) in order for this to work.

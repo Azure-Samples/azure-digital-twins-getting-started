@@ -79,7 +79,7 @@ git clone https://github.com/WaywardHayward/adt-signalr-broadcaster
 
 Set-Location adt-signalr-broadcaster
 
+func azure functionapp publish $iss_signalr_broadcaster_name --csharp
 
 Set-Location ..
-
-func azure functionapp publish $iss_signalr_broadcaster_name --csharp
+Set-Location ..
