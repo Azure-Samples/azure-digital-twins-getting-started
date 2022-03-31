@@ -49,4 +49,4 @@ $iss_deployment_name = "iss.azure"
 ./step-3-configure-iss-data-history.ps1 $ResourceGroupName $iss_deployment_name 
 ./step-4-publish-iss-applications.ps1 $ResourceGroupName $iss_deployment_name
 ./step-5-configure-hololens-app.ps1 $ResourceGroupName $iss_deployment_name
-./step-6-start-iss-digital-twins.ps1 $ResourceGroupName $iss_deployment_name
+./step-6-start-iss-digitaltwins.ps1 $ResourceGroupName $iss_deployment_name
