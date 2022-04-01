@@ -1,4 +1,4 @@
-Params([string] $ResourceGroupName, [string] $iss_deployment_name)
+Param([string] $ResourceGroupName, [string] $iss_deployment_name)
 
 $deployment_job = Get-AzResourceGroupDeployment -ResourceGroupName $ResourceGroupName -Name $iss_deployment_name
 
