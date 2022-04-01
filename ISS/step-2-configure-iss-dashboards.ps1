@@ -50,15 +50,14 @@ Write-Output 'Generating Grafana Azure Data Explorer Connection'
 (Get-Content ./iss-grafana-resources/datasource.yml).replace("[TENANT_ID]", $iss_app_reg_details[1]) | Set-Content ./iss-grafana-resources/datasource.yml
 (Get-Content ./iss-grafana-resources/datasource.yml).replace("[CLIENT_SECRET]", $iss_app_reg_details[2]) | Set-Content ./iss-grafana-resources/datasource.yml
 
-$iss_history_table = "adt_dh_$iss_adt_history_table"
+$iss_history_table = $iss_adt_history_table.Replace("-", "_")
 
 ## Update Grafana Example Dashboards
 (Get-Content ./iss-grafana-resources/dashboard-templates/iss-position-dashboard-template.json).replace("[ISS_DATABASE_NAME]", $iss_adx_history_cluster_db) | Set-Content ./iss-grafana-resources/iss-position-dashboard.json
 (Get-Content ./iss-grafana-resources/dashboard-templates/iss-data-collection-statistics-template.json).replace("[ISS_DATABASE_NAME]", $iss_adx_history_cluster_db) | Set-Content ./iss-grafana-resources/iss-data-collection-statistics-dashboard.json
-(Get-Content ./iss-grafana-resources/dashboard-templates/iss-data-collection-statistics-template.json).replace("[ISS_DATABASE_TABLE_NAME]", $iss_history_table.Replace("-", "_")) | Set-Content  ./iss-grafana-resources/iss-data-collection-statistics-dashboard.json
 
-(Get-Content ./iss-grafana-resources/iss-position-dashboard.json).replace("[ISS_DATABASE_TABLE_NAME]", $iss_adt_history_table.Replace("-", "_")) | Set-Content ./iss-grafana-resources/iss-position-dashboard.json
-(Get-Content ./iss-grafana-resources/iss-data-collection-statistics-dashboard.json).replace("[ISS_DATABASE_TABLE_NAME]", $iss_history_table.Replace("-", "_")) | Set-Content ./iss-grafana-resources/iss-data-collection-statistics-dashboard.json
+(Get-Content ./iss-grafana-resources/iss-position-dashboard.json).replace("[ISS_DATABASE_TABLE_NAME]", $iss_history_table) | Set-Content ./iss-grafana-resources/iss-position-dashboard.json
+(Get-Content ./iss-grafana-resources/iss-data-collection-statistics-dashboard.json).replace("[ISS_DATABASE_TABLE_NAME]", $iss_history_table) | Set-Content ./iss-grafana-resources/iss-data-collection-statistics-dashboard.json
 
 ## Write Grafana Datasource Provisioning File
 Write-Output 'Updating Grafana Configurations'

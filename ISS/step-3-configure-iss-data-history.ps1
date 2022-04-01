@@ -14,6 +14,8 @@ $iss_adx_history_cluster_db = $deployment_job.Outputs.iss_adx_history_cluster_db
 $iss_adt_egress_event_hub = $deployment_job.Outputs.iss_adt_egress_event_hub.Value
 $iss_adt_ingress_event_hub_namespace = $deployment_job.Outputs.iss_adt_ingress_event_hub_namespace.Value
 
+$iss_data_history_table_name = $iss_adt_instance_name.replace("-","_") 
+
 Write-Output 'Making current user owner of  '$iss_adt_instance_name
 
 $Azcontext = Get-AzContext    
@@ -34,5 +36,5 @@ az dt route create -n $iss_adt_instance_name --en $iss_adt_egress_event_hub --ro
 Write-Output 'Configuring Azure Digital Twins Data History'
 
 ## Setup Azure Digital Twins Data History
-az dt data-history create adx -n $iss_adt_instance_name --cn "adtdatahistory" --adx-cluster-name $iss_adx_history_cluster --adx-database-name $iss_adx_history_cluster_db --eventhub $iss_adt_egress_event_hub --eventhub-namespace $iss_adt_ingress_event_hub_namespace
+az dt data-history create adx -n $iss_adt_instance_name --cn "adtdatahistory" --adx-cluster-name $iss_adx_history_cluster --adx-database-name $iss_adx_history_cluster_db --adx-table-name $iss_data_history_table_name --eventhub $iss_adt_egress_event_hub --eventhub-namespace $iss_adt_ingress_event_hub_namespace
 
