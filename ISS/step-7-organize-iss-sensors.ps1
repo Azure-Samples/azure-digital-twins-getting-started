@@ -1,6 +1,6 @@
 Param([string] $iss_adt_instance_name, [string] $ResourceGroupName)
 
-$iss_sensors = $(az dt twin query -n $iss_adt_instance_name -g $ResourceGroupName -q "SELECT * FROM DigitalTwins WHERE MessageType = 'IssSensor'" ) | ConvertFrom-Object 
+$iss_sensors = $(az dt twin query -n $iss_adt_instance_name -g $ResourceGroupName -q "SELECT * FROM DigitalTwins WHERE MessageType = 'IssSensor'" --output tsv ) | ConvertFrom-Object 
 
 Write-Output $iss_sensors
 

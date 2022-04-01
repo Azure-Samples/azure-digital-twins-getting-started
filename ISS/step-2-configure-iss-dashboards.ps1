@@ -26,10 +26,21 @@ $iss_app_id = "" + $iss_app_reg_details[0]
 $iss_reply_url_root = "$iss_digital_twin_dashboard_url"
 $iss_reply_url_azuread ="$iss_digital_twin_dashboard_url/login/azuread"
 
+
+
 ## Seem to need to do this as well as sp create-for-rbac in order to update reply urls
 az ad sp create  --id $iss_app_id
 ## Update the reply urls for the app
-az ad app update --id $iss_app_id --display-name $iss_adt_instance_name  --reply-urls $iss_reply_url_root $iss_reply_url_azuread 
+az ad app update --id $iss_app_id --display-name $iss_adt_instance_name  --reply-urls $iss_reply_url_root $iss_reply_url_azuread
+
+## Add Open Id Permissions
+az ad app permission add --id $iss_app_id  --api 00000003-0000-0000-c000-000000000000 --api-permissions e1fe6dd8-ba31-4d61-89e7-88639da4683d=Scope
+az ad app permission add --id $iss_app_id  --api 00000003-0000-0000-c000-000000000000 --api-permissions 37f7f235-527c-4136-accd-4a02d197296e=Scope
+az ad app permission add --id $iss_app_id  --api 00000003-0000-0000-c000-000000000000 --api-permissions 64a6cdd6-aab1-4aaf-94b8-3cc8405e90d0=Scope
+az ad app permission add --id $iss_app_id  --api 00000003-0000-0000-c000-000000000000 --api-permissions 14dad69e-099b-42c9-810b-d002981feec1=Scope
+
+## Grant permissions to the app
+az ad app permission grant --id 5c4bab6b-3347-4507-9b74-4441cda3ea98 --api 00000003-0000-0000-c000-000000000000
 
 Write-Output 'Assigning permissions to ISS ADT Service Principal as Reader'
 
@@ -74,6 +85,7 @@ $iss_grafana_settings.GF_AUTH_AZUREAD_TENANT_ID = "" + $iss_app_reg_details[1]
 $iss_grafana_settings.GF_AUTH_AZUREAD_CLIENT_SECRET = "" + $iss_app_reg_details[2]
 $iss_grafana_settings.GF_AUTH_AZUREAD_TOKEN_URL = $iss_grafana_settings.GF_AUTH_AZUREAD_TOKEN_URL.Replace("[your-tenant-id]", "" + $iss_app_reg_details[1])
 $iss_grafana_settings.GF_AUTH_AZUREAD_AUTH_URL = $iss_grafana_settings.GF_AUTH_AZUREAD_AUTH_URL.Replace("[your-tenant-id]", "" + $iss_app_reg_details[1])
+$iss_grafana_settings.GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH = $iss_grafana_settings.GF_AUTH_AZUREAD_AUTH_URL.Replace("[your-tenant-id]", "" + $iss_app_reg_details[1])
 
 Write-Output 'Uploading default grafana db'
 

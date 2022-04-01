@@ -12,6 +12,7 @@ $iss_adt_dashboard_url = $deployment_job.Outputs.iss_adt_dashboard_url.Value
 $iss_adx_history_cluster = $deployment_job.Outputs.iss_adx_history_cluster.Value
 $iss_adx_history_cluster_db = $deployment_job.Outputs.iss_adx_history_cluster_db.Value
 $iss_digital_twins_history_cluster_url = $deployment_job.Outputs.iss_digital_twins_history_cluster_url.Value
+$iss_grafana_name = $deployment_job.Outputs.iss_grafana_name.Value
 
 $iss_kusto_host =  $iss_digital_twins_history_cluster_url.replace("https://","").split('.')[0];
 $iss_kusto_location =$iss_digital_twins_history_cluster_url.replace("https://","").split('.')[1];

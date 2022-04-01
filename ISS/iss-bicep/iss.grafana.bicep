@@ -124,7 +124,7 @@ resource iss_grafana 'Microsoft.Web/sites@2021-03-01' = {
         }
         {
           name: 'GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH'
-          value: '/iss_position/iss-position?orgId=1'
+          value: '/var/lib/grafana/dashboards/iss-position-dashboard.json'
         }
         {
           name: 'GF_DATABASE_URL'
