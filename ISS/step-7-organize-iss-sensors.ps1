@@ -14,6 +14,7 @@ foreach ($twin in $iss_sensors.result) {
     
     if ($twin.Discipline.IndexOf("N/A") -eq -1) {
 
+        ## Split on / because we can have multiple disciplines on a twin
         $possible_disc = $twin.Discipline.split("/");
 
         foreach ($disc in $possible_disc) {

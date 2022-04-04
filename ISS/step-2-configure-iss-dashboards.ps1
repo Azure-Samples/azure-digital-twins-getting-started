@@ -91,7 +91,6 @@ $iss_grafana_settings.GF_AUTH_AZUREAD_TENANT_ID = "" + $iss_app_reg_details[1]
 $iss_grafana_settings.GF_AUTH_AZUREAD_CLIENT_SECRET = "" + $iss_app_reg_details[2]
 $iss_grafana_settings.GF_AUTH_AZUREAD_TOKEN_URL = $iss_grafana_settings.GF_AUTH_AZUREAD_TOKEN_URL.Replace("[your-tenant-id]", "" + $iss_app_reg_details[1])
 $iss_grafana_settings.GF_AUTH_AZUREAD_AUTH_URL = $iss_grafana_settings.GF_AUTH_AZUREAD_AUTH_URL.Replace("[your-tenant-id]", "" + $iss_app_reg_details[1])
-$iss_grafana_settings.GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH = $iss_grafana_settings.GF_AUTH_AZUREAD_AUTH_URL.Replace("[your-tenant-id]", "" + $iss_app_reg_details[1])
 
 Write-Output 'Uploading default grafana db'
 
