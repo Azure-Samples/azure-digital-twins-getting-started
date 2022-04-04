@@ -73,7 +73,7 @@ $iss_history_table = $iss_adt_history_table.Replace("-", "_")
 (Get-Content ./iss-grafana-resources/iss-position-dashboard.json).replace("[ISS_DATABASE_TABLE_NAME]", $iss_history_table) | Set-Content ./iss-grafana-resources/iss-position-dashboard.json
 (Get-Content ./iss-grafana-resources/iss-data-collection-statistics-dashboard.json).replace("[ISS_DATABASE_TABLE_NAME]", $iss_history_table) | Set-Content ./iss-grafana-resources/iss-data-collection-statistics-dashboard.json
 
-(Get-Content ./iss-grafana-resources/iss-mission-control-panels.json).replace("[ISS_ADT_ENDPOINT]", "https://{$iss_adt_host_name}") | Set-Content ./iss-grafana-resources/iss-mission-control-panels.json
+(Get-Content ./iss-grafana-resources/iss-mission-control-panels.json).replace("[ISS_ADT_ENDPOINT]", "https://$iss_adt_host_name") | Set-Content ./iss-grafana-resources/iss-mission-control-panels.json
 
 
 ## Write Grafana Datasource Provisioning File

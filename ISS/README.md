@@ -95,7 +95,9 @@ You will see that you have a number of sensor twins already configured (this sho
 
 ![auto provisioned twins](../images/ISS/iss-auto-provisioned-twins.png)
 
-At the moment there's not much graphical context to the sensors - so let's group the sensors by their discipline (Mission Control Callsigns) by running the following script 
+At the moment there's not much graphical context to the sensors. This means the Dashboard called "Mission Control Panels" won't work as there's no Structure for you to browse through. 
+
+So let's group the sensors by their discipline (Mission Control Callsigns) by running the following script 
 
     ./step-7-organize-iss-sensors.ps1 <your-digitaltwins-name> <your-resource-group-name>
 
