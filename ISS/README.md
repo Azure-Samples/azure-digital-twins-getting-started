@@ -100,5 +100,5 @@ At the moment there's not much graphical context to the sensors - so let's group
 
     ./step-7-organize-iss-sensors.ps1 <your-digitaltwins-name> <your-resource-group-name>
 
-
+This will create a new twin for each disicpline and add the sensors to those twins.
 
