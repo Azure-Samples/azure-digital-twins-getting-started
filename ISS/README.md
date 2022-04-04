@@ -53,6 +53,8 @@ Then run the command below to create deploy the entire environment.
 
     ./iss-digitaltwins.ps1 <your-subscription-id> <location> <your-digitaltwins-name> <your-aad-login-domain e.g. https://login.microsoft.com>
 
+The above script will prompt you for to allow some changes for Azure Digital Twins Data History. 
+
 The script above will do the following
 
 1. Create a new Resource Group deploy Azure Resources
@@ -61,6 +63,8 @@ The script above will do the following
 4. Deploy All custom code for the applications
 5. Configure the Hololens App to point at the deployed environment    
 5. Generate Links for the applications
+
+>☕  This script takes around 15-20 minutes to run while to run - so you'll want to go boil the kettle.
 
 ## The Architecture
 
@@ -83,7 +87,7 @@ There are four applications which are deployed (automatically above) in order fo
 
 ## Setup the Digital Twin
 
-Once your bicep is installed, this digital twin exploer should open with the your digital twin.
+Once your bicep is installed, this digital twin explorer should open with the your digital twin.
 
 ## Explore the Digital Twin
 
@@ -101,7 +105,7 @@ So let's group the sensors by their discipline (Mission Control Callsigns) by ru
 
     ./step-7-organize-iss-sensors.ps1 <your-digitaltwins-name> <your-resource-group-name>
 
->☕  this script takes a while to run - so you'll want to go and get a cup of tea or something).
+>☕  This script takes a while to run - so you'll want to go and get another cup of tea or something.
 
 This will create a new twin for each disicpline and add the sensors to those twins and should look something like this.
 
