@@ -7,6 +7,7 @@ if ($null -eq $deployment_job.Outputs.iss_adt_host_name.Value) {
     Exit
 }
 
+$iss_adt_host_name = $deployment_job.Outputs.iss_adt_host_name.Value
 $iss_adt_instance_name = $deployment_job.Outputs.iss_adt_instance_name.Value 
 $iss_adt_history_table = $deployment_job.Outputs.iss_adt_instance_name.Value 
 $iss_adx_history_cluster = $deployment_job.Outputs.iss_adx_history_cluster.Value
@@ -66,9 +67,14 @@ $iss_history_table = $iss_adt_history_table.Replace("-", "_")
 ## Update Grafana Example Dashboards
 (Get-Content ./iss-grafana-resources/dashboard-templates/iss-position-dashboard-template.json).replace("[ISS_DATABASE_NAME]", $iss_adx_history_cluster_db) | Set-Content ./iss-grafana-resources/iss-position-dashboard.json
 (Get-Content ./iss-grafana-resources/dashboard-templates/iss-data-collection-statistics-template.json).replace("[ISS_DATABASE_NAME]", $iss_adx_history_cluster_db) | Set-Content ./iss-grafana-resources/iss-data-collection-statistics-dashboard.json
+(Get-Content ./iss-grafana-resources/dashboard-templates/iss-mission-control-panels-template.json).replace("[ISS_DATABASE_NAME]", $iss_adx_history_cluster_db) | Set-Content ./iss-grafana-resources/iss-mission-control-panels.json
 
+(Get-Content ./iss-grafana-resources/iss-mission-control-panels.json).replace("[ISS_DATABASE_TABLE_NAME]", $iss_history_table) | Set-Content ./iss-grafana-resources/iss-mission-control-panels.json
 (Get-Content ./iss-grafana-resources/iss-position-dashboard.json).replace("[ISS_DATABASE_TABLE_NAME]", $iss_history_table) | Set-Content ./iss-grafana-resources/iss-position-dashboard.json
 (Get-Content ./iss-grafana-resources/iss-data-collection-statistics-dashboard.json).replace("[ISS_DATABASE_TABLE_NAME]", $iss_history_table) | Set-Content ./iss-grafana-resources/iss-data-collection-statistics-dashboard.json
+
+(Get-Content ./iss-grafana-resources/iss-mission-control-panels.json).replace("[ISS_ADT_ENDPOINT]", "https://{$iss_adt_host_name}") | Set-Content ./iss-grafana-resources/iss-mission-control-panels.json
+
 
 ## Write Grafana Datasource Provisioning File
 Write-Output 'Updating Grafana Configurations'
@@ -112,11 +118,13 @@ Set-AzStorageFileContent -ShareName $fileShare.Name -Source "./iss-grafana-resou
 ## Upload Iss Dashboards
 Set-AzStorageFileContent -ShareName $fileShare.Name -Source "./iss-grafana-resources/iss-position-dashboard.json" -Path "/dashboards/" -Force
 Set-AzStorageFileContent -ShareName $fileShare.Name -Source "./iss-grafana-resources/iss-data-collection-statistics-dashboard.json" -Path "/dashboards/" -Force
+Set-AzStorageFileContent -ShareName $fileShare.Name -Source "./iss-grafana-resources/iss-mission-control-panels.json" -Path "/dashboards/" -Force
 
 ## Delete provisioning.yaml prevent credential leakage
 Remove-Item .\\iss-grafana-resources\\datasource.yml
 Remove-Item .\\iss-grafana-resources\\iss-position-dashboard.json
 Remove-Item .\\iss-grafana-resources\\iss-data-collection-statistics-dashboard.json
+Remove-Item .\\iss-grafana-resources\\iss-mission-control-panels.json
 
 ## Update Grafana Configurations in Azure
 Set-AzWebApp -ResourceGroupName $ResourceGroupName -Name $iss_grafana_name -AppSettings ($iss_grafana_settings)

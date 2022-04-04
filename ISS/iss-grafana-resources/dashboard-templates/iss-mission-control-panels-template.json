@@ -1,0 +1,605 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 2,
+  "iteration": 1649065439155,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [
+        "demo"
+      ],
+      "targetBlank": false,
+      "title": "Dashboards",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 18,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "database": "[ISS_DATABASE_NAME]",
+          "datasource": {
+            "type": "grafana-azure-data-explorer-datasource",
+            "uid": "iss_adx_datasource"
+          },
+          "expression": {
+            "groupBy": {
+              "expressions": [],
+              "type": "and"
+            },
+            "reduce": {
+              "expressions": [],
+              "type": "and"
+            },
+            "where": {
+              "expressions": [],
+              "type": "and"
+            }
+          },
+          "pluginVersion": "3.6.1",
+          "query": "let ADTendpoint = $AdtEndpoint;\nlet ADTSensorId = \"SELECT t.$dtId as tid FROM digitaltwins t where t.Description = '$Sensor'\";\nlet sensorTwinId = toscalar(evaluate azure_digital_twins_query_request(ADTendpoint, ADTSensorId)\n| project sensor_tid = tostring(tid));\n$DataHistoryTable\n| where $__timeFilter(SourceTimeStamp) or $__timeFilter(TimeStamp) \n| where Id == sensorTwinId and (Key == \"Value\")\n| project TimeStamp=iif($__timeFilter(SourceTimeStamp), SourceTimeStamp, TimeStamp), Value=todouble(Value), Id\n| order by TimeStamp asc \n\n\n\n",
+          "querySource": "raw",
+          "rawMode": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "$Sensor",
+      "type": "timeseries"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 4,
+        "x": 18,
+        "y": 0
+      },
+      "id": 6,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "first"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.4.4",
+      "targets": [
+        {
+          "database": "[ISS_DATABASE_NAME]",
+          "datasource": {
+            "type": "grafana-azure-data-explorer-datasource",
+            "uid": "iss_adx_datasource"
+          },
+          "expression": {
+            "groupBy": {
+              "expressions": [],
+              "type": "and"
+            },
+            "reduce": {
+              "expressions": [],
+              "type": "and"
+            },
+            "where": {
+              "expressions": [],
+              "type": "and"
+            }
+          },
+          "pluginVersion": "3.6.1",
+          "query": "let ADTendpoint = $AdtEndpoint;\nlet ADTSensorId = \"SELECT t.$dtId as tid FROM digitaltwins t where t.Description = '$Sensor'\";\nlet sensorTwinId = toscalar(evaluate azure_digital_twins_query_request(ADTendpoint, ADTSensorId)\n| project sensor_tid = tostring(tid));\n$DataHistoryTable\n| where $__timeFilter(SourceTimeStamp) or $__timeFilter(TimeStamp) \n| where Id == sensorTwinId and (Key == \"Value\")\n| project TimeStamp=iif($__timeFilter(SourceTimeStamp), SourceTimeStamp, TimeStamp), Value=todouble(Value)\n| order by TimeStamp desc \n\n\n",
+          "querySource": "raw",
+          "rawMode": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "$Sensor ",
+      "type": "gauge"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 100,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "GDOP NEEDED": {
+                  "color": "semi-dark-red",
+                  "index": 6
+                },
+                "HEATUP": {
+                  "color": "orange",
+                  "index": 5
+                },
+                "NOT IN USE": {
+                  "color": "blue",
+                  "index": 4
+                },
+                "OFF": {
+                  "color": "super-light-red",
+                  "index": 2
+                },
+                "ON": {
+                  "color": "green",
+                  "index": 0
+                },
+                "PROCESS": {
+                  "color": "orange",
+                  "index": 1
+                },
+                "SM KURS-P Target Acquisition Signal-RS": {
+                  "color": "green",
+                  "index": 7
+                },
+                "STANDBY": {
+                  "color": "blue",
+                  "index": 3
+                },
+                "Undetermined State": {
+                  "color": "transparent",
+                  "index": 8
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 18,
+        "x": 0,
+        "y": 13
+      },
+      "id": 8,
+      "options": {
+        "alignValue": "left",
+        "legend": {
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "mergeValues": true,
+        "rowHeight": 1,
+        "showValue": "auto",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "database": "[ISS_DATABASE_NAME]",
+          "datasource": {
+            "type": "grafana-azure-data-explorer-datasource",
+            "uid": "iss_adx_datasource"
+          },
+          "expression": {
+            "groupBy": {
+              "expressions": [],
+              "type": "and"
+            },
+            "reduce": {
+              "expressions": [],
+              "type": "and"
+            },
+            "where": {
+              "expressions": [],
+              "type": "and"
+            }
+          },
+          "pluginVersion": "3.6.1",
+          "query": "let ADTendpoint = $AdtEndpoint;\nlet ADTSensorId = \"SELECT t.$dtId as tid, t.ENUM as enum FROM digitaltwins t where t.Description = '$Sensor' AND is_defined(t.ENUM) AND not is_null(t.ENUM)\";\nlet sensorDetails = evaluate azure_digital_twins_query_request(ADTendpoint, ADTSensorId) \n                    | project sensor_tid = tostring(tid), sensor_enum = split(tostring(enum), '; ');\n$DataHistoryTable\n| where ($__timeFilter(SourceTimeStamp) or $__timeFilter(TimeStamp)) and Key == 'Value'\n| join kind=inner sensorDetails on $left.Id == $right.sensor_tid\n| where Id == sensor_tid\n| mv-apply sensor_enum on (where sensor_enum startswith strcat(tostring(Value), '=') | project state = split(sensor_enum, '=' ,1 ))\n| project  SourceTimeStamp=iif($__timeFilter(SourceTimeStamp), SourceTimeStamp, TimeStamp), Value=tostring(state[0])\n| order by SourceTimeStamp asc \n",
+          "querySource": "raw",
+          "rawMode": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "$Sensor State",
+      "type": "state-timeline"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 18,
+        "y": 13
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Id$/",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.4",
+      "targets": [
+        {
+          "database": "[ISS_DATABASE_NAME]",
+          "datasource": {
+            "type": "grafana-azure-data-explorer-datasource",
+            "uid": "iss_adx_datasource"
+          },
+          "expression": {
+            "groupBy": {
+              "expressions": [],
+              "type": "and"
+            },
+            "reduce": {
+              "expressions": [],
+              "type": "and"
+            },
+            "where": {
+              "expressions": [],
+              "type": "and"
+            }
+          },
+          "pluginVersion": "3.6.1",
+          "query": "let ADTendpoint = $AdtEndpoint;\nlet ADTSensorId = \"SELECT t.$dtId as tid FROM digitaltwins t where t.Description = '$Sensor'\";\nlet sensorTwinId = toscalar(evaluate azure_digital_twins_query_request(ADTendpoint, ADTSensorId)\n| project sensor_tid = tostring(tid));\n$DataHistoryTable\n| where $__timeFilter(SourceTimeStamp) or $__timeFilter(TimeStamp) \n| where Id == sensorTwinId and (Key == \"Value\")\n| project TimeStamp=iif($__timeFilter(SourceTimeStamp), SourceTimeStamp, TimeStamp), Id\n| order by TimeStamp  asc \n\n\n\n",
+          "querySource": "raw",
+          "rawMode": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "Digital Twin ID",
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "minWidth": 100
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Event"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 539
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Description"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 10000
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Date"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 188
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 22,
+        "x": 0,
+        "y": 20
+      },
+      "id": 12,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.4.4",
+      "targets": [
+        {
+          "database": "[ISS_DATABASE_NAME]",
+          "datasource": {
+            "type": "grafana-azure-data-explorer-datasource",
+            "uid": "iss_adx_datasource"
+          },
+          "expression": {
+            "groupBy": {
+              "expressions": [],
+              "type": "and"
+            },
+            "reduce": {
+              "expressions": [],
+              "type": "and"
+            },
+            "where": {
+              "expressions": [],
+              "type": "and"
+            }
+          },
+          "pluginVersion": "3.6.1",
+          "query": "let ADTendpoint = $AdtEndpoint;\nlet ADTSensorId = \"SELECT t.$dtId as tid FROM digitaltwins t where t.Description = '$Sensor'\";\nlet sensorTwinId = toscalar(evaluate azure_digital_twins_query_request(ADTendpoint, ADTSensorId));\nlet sensor_description = toscalar(adt_dh_ah_iss_adt_02_westeurope | where Id == sensorTwinId and Key == 'Description' | summarize take_any(Value));\nlet sub_descriptions = split(toscalar(sensor_description), \" \");\niss_events\n| where datetime_diff(\"day\",  $__timeFrom, Date) <=2\n| where Description has_any(sub_descriptions)\n| project Date, Event, Description\n| order by Date asc ",
+          "querySource": "raw",
+          "rawMode": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "Panel Title",
+      "type": "table"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 35,
+  "style": "dark",
+  "tags": [
+    "demo"
+  ],
+  "templating": {
+    "list": [
+      {
+        "hide": 2,
+        "name": "AdtEndpoint",
+        "query": "'[ISS_ADT_ENDPOINT]'",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "SPARTAN",
+          "value": "SPARTAN"
+        },
+        "definition": "// Get all disciplines\nlet ADTendpoint = $AdtEndpoint;\nlet ADTquery = \n```SELECT t.$dtId as tid FROM DIGITALTWINS t\n   WHERE IS_OF_MODEL(t , 'dtmi:com:iss:discipline;1') AND $dtId != 'MISSIONCONTROL'```;\nevaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) \n| extend tid_string = tostring(tid)\n| project-away tid",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "SelectedPanel",
+        "options": [],
+        "query": "// Get all disciplines\nlet ADTendpoint = $AdtEndpoint;\nlet ADTquery = \n```SELECT t.$dtId as tid FROM DIGITALTWINS t\n   WHERE IS_OF_MODEL(t , 'dtmi:com:iss:discipline;1') AND $dtId != 'MISSIONCONTROL'```;\nevaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) \n| extend tid_string = tostring(tid)\n| project-away tid",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "Loop A PM Out Press (kPa)",
+          "value": "Loop A PM Out Press (kPa)"
+        },
+        "definition": "// Get all factories\nlet ADTendpoint = $AdtEndpoint;\nlet ADTquery= ```SELECT sensor.Description as tid FROM digitaltwins MATCH (component)-[:HasMember]->(sensor)\nWHERE component.$dtId = '$SelectedPanel' AND IS_OF_MODEL(sensor,'dtmi:com:microsoft:autoingest:IssSensor;1', exact) ```;\nevaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)\n| project tid_string = tostring(tid)\n| sort by tid_string asc",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Sensor",
+        "options": [],
+        "query": "// Get all factories\nlet ADTendpoint = $AdtEndpoint;\nlet ADTquery= ```SELECT sensor.Description as tid FROM digitaltwins MATCH (component)-[:HasMember]->(sensor)\nWHERE component.$dtId = '$SelectedPanel' AND IS_OF_MODEL(sensor,'dtmi:com:microsoft:autoingest:IssSensor;1', exact) ```;\nevaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)\n| project tid_string = tostring(tid)\n| sort by tid_string asc",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "hide": 2,
+        "name": "DataHistoryTable",
+        "query": "[ISS_DATABASE_TABLE_NAME]",
+        "skipUrlSync": false,
+        "type": "constant"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-3h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Mission Control Panels",
+  "uid": "mission_control_panels",
+  "version": 5,
+  "weekStart": ""
+}
