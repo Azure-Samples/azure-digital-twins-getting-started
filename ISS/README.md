@@ -102,3 +102,11 @@ At the moment there's not much graphical context to the sensors - so let's group
 
 This will create a new twin for each disicpline and add the sensors to those twins.
 
+## Clean up
+
+When you want to remove all the azure resources which this project setup simply run the following script
+
+    ./step-10-teardown.ps1 <your-resource-group-name> iss.azure
+
+This command will delete everything deployed by the bicep deployment you ran earlier.
+
