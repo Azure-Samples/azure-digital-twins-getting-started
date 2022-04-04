@@ -4,10 +4,9 @@ This directory contains all the scripts and code to track the [International Spa
 
 ## Outstanding Tasks
 
-- [ ] Populate Graph Structure [here](./step-6-organize-iss-sensors.ps1)
+- [x] Populate Graph Structure [here](./step-6-organize-iss-sensors.ps1)
 - [x] Grafana Azure Active Directory Authentication [here](./step-2-configure-iss-dashboards.ps1)
 - [ ] Useful Azure Digital Twins Queries
-- [ ] Create a Dashboard for the ISS using the Graph Structure walkthrough document
 - [x] Add Hololens src into [iss-hololens](./iss-hololens) directory with [string replacable parameters] which can be replaced by the powershell.
 - [ ] Add Option to deploy with IoT Hub ingestion rather than event hub ingestion
 
@@ -96,11 +95,16 @@ You will see that you have a number of sensor twins already configured (this sho
 
 ![auto provisioned twins](../images/ISS/iss-auto-provisioned-twins.png)
 
-At the moment there's not much graphical context to the sensors - so let's group the sensors by their discipline (Mission Control Callsigns) by running the following script
+At the moment there's not much graphical context to the sensors - so let's group the sensors by their discipline (Mission Control Callsigns) by running the following script 
 
     ./step-7-organize-iss-sensors.ps1 <your-digitaltwins-name> <your-resource-group-name>
 
-This will create a new twin for each disicpline and add the sensors to those twins.
+>☕  this script takes a while to run - so you'll want to go and get a cup of tea or something).
+
+This will create a new twin for each disicpline and add the sensors to those twins and should look something like this.
+
+![Organized twins](../images/ISS/iss-organized-twins.png)
+
 
 ## Clean up
 

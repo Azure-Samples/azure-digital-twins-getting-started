@@ -51,3 +51,5 @@ output iss_digital_twins_history_database_name string = adt_history_database.nam
 output iss_digital_twins_history_database_location string = iss_adx.location
 output iss_digital_twins_history_cluster string = iss_adx.name
 output iss_digital_twins_history_cluster_url string = iss_adx.properties.uri
+output iss_digital_twins_history_identity_id string = iss_adx.identity.principalId
+

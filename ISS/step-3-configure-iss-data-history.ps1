@@ -13,7 +13,7 @@ $iss_adx_history_cluster = $deployment_job.Outputs.iss_adx_history_cluster.Value
 $iss_adx_history_cluster_db = $deployment_job.Outputs.iss_adx_history_cluster_db.Value
 $iss_adt_egress_event_hub = $deployment_job.Outputs.iss_adt_egress_event_hub.Value
 $iss_adt_ingress_event_hub_namespace = $deployment_job.Outputs.iss_adt_ingress_event_hub_namespace.Value
-
+$iss_digital_twins_history_identity_id = $deployment_job.Outputs.iss_digital_twins_history_identity_id
 $iss_data_history_table_name = $iss_adt_instance_name.replace("-","_") 
 
 Write-Output 'Making current user owner of  '$iss_adt_instance_name
@@ -22,6 +22,7 @@ $Azcontext = Get-AzContext
 $myId = $Azcontext[0].Account
 
 ## Assigne current user as Azure Digital Twins Data Owner
+az dt role-assignment create -n $iss_adt_instance_name --assignee $iss_digital_twins_history_identity_id --role "Azure Digital Twins Data Owner"
 az dt role-assignment create -n $iss_adt_instance_name --assignee $myId --role "Azure Digital Twins Data Owner"
 
 ## Add App Registration for Grafana to the correct database as a reader so our queries work
