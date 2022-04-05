@@ -31,7 +31,7 @@ This directory contains all the scripts and code to track the [International Spa
 
 4. **dotnet SDK**
 
-    The Dotnet SDK is required to run this quickstart. You can install it [here](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script).
+    The dotnet 6 SDK is required to run this quickstart. You can install it [here](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script).
 
 5. **Azure Function Core tools**
 
