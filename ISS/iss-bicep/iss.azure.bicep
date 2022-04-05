@@ -105,6 +105,7 @@ output iss_signalr_broadcaster_name string = iss_signalr_broadcaster_name
 output iss_adx_history_cluster string = adx.outputs.iss_digital_twins_history_cluster
 output iss_adx_history_cluster_db string = adx.outputs.iss_digital_twins_history_database_name
 output iss_adx_history_cluster_location string = adx.outputs.iss_digital_twins_history_database_location
+output iss_digital_twins_history_identity_id string = adx.outputs.iss_digital_twins_history_identity_id
 output iss_digital_twins_history_cluster_url string = adx.outputs.iss_digital_twins_history_cluster_url
 output iss_adt_egress_event_hub string = io.outputs.iss_egress_eventhub_name
 output iss_adt_ingress_event_hub_namespace string = io.outputs.iss_eventhub_namespace_name
