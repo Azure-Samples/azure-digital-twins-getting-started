@@ -25,7 +25,9 @@ Write-Output '|__| |_______/    |_______/       |_______/ |__|  \______| |__|   
 
 $host.UI.RawUI.ForegroundColor = "White"
 
-$ResourceGroupName = 'iss_digital_twins_' + $ResourceSuffix
+$clean_rg_suffix = $ResourceSuffix -replace '[^a-zA-Z0-9]', ''
+
+$ResourceGroupName = 'iss_digital_twins_' + $clean_rg_suffix
 
 Write-Output 'Logging in to Azure...'
 
