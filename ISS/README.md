@@ -4,7 +4,7 @@ This directory contains all the scripts and code to track the [International Spa
 
 ## Outstanding Tasks
 
-- [x] Populate Graph Structure [here](./step-6-organize-iss-sensors.ps1)
+- [x] Populate Graph Structure [here](./step-7-organize-iss-sensors.ps1)
 - [x] Grafana Azure Active Directory Authentication [here](./step-2-configure-iss-dashboards.ps1)
 - [ ] Useful Azure Digital Twins Queries
 - [x] Add Hololens src into [iss-hololens](./iss-hololens) directory with [string replacable parameters] which can be replaced by the powershell.
