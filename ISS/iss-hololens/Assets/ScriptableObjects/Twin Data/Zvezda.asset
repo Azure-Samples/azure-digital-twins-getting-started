@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b6ca782f7114a54da88d1b751ddaa05, type: 3}
+  m_Name: Zvezda
+  m_EditorClassIdentifier: 
+  <TwinData>k__BackingField:
+    <Name>k__BackingField: Zvezda Module
+    <Dial1Value>k__BackingField: 0
+    <Dial2Value>k__BackingField: 0
+    <Dial3Value>k__BackingField: 0
+    <BarName>k__BackingField: KURS range from docking port
+    <BarTwin>k__BackingField: RUSSEG2000007
+    <BarRangeData>k__BackingField: {fileID: 11400000, guid: f18679de9b04f594d8688f14c6263c48, type: 2}
+    <Dial1Name>k__BackingField: Aft docking port engaged
+    <Dial1Twin>k__BackingField: RUSSEG2000007
+    <Dial1RangeData>k__BackingField: {fileID: 11400000, guid: 964d0f389cd414b4aa2f7ecfbc5f8696, type: 2}
+    <Dial2Name>k__BackingField: Forward docking port engaged
+    <Dial2Twin>k__BackingField: RUSSEG2000007
+    <Dial2RangeData>k__BackingField: {fileID: 11400000, guid: 964d0f389cd414b4aa2f7ecfbc5f8696, type: 2}
+    <Dial3Name>k__BackingField: Nadir docking port engaged
+    <Dial3RangeData>k__BackingField: {fileID: 11400000, guid: 964d0f389cd414b4aa2f7ecfbc5f8696, type: 2}
+    <Dial3Twin>k__BackingField: RUSSEG2000007

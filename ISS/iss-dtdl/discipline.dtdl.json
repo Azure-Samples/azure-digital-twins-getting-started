@@ -1,0 +1,28 @@
+{
+    "@id": "dtmi:com:iss:discipline;1",
+    "@type": "Interface",
+    "displayName": "Discipline",
+    "@context": [
+     "dtmi:dtdl:context;2"
+    ],
+    "contents": [
+     {
+      "@type": "Property",
+      "name": "name",
+      "schema": "string",
+      "displayName": "Name",
+      "description": "The name of the discipline"
+     },
+     {
+      "@type": "Property",
+      "name": "description",
+      "schema": "string",
+      "displayName": "Description",
+      "description": "The description of the discipline"
+     },
+     {
+      "@type": "Relationship",
+      "name": "HasMember"
+     }
+    ]
+   }
