@@ -23,7 +23,7 @@ This directory contains all the scripts and code to track the [International Spa
 
    You will also need the Azure Powershell Module using the following command
 
-        Install-Module -Name Az -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
+        Install-Module -Name Az -AllowClobber -Scope CurrentUser -Force
 
 3. **Git Command Line Interface**
    
