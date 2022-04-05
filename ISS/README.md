@@ -21,6 +21,10 @@ This directory contains all the scripts and code to track the [International Spa
 
    You'll also need to make sure you have the latest Azure cli installed, you can do this [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest).
 
+   You will also need the Azure Powershell Module using the following command
+
+        Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
+
 3. **Git Command Line Interface**
    
     You will also need to make sure you have git installed, you can do this following instructions [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
@@ -48,6 +52,10 @@ This directory contains all the scripts and code to track the [International Spa
 Once you've got your Azure Suscription, and have the azure cli installed, you can start by running the following commands to setup the entire environment.
     
     az login
+
+You'll then need to set the scope of your subscription.
+
+    az account set --subscription <your-subscription-id>
 
 Then run the command below to create deploy the entire environment.
 
