@@ -1,0 +1,31 @@
+{
+    "@id": "dtmi:com:adt:dtsample:floor;1",
+    "@type": "Interface",
+    "@context": "dtmi:dtdl:context;2",
+    "displayName": "Floor",
+    "contents": [
+      {
+        "@type": "Property",
+        "name": "id",
+        "schema": "string"        
+      },     
+      {
+        "@type": ["Property", "Temperature"],
+        "name": "temperature",
+        "unit": "degreeFahrenheit",
+        "schema": "double"        
+      },
+      {
+        "@type": "Property",
+        "name": "humidity",
+        "schema": "double"        
+      },       
+      {
+        "@type": "Relationship",
+        "@id": "dtmi:com:adt:dtsample:floor:rel_has_rooms;1",
+        "name": "rel_has_rooms",
+        "displayName": "Floor has rooms",
+        "target": "dtmi:com:adt:dtsample:room;1"
+      }      
+    ]
+  }
