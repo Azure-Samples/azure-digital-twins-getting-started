@@ -9,6 +9,13 @@
       "pluginName": "Azure Data Explorer Datasource"
     },
     {
+      "name": "VAR_DATAHISTORYDB",
+      "type": "constant",
+      "label": "DataHistoryDatabase",
+      "value": "",
+      "description": ""
+    },
+    {
       "name": "VAR_DATAHISTORYTABLE",
       "type": "constant",
       "label": "DataHistoryTable",
@@ -147,7 +154,7 @@
       "pluginVersion": "8.3.3",
       "targets": [
         {
-          "database": "taanderson2DhDb",
+          "database": "${VAR_DATAHISTORYDB}",
           "datasource": {
             "type": "grafana-azure-data-explorer-datasource",
             "uid": "${DS_AZURE_DATA EXPLORER DATASOURCE}"
@@ -253,7 +260,7 @@
       "pluginVersion": "8.3.3",
       "targets": [
         {
-          "database": "taanderson2DhDb",
+          "database": "${VAR_DATAHISTORYDB}",
           "datasource": {
             "type": "grafana-azure-data-explorer-datasource",
             "uid": "${DS_AZURE_DATA EXPLORER DATASOURCE}"
@@ -359,7 +366,7 @@
       "pluginVersion": "8.3.3",
       "targets": [
         {
-          "database": "taanderson2DhDb",
+          "database": "${VAR_DATAHISTORYDB}",
           "datasource": {
             "type": "grafana-azure-data-explorer-datasource",
             "uid": "${DS_AZURE_DATA EXPLORER DATASOURCE}"
@@ -465,7 +472,7 @@
       "pluginVersion": "8.3.3",
       "targets": [
         {
-          "database": "taanderson2DhDb",
+          "database": "${VAR_DATAHISTORYDB}",
           "datasource": {
             "type": "grafana-azure-data-explorer-datasource",
             "uid": "${DS_AZURE_DATA EXPLORER DATASOURCE}"
