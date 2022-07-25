@@ -32,7 +32,7 @@ $iss_reply_url_azuread ="$iss_digital_twin_dashboard_url/login/azuread"
 ## Seem to need to do this as well as sp create-for-rbac in order to update reply urls
 az ad sp create  --id $iss_app_id
 ## Update the reply urls for the app
-az ad app update --id $iss_app_id --display-name $iss_adt_instance_name  --reply-urls $iss_reply_url_root $iss_reply_url_azuread
+az ad app update --id $iss_app_id --display-name $iss_adt_instance_name  --web-redirect-uris $iss_reply_url_root $iss_reply_url_azuread
 
 ## Add Open Id Permissions
 az ad app permission add --id $iss_app_id  --api 00000003-0000-0000-c000-000000000000 --api-permissions e1fe6dd8-ba31-4d61-89e7-88639da4683d=Scope
