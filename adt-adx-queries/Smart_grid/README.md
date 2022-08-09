@@ -21,7 +21,7 @@ To get you up and running with the plugin, these instructions provide an example
     az dt role-assignment create -n <instance-name> --assignee "<owneruser@microsoft.com>" --role "Azure Digital Twins Data Owner" 
     ``` 
 
-1. Download the sample models and graph from the [energy-grid-example](../models/energy-grid-example) folder to your local computer. You can do this by cloning this repository or downloading it as a ZIP, and then navigating to the energy-grid-example folder on your machine.
+1. Download the sample models and graph from the [energy-grid-example](../../models/energy-grid-example) folder to your local computer. You can do this by cloning this repository or downloading it as a ZIP, and then navigating to the energy-grid-example folder on your machine.
 
 1. Open [Azure Digital Twins Explorer](https://explorer.digitaltwins.azure.net/). It should prompt you to enter your Azure Digital Twins instance URL. If not, click on the globe icon in the top right corner.
 
