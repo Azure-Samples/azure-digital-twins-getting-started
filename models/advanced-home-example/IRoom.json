@@ -2,15 +2,18 @@
   {
     "@id": "dtmi:com:adt:dtsample:room;1",
     "@type": "Interface",
-    "@context": "dtmi:dtdl:context;2",
+    "@context": [
+      "dtmi:dtdl:context;3",
+      "dtmi:dtdl:extension:quantitativeTypes;1"
+    ],
     "displayName": "Room",
     "extends": "dtmi:com:adt:dtsample:core;1",
     "contents": [
       {
         "@type": ["Property", "Humidity"],
         "name": "humidity",
-        "unit": "gramPerCubicMetre",
-        "schema": "double"
+        "schema": "double",
+        "unit": "gramPerCubicMetre"
       },
       {
         "@type": "Component",
@@ -26,7 +29,10 @@
     ]
   },
   {
-    "@context": "dtmi:dtdl:context;2",
+    "@context": [
+      "dtmi:dtdl:context;3",
+      "dtmi:dtdl:extension:quantitativeTypes;1"
+    ],
     "@id": "dtmi:com:adt:dtsample:thermostat;1",
     "@type": "Interface",
     "displayName": "thermostat",
@@ -34,8 +40,8 @@
       {
         "@type": ["Property", "Temperature"],
         "name": "temperature",
-        "unit": "degreeFahrenheit",
-        "schema": "double"
+        "schema": "double",
+        "unit": "degreeFahrenheit"
       }
     ]
   }

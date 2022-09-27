@@ -1,7 +1,10 @@
 {
   "@id": "dtmi:com:adt:dtsample:room;1",
   "@type": "Interface",
-  "@context": "dtmi:dtdl:context;2",
+  "@context": [
+    "dtmi:dtdl:context;3",
+    "dtmi:dtdl:extension:quantitativeTypes;1"
+  ],
   "displayName": "Room",
   "contents": [
     {
@@ -12,8 +15,8 @@
     {
       "@type": ["Property", "Temperature"],
       "name": "temperature",
-      "unit": "degreeFahrenheit",
-      "schema": "double"     
+      "schema": "double",
+      "unit": "degreeFahrenheit" 
     },
     {
       "@type": "Property",
