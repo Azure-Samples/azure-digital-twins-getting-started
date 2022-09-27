@@ -1,7 +1,7 @@
 {
   "@id": "dtmi:com:adt:dtsample:home;1",
   "@type": "Interface",
-  "@context": "dtmi:dtdl:context;2",
+  "@context": "dtmi:dtdl:context;3",
   "displayName": "Home",
   "extends": "dtmi:com:adt:dtsample:core;1",
   "contents": [

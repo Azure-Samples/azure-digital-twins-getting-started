@@ -2,7 +2,7 @@
   "@id": "dtmi:example:Floor;1",
   "@type": "Interface",
   "displayName": "Floor",
-  "@context": "dtmi:dtdl:context;2",
+  "@context": "dtmi:dtdl:context;3",
   "contents": [
     {
       "@type": "Relationship",
