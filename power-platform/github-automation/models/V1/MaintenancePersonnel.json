@@ -1,0 +1,19 @@
+{
+    "@id": "dtmi:assetGen:MaintenancePersonnel;1",
+    "@type": "Interface",
+    "@context": "dtmi:dtdl:context;2",
+    "displayName": "MaintenancePersonnel",
+    "contents": [
+        {
+            "@type": "Relationship",
+            "name": "maintains",
+            "properties": [
+                {
+                    "@type": "Property",
+                    "name": "targetModel",
+                    "schema": "string"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "@id": "dtmi:assetGen:PowerPlant;2",
+    "@type": "Interface",
+    "@context": "dtmi:dtdl:context;2",
+    "displayName": "PowerPlant",
+    "contents": [
+        {
+            "@type": "Relationship",
+            "name": "contains",
+            "properties": [
+                {
+                    "@type": "Property",
+                    "name": "targetModel",
+                    "schema": "string"
+                }
+            ],
+            "target": "dtmi:assetGen:Floor;2"
+        }
+    ]
+}
