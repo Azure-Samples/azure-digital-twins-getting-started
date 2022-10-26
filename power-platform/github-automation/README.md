@@ -1,14 +1,15 @@
+
 # Table of Contents
 
-1.  [Introduction](#org090f007)
-2.  [Github Setup](#orgf0ebe80)
-    1.  [Authenticating GitHub Repository](#org4434ffa)
-    2.  [Actions Workflow](#org05247f9)
-3.  [Power Automate Flow](#org77099f9)
+1.  [Introduction](#org1ef2065)
+2.  [Github Setup](#org6ac1869)
+    1.  [Authenticating GitHub Repository](#org1a366f0)
+    2.  [Actions Workflow](#orgd8ab24e)
+3.  [Power Automate Flow](#orgddc575d)
 
 
 
-<a id="org090f007"></a>
+<a id="org1ef2065"></a>
 
 # Introduction
 
@@ -19,12 +20,12 @@ This example demonstrates how PowerPlatform can be used in combination with GitH
 -   You have ownership over the GitHub repository that you will be using.
 
 
-<a id="orgf0ebe80"></a>
+<a id="org6ac1869"></a>
 
 # Github Setup
 
 
-<a id="org4434ffa"></a>
+<a id="org1a366f0"></a>
 
 ## Authenticating GitHub Repository
 
@@ -133,7 +134,7 @@ Additional Resources:
 -   [Use Github Actions to connect to Azure](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)
 
 
-<a id="org05247f9"></a>
+<a id="orgd8ab24e"></a>
 
 ## Actions Workflow
 
@@ -187,10 +188,10 @@ In order to setup Github Actions you first need to create **Yaml** file in the *
 
 For more information on Github Actions, visit the offical [documentation.](https://docs.github.com/en/actions)
 
-The script that gets executed can be found [here](./.pipeline/UploadModels/main.py).
+The script that gets executed can be found [here](./PowerPlantModels/.pipeline/UploadModels/main.py).
 
 
-<a id="org77099f9"></a>
+<a id="orgddc575d"></a>
 
 # Power Automate Flow
 
