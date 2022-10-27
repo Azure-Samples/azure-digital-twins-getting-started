@@ -222,7 +222,7 @@ Next, click Import and go to your newly added flow.
 
 ![img](./images/flow.png)
 
-Lastly, trigger the flow by closing the PR associated with the new model version you commited. You can use the ADT Exploer to inspect the updated model version of a twin.
+Lastly, trigger the flow by closing the PR associated with the new model version you commited. You can use the ADT Explorer to inspect the updated model version of a twin.
 
 ![img](./images/twin_explorer.png)
 
