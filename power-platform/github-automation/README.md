@@ -1,37 +1,46 @@
 
 # Table of Contents
 
-1.  [Introduction](#orgd29bf42)
-2.  [Github Setup](#org76ce701)
-    1.  [Authenticating GitHub Repository](#org61e5258)
-    2.  [Actions Workflow](#orgc992308)
-3.  [Power Automate Flow](#orgc5974eb)
+1.  [Introduction](#orgfafc9b0)
+2.  [GitHub Setup](#orgef2fe15)
+    1.  [Authenticating GitHub Repository](#org23c1a61)
+    2.  [Actions Workflow](#org21d06c5)
+3.  [Power Automate Flow](#orgc1d2132)
 
 
 
-<a id="orgd29bf42"></a>
+<a id="orgfafc9b0"></a>
 
 # Introduction
 
-This example demonstrates how PowerPlatform can be used in combination with GitHub Acitons to automate the process of updating the model version twins are referencing in an Azure Digital Twins instance. It is important to note that this writeup assumes the following:
+This example demonstrates two automated processes. The first processs uploads DTDL models from a GitHub repo to Azure Digital Twins. The second process updates any digital twins that reference the previous model version to the new model version. The first process is automated via GitHub actions, while the second process is automated through a Power Automate flow.
 
--   You have **owner** role over the ADT instance you are using (for assigning roles).
--   Your ADT instance has a **system managed identity** assigned to it.
+Note that there are two strategies for updating models in Azure Digital Twins. This example follows follows strategy 1. Should you decide to follow strategy 2, you can modify the below example as needed:
+
+-   Strategy 1: Upload new model version, then update digital twins referencing previous model version
+-   Strategy 2: Delete current model, then upload new model with the same model id.
+
+This writeup assumes the following:
+
+-   You have the **Owner** role for the Azure Digital Twins instance you are using (for assigning roles).
+-   Your instance has a **system managed identity** assigned to it.
 -   You have ownership over the GitHub repository that you will be using.
 
 
-<a id="org76ce701"></a>
+<a id="orgef2fe15"></a>
 
-# Github Setup
+# GitHub Setup
+
+This section configures the authentication needed for your GitHub repository and defines a GitHub action that uploads models to Azure Digital Twins upon a commit.
 
 
-<a id="org61e5258"></a>
+<a id="org23c1a61"></a>
 
 ## Authenticating GitHub Repository
 
 First create an [Azure AD application](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal) and assign the **Azure Digital Twins Owner Role** to the newly registered AD application.
 
-Now, we can generate federated credentials that your GitHub repository will use. To do this, first naviagate to the AD application your registered in the **Azure Portal** and click on the **Certificates & Secrets** tab on the left.
+Next, generate federated credentials that your GitHub repository will use. To do this, naviagate to the AD application your registered in the **Azure Portal** and click on the **Certificates & Secrets** tab on the left.
 
 Click on the **Federated credentials** tab and select **Add credential**.
 ![img](./images/add_credential.png)
@@ -62,7 +71,7 @@ Now fill out the following fields:
 <tbody>
 <tr>
 <td class="org-left">Organization</td>
-<td class="org-left">Your Github organization anme or Github username.</td>
+<td class="org-left">Your GitHub organization anme or GitHub username.</td>
 <td class="org-left"><b>contoso</b></td>
 </tr>
 
@@ -131,14 +140,14 @@ Lastly retrieve the following values from your Azure AD application and add them
 Additional Resources:
 
 -   [Use the portal to create an Azure AD Applicaiton](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)
--   [Use Github Actions to connect to Azure](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)
+-   [Use GitHub Actions to connect to Azure](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)
 
 
-<a id="orgc992308"></a>
+<a id="org21d06c5"></a>
 
 ## Actions Workflow
 
-In order to setup Github Actions you need to first create **Yaml** file in the **.github/workflows** path of your repository that defines the workflow.
+In order to setup GitHub Actions you need to first create **YAML** file in the **.github/workflows** path of your repository that defines the workflow.
 
     name: CI
     on:
@@ -186,29 +195,34 @@ In order to setup Github Actions you need to first create **Yaml** file in the *
             run: |
               python ./.pipeline/UploadModels/main.py ${{ secrets.AZURE_URL }} ${{ steps.changed_files.outputs.all_changed_files }}
 
-For more information on Github Actions, visit the offical [documentation.](https://docs.github.com/en/actions)
+For more information on GitHub Actions, visit the official [documentation.](https://docs.github.com/en/actions)
 
 The script that gets executed can be found [here](./PowerPlantModels/.pipeline/UploadModels/main.py).
 
 
-<a id="orgc5974eb"></a>
+<a id="orgc1d2132"></a>
 
 # Power Automate Flow
 
-Power Automate allows you to create automated workflows between multiple services. The following section will cover how you can create a Power Automate flow that interfaces with GitHub, and your ADT instance in order to manage twin metadata based on the state of a pull request to your release branch and the content of the pull request.
+Below is a diagram of the flow, which is triggered then the PR for the model commit is closed in GitHub.
 
-![img](./images/sequence_diagram.png "The flow of events after a pull request gets created.")
+![img](./images/sequence_diagram.png)
 
 To begin, navigate to the **My Flows** tab in Power Automate and click on **Import Package** option.
 
 ![img](./images/upload_flow.png)
 
-From there, click on the **Upload** botton and select the zip file included in this sample.
+Click on the **Upload** button and select the ZIP file included in this sample.
 
-Authenticate the connectors used in this sample by clicking on **Select during import** in the **Review Package Content** for each of the resources listed.
+Authenticate the connectors in this sample by clicking on **Select during import** in the **Review Package Content** for each of the resources listed.
 
 ![img](./images/import_connections.png)
 
-Lastly click import and go to your newly added flow.
+Next, click Import and go to your newly added flow.
+
 ![img](./images/flow.png)
+
+Lastly, trigger the flow by closing the PR associated with the new model version you commited. You can use the ADT Exploer to inspect the updated model version of a twin.
+
+![img](./images/twin_explorer.png)
 
