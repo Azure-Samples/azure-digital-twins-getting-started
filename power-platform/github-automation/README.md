@@ -1,31 +1,31 @@
 
 # Table of Contents
 
-1.  [Introduction](#org1ef2065)
-2.  [Github Setup](#org6ac1869)
-    1.  [Authenticating GitHub Repository](#org1a366f0)
-    2.  [Actions Workflow](#orgd8ab24e)
-3.  [Power Automate Flow](#orgddc575d)
+1.  [Introduction](#orgd29bf42)
+2.  [Github Setup](#org76ce701)
+    1.  [Authenticating GitHub Repository](#org61e5258)
+    2.  [Actions Workflow](#orgc992308)
+3.  [Power Automate Flow](#orgc5974eb)
 
 
 
-<a id="org1ef2065"></a>
+<a id="orgd29bf42"></a>
 
 # Introduction
 
 This example demonstrates how PowerPlatform can be used in combination with GitHub Acitons to automate the process of updating the model version twins are referencing in an Azure Digital Twins instance. It is important to note that this writeup assumes the following:
 
--   You have have **owner** role over the ADT instance you are using (for assigning roles)
--   Your ADT instance has a **system managed identity** assigned to it
+-   You have **owner** role over the ADT instance you are using (for assigning roles).
+-   Your ADT instance has a **system managed identity** assigned to it.
 -   You have ownership over the GitHub repository that you will be using.
 
 
-<a id="org6ac1869"></a>
+<a id="org76ce701"></a>
 
 # Github Setup
 
 
-<a id="org1a366f0"></a>
+<a id="org61e5258"></a>
 
 ## Authenticating GitHub Repository
 
@@ -134,11 +134,11 @@ Additional Resources:
 -   [Use Github Actions to connect to Azure](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)
 
 
-<a id="orgd8ab24e"></a>
+<a id="orgc992308"></a>
 
 ## Actions Workflow
 
-In order to setup Github Actions you first need to create **Yaml** file in the **.github/workflows** path of your repository that defines the workflow.
+In order to setup Github Actions you need to first create **Yaml** file in the **.github/workflows** path of your repository that defines the workflow.
 
     name: CI
     on:
@@ -191,11 +191,11 @@ For more information on Github Actions, visit the offical [documentation.](https
 The script that gets executed can be found [here](./PowerPlantModels/.pipeline/UploadModels/main.py).
 
 
-<a id="orgddc575d"></a>
+<a id="orgc5974eb"></a>
 
 # Power Automate Flow
 
-Handling the upload of models using Github Actions, by contrast, required a lot more effort than what will be presented in this section. As such, I want to emphasize the convenience of low-code/no-code solutions and their value. Even though the flow diagram pictures below may present itself as a complex sequence of events the implementation is actually quite the opposite in that things like authentication and authorization to both GitHub and your Azure Digital Twins instance are all managed by Power Automate through the use of first party connectors to these resources.
+Power Automate allows you to create automated workflows between multiple services. The following section will cover how you can create a Power Automate flow that interfaces with GitHub, and your ADT instance in order to manage twin metadata based on the state of a pull request to your release branch and the content of the pull request.
 
 ![img](./images/sequence_diagram.png "The flow of events after a pull request gets created.")
 
