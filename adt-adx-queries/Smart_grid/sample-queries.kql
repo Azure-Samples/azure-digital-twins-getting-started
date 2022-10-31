@@ -1,179 +1,231 @@
-// Copy and paste each query below into ADX Explorer. To run a query, click on the query to highlight it and press the Run button. 
-// In each query, replace <your_ADT_endpoint> with your instance's endpoint. Your endpoint should be in quotes, start with https://, and be followed by a semicolon. 
-// For example: let ADTendpoint = "https://MyExampleADTinstance.api.wcus.digitaltwins.azure.net"
+// Copy and paste each query below into ADX Explorer. To run a query, click on the query to highlight it and press the Run button.  
+// In each query, replace <your_ADT_endpoint> with your instance's endpoint. Your endpoint should be in quotes, start with https://, and be followed by a semicolon.  
+// For example: let ADTendpoint = https://MyExampleADTinstance.api.wcus.digitaltwins.azure.net 
 
-//Get all twins in your Azure Digital Twins instance
-let ADTendpoint = <your_ADT_endpoint>;
-let ADTquery = "SELECT T FROM DIGITALTWINS T";
+let ADTendpoint = <your_ADT_endpoint>; 
+let ADTquery = "SELECT T FROM DIGITALTWINS T"; 
+evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) 
+
+// Get the twin ID of all consumers fed by the Fall Street substation 
+let ADTendpoint = <your_ADT_endpoint>; 
+//let ADTquery = "SELECT CSMR.$dtId as tid FROM DIGITALTWINS SUB JOIN CSMR RELATED SUB.feeds WHERE SUB.$dtId = 'sub_fall_street'"; 
+let ADTquery = ```SELECT consumer.$dtId as tid FROM DIGITALTWINS  
+   MATCH (substation)-[:feeds]->(consumer)  
+   WHERE substation.$dtId = 'sub_fall_street'```; 
 evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)
 
+SamplePowerRequirementHistorizedData 
+| sort by timestamp asc  
+| take 100 
 
-// Get the twin ID of all consumers fed by the Fall Street substation
-let ADTendpoint = <your_ADT_endpoint>;
-let ADTquery = "SELECT CSMR.$dtId as tid FROM DIGITALTWINS SUB JOIN CSMR RELATED SUB.feeds WHERE SUB.$dtId = 'sub_fall_street' AND IS_PRIMITIVE(CSMR.$dtId)";
-evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)
+//Get the twin ID and PowerRequirement for all power consumers  
+let ADTendpoint = <your_ADT_endpoint>; 
+let ADTquery = "SELECT T.$dtId as tid, T.PowerRequirement FROM DIGITALTWINS T"; 
+evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) 
+| extend twinId = tostring(tid) 
+| extend powRequriement = todouble(PowerRequirement) 
+| project twinId, powRequriement 
+| order by twinId asc 
 
-
-//Get the twin ID and PowerRequirement for all power consumers 
-let ADTendpoint = <your_ADT_endpoint>;
-let ADTquery = "SELECT T.$dtId as tid, T.PowerRequirement FROM DIGITALTWINS T WHERE IS_PRIMITIVE(T.PowerRequirement) AND IS_PRIMITIVE(T.$dtId)";
-evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)
-| extend twinId = tostring(tid)
-| extend powRequriement = todouble(PowerRequirement)
-| project twinId, powRequriement
-| order by twinId asc
-
-
-// Get 100 time series records for Fall Street substation consumers. 
-// This is performed by joining the twinIDs returned by the ADTquery with the //respective time series records in ADX. The time series records represent a consumer's //historical power consumption.
-let ADTendpoint = <your_ADT_endpoint>;
-let ADTquery = "SELECT CSMR.$dtId as tid FROM DIGITALTWINS SUB JOIN CSMR RELATED SUB.feeds WHERE SUB.$dtId = 'sub_fall_street' AND IS_PRIMITIVE(CSMR.$dtId)";
-evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)
-| extend twinId = tostring(tid)
-| join kind=inner (SamplePowerRequirementHistorizedData) on twinId
+// Get 100 time series records for Fall Street substation consumers.  
+// This is performed by joining the twinIDs returned by the ADT query with the //respective time series records in ADX. The time series records represent a consumer’s //historical power consumption. 
+let ADTendpoint = <your_ADT_endpoint>; 
+let ADTquery = ```SELECT consumer.$dtId as tid FROM DIGITALTWINS  
+   MATCH (substation)-[:feeds]->(consumer)  
+   WHERE substation.$dtId = 'sub_fall_street'```; 
+evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) 
+| extend twinId = tostring(tid) 
+| join kind=inner (SamplePowerRequirementHistorizedData) on twinId 
+| project twinId, timestamp, modelId, name, value 
 | take 100
 
-
-// Optionally pivot the key-value table to create columns based on the keys (e.g. 'name', or PowerRequirement in this case) 
-let ADTendpoint = <your_ADT_endpoint>;
-let ADTquery = "SELECT CSMR.$dtId as tid FROM DIGITALTWINS SUB JOIN CSMR RELATED SUB.feeds WHERE SUB.$dtId = 'sub_fall_street' AND IS_PRIMITIVE(CSMR.$dtId)";
-evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)
-| extend twinId = tostring(tid)
-| join kind=inner (SamplePowerRequirementHistorizedData) on twinId
-| evaluate pivot(name, any(todouble(value)), timestamp, twinId, modelId)
+// Optionally pivot the key-value table to create columns based on the keys (e.g. 'name', or PowerRequirement in this case)  
+let ADTendpoint = <your_ADT_endpoint>; 
+let ADTquery = ```SELECT consumer.$dtId as tid FROM DIGITALTWINS  
+   MATCH (substation)-[:feeds]->(consumer)  
+   WHERE substation.$dtId = 'sub_fall_street'```; 
+evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) 
+| extend twinId = tostring(tid) 
+| join kind=inner (SamplePowerRequirementHistorizedData) on twinId 
+| evaluate pivot(name, any(todouble(value)), timestamp, twinId, modelId) 
 | take 100
 
+// Chart the average hourly power usage of consumers fed by the Fall Street substation ('sub_fall_street') during week 10 
+let ADTendpoint = <your_ADT_endpoint>; 
+let ADTquery = ```SELECT consumer.$dtId as tid FROM DIGITALTWINS  
+   MATCH (substation)-[:feeds]->(consumer)  
+   WHERE substation.$dtId = 'sub_fall_street'```; 
+let weekNumber = 10;let startDate = datetime_add('week',weekNumber - 1, make_datetime(2021,1,1)); 
+let endDate = datetime_add('week',1, startDate); 
+evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) 
+| extend twinId = tostring(tid) 
+| join kind=inner (SamplePowerRequirementHistorizedData) on twinId 
+| project timestamp, twinId, value 
+| where timestamp between (startDate .. endDate) 
+| summarize avg(value) by bin(timestamp,1h),twinId 
+| render timechart  
 
-// Chart the average hourly power usage of consumers fed by the Fall Street substation ('sub_fall_street') during week 10
-let ADTendpoint = <your_ADT_endpoint>;
-let ADTquery = "SELECT CSMR.$dtId as tid FROM DIGITALTWINS SUB JOIN CSMR RELATED SUB.feeds WHERE SUB.$dtId = 'sub_fall_street' AND IS_PRIMITIVE(CSMR.$dtId)";
-let weekNumber = 10;let startDate = datetime_add('week',weekNumber - 1, make_datetime(2021,1,1));
-let endDate = datetime_add('week',1, startDate);
-evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)
-| extend twinId = tostring(tid)
-| join kind=inner (SamplePowerRequirementHistorizedData) on twinId
-| project timestamp, twinId, value
-| where timestamp between (startDate .. endDate)
-| summarize avg(value) by bin(timestamp,1h),twinId
+// Identify which Spring Blvd Substation ('sub_spring_blvd') consumers used the most power during March 2021 
+let ADTendpoint = <your_ADT_endpoint>; 
+//let ADTquery = "SELECT CSMR.$dtId as tid FROM DIGITALTWINS SUB JOIN CSMR RELATED SUB.feeds WHERE SUB.$dtId = 'sub_spring_blvd' AND IS_PRIMITIVE(CSMR.$dtId)"; 
+let ADTquery = ```SELECT consumer.$dtId as tid FROM DIGITALTWINS  
+   MATCH (substation)-[:feeds]->(consumer)  
+   WHERE substation.$dtId = 'sub_spring_blvd'```; 
+let monthNumber = 3; 
+let startDate = startofmonth(datetime(2021-01-01), monthNumber-1); 
+let endDate = endofmonth(datetime(2021-01-01), monthNumber-1); 
+evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) 
+| extend twinId = tostring(tid) 
+| join kind=inner (SamplePowerRequirementHistorizedData) on twinId 
+| project timestamp, twinId, value 
+| where timestamp between (startDate .. endDate) 
+| summarize max(value) by twinId 
+| sort by max_value 
+| render columnchart  
+
+// Find the hourly maximum power consumed by any Fall Street ('sub_fall_street') substation customer on 3/20 
+let ADTendpoint = <your_ADT_endpoint>; 
+let ADTquery = ```SELECT consumer.$dtId as tid FROM DIGITALTWINS  
+   MATCH (substation)-[:feeds]->(consumer)  
+   WHERE substation.$dtId = 'sub_fall_street'```; 
+evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) 
+| extend twinId = tostring(tid) 
+| join kind=inner (SamplePowerRequirementHistorizedData) on twinId 
+| project timestamp, twinId, value 
+| where timestamp between (datetime(2021-03-20) .. datetime(2021-03-21)) 
+| summarize max(value) by bin(timestamp,1h) 
+| render timechart  
+
+// Chart the daily maximum power consumption for Fall Street Substation consumers during March 2021 
+let ADTendpoint = <your_ADT_endpoint>; 
+let ADTquery = ```SELECT consumer.$dtId as tid FROM DIGITALTWINS  
+   MATCH (substation)-[:feeds]->(consumer)  
+   WHERE substation.$dtId = 'sub_fall_street'```; 
+let monthNumber = 3; 
+let startDate = startofmonth(datetime(2021-01-01), monthNumber-1); 
+let endDate = endofmonth(datetime(2021-01-01), monthNumber-1); 
+evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) 
+| extend twinId = tostring(tid) 
+| join kind=inner (SamplePowerRequirementHistorizedData) on twinId 
+| project timestamp, twinId, value 
+| where timestamp between (startDate .. endDate) 
+| summarize max(value) by bin(timestamp,1d), twinId 
 | render timechart 
 
-
-// Identify which Spring Blvd Substation ('sub_spring_blvd') consumers used the most power during March 2021
-let ADTendpoint = <your_ADT_endpoint>;
-let ADTquery = "SELECT CSMR.$dtId as tid FROM DIGITALTWINS SUB JOIN CSMR RELATED SUB.feeds WHERE SUB.$dtId = 'sub_spring_blvd' AND IS_PRIMITIVE(CSMR.$dtId)";
-let monthNumber = 3;
-let startDate = startofmonth(datetime(2021-01-01), monthNumber-1);
-let endDate = endofmonth(datetime(2021-01-01), monthNumber-1);
-evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)
-| extend twinId = tostring(tid)
-| join kind=inner (SamplePowerRequirementHistorizedData) on twinId
-| project timestamp, twinId, value
-| where timestamp between (startDate .. endDate)
-| summarize max(value) by twinId
-| sort by max_value
+// Identify the consumer that is currently exhibiting the largest deviation from their historical average consumption  
+let ADTendpoint = <your_ADT_endpoint>; 
+let ADTquery = "SELECT T.$dtId as tid, T.PowerRequirement FROM DIGITALTWINS T"; 
+evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)  
+| extend twinId = tostring(tid) 
+| join kind=inner (SamplePowerRequirementHistorizedData) on twinId 
+| summarize avg_value = avg(value), PowerRequirement = tolong(any(PowerRequirement)) by twinId 
+| project twinId,diff = abs(PowerRequirement - avg_value) 
+| sort by diff 
 | render columnchart 
 
-
-// Find the hourly maximum power consumed by any Fall Street ('sub_fall_street') substation customer on 3/20
-let ADTendpoint = <your_ADT_endpoint>;
-let ADTquery = "SELECT CSMR.$dtId as tid FROM DIGITALTWINS SUB JOIN CSMR RELATED SUB.feeds WHERE SUB.$dtId = 'sub_fall_street' AND IS_PRIMITIVE(CSMR.$dtId)";
-evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)
-| extend twinId = tostring(tid)
-| join kind=inner (SamplePowerRequirementHistorizedData) on twinId
-| project timestamp, twinId, value
-| where timestamp between (datetime(2021-03-20) .. datetime(2021-03-21))
-| summarize max(value) by bin(timestamp,1h)
+// Get lat/lon for solar plants 
+let ADTendpoint = <your_ADT_endpoint>; 
+let ADTquery = ```SELECT plant.$dtId as tid, plant.ManufacturerInfo.Location.Latitude as lat, plant.ManufacturerInfo.Location.Longitude as lon FROM DIGITALTWINS  
+   MATCH (plant)-[:feeds]->(grid) 
+   WHERE grid.$dtId = 'pl_solar_gen' ```; 
+evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) 
+| render table 
+ 
+//Get the twin ID and PowerRequirement for all power consumers  
+let ADTendpoint = <your_ADT_endpoint>; 
+let ADTquery = "SELECT T.$dtId as tid, T.PowerRequirement FROM DIGITALTWINS T"; 
+evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) 
+| extend twinId = tostring(tid) 
+| extend powRequriement = todouble(PowerRequirement) 
+| project twinId, powRequriement 
+| order by twinId asc 
+  
+// Chart the week 10 power output of solar plants that feed the solar grid 'pl_solar_gen' 
+let ADTendpoint = <your_ADT_endpoint>; 
+let ADTquery = ```SELECT plant.$dtId as tid, plant.ManufacturerInfo.Location.Latitude as lat, plant.ManufacturerInfo.Location.Longitude as lon FROM DIGITALTWINS  
+   MATCH (plant)-[:feeds]->(grid) 
+   WHERE grid.$dtId = 'pl_solar_gen' ```; 
+let weekNumber = 10; 
+let startDate = datetime_add('week',weekNumber - 1, make_datetime(2021,1,1)); 
+let endDate = datetime_add('week',1, startDate); 
+evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) 
+| extend twinId = tostring(tid) 
+| join kind=inner (SamplePowerRequirementHistorizedData) on twinId 
+| project timestamp, twinId, value 
+| where timestamp between (startDate .. endDate) 
+| render timechart 
+  
+// Is there any missing data for the solar plants that feed solar grid 'pl_solar_gen'?  
+let ADTendpoint = <your_ADT_endpoint>; 
+let ADTquery = ```SELECT plant.$dtId as tid, plant.ManufacturerInfo.Location.Latitude as lat, plant.ManufacturerInfo.Location.Longitude as lon FROM DIGITALTWINS  
+   MATCH (plant)-[:feeds]->(grid) 
+   WHERE grid.$dtId = 'pl_solar_gen' ```; 
+let weekNumber = 10; 
+let startDate = datetime_add('week',weekNumber - 1, make_datetime(2021,1,1)); 
+let endDate = datetime_add('week',1, startDate); 
+evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) 
+| extend twinId = tostring(tid) 
+| join kind=inner (SamplePowerRequirementHistorizedData) on twinId 
+| project timestamp, twinId, value 
+| where timestamp between (startDate .. endDate) 
+| make-series AvgPower=avg(value) on timestamp step 5m by twinId 
+// missing datapoints will be denoted by zero values on the timechart 
+| render timechart 
+ 
+// Fill in the missing values 
+let ADTendpoint = <your_ADT_endpoint>; 
+let ADTquery = ```SELECT plant.$dtId as tid, plant.ManufacturerInfo.Location.Latitude as lat, plant.ManufacturerInfo.Location.Longitude as lon FROM DIGITALTWINS  
+   MATCH (plant)-[:feeds]->(grid) 
+   WHERE grid.$dtId = 'pl_solar_gen' ```; 
+let weekNumber = 10; 
+let startDate = datetime_add('week',weekNumber - 1, make_datetime(2021,1,1)); 
+let endDate = datetime_add('week',1, startDate); 
+evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) 
+| extend twinId = tostring(tid) 
+| join kind=inner (SamplePowerRequirementHistorizedData) on twinId 
+| project timestamp, twinId, value 
+| where timestamp between (startDate .. endDate) 
+| make-series AvgPower=avg(value) default=real(null) on timestamp step 5m by twinId 
+// missing datapoints will be denoted by zero values on the timechart 
+| extend NoGapsTemp=series_fill_linear(AvgPower) 
+| project timestamp, NoGapsTemp, twinId 
 | render timechart 
 
-
-// Chart the daily maximum power consumption for Fall Street Substation consumers during March 2021
-let ADTendpoint = <your_ADT_endpoint>;
-let ADTquery = "SELECT CSMR.$dtId as tid FROM DIGITALTWINS SUB JOIN CSMR RELATED SUB.feeds WHERE SUB.$dtId = 'sub_fall_street' AND IS_PRIMITIVE(CSMR.$dtId)";
-let monthNumber = 3;
-let startDate = startofmonth(datetime(2021-01-01), monthNumber-1);
-let endDate = endofmonth(datetime(2021-01-01), monthNumber-1);
-evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)
-| extend twinId = tostring(tid)
-| join kind=inner (SamplePowerRequirementHistorizedData) on twinId
-| project timestamp, twinId, value
-| where timestamp between (startDate .. endDate)
-| summarize max(value) by bin(timestamp,1d), twinId
-| render timechart
- 
-
-// Identify the consumer that is currently exhibiting the largest deviation from their historical average consumption 
-let ADTendpoint = <your_ADT_endpoint>;
-let ADTquery = "SELECT T.$dtId as tid, T.PowerRequirement FROM DIGITALTWINS T WHERE IS_OF_MODEL('dtmi:example:grid:plants:domesticConsumer;1') AND IS_PRIMITIVE(T.PowerRequirement) AND IS_PRIMITIVE(T.$dtId)";
+// Identify any anomalies in the data 
+let ADTendpoint = <your_ADT_endpoint>; 
+let ADTquery = ```SELECT plant.$dtId as tid, plant.ManufacturerInfo.Location.Latitude as lat, plant.ManufacturerInfo.Location.Longitude as lon FROM DIGITALTWINS  
+   MATCH (plant)-[:feeds]->(grid) 
+   WHERE grid.$dtId = 'pl_solar_gen' ```; 
+let weekNumber = 10; 
+let startDate = datetime_add('week',weekNumber - 1, make_datetime(2021,1,1)); 
+let endDate = datetime_add('week',1, startDate); 
 evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) 
-| extend twinId = tostring(tid)
-| join kind=inner (SamplePowerRequirementHistorizedData) on twinId
-| summarize avg_value = avg(value), PowerRequirement = tolong(any(PowerRequirement)) by twinId
-| project twinId,diff = abs(PowerRequirement - avg_value)
-| sort by diff
-| render columnchart
-
-
-// Chart the week 10 power output of solar plants that feed the solar grid 'pl_solar_gen'
-let ADTendpoint = <your_ADT_endpoint>;
-let ADTquery = "SELECT PLANT.$dtId as tid FROM DIGITALTWINS PLANT JOIN GRID RELATED PLANT.feeds WHERE GRID.$dtId = 'pl_solar_gen' AND IS_PRIMITIVE(PLANT.$dtId)";
-let weekNumber = 10;
-let startDate = datetime_add('week',weekNumber - 1, make_datetime(2021,1,1));
-let endDate = datetime_add('week',1, startDate);
-evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)
-| extend twinId = tostring(tid)
-| join kind=inner (SamplePowerRequirementHistorizedData) on twinId
-| project timestamp, twinId, value
-| where timestamp between (startDate .. endDate)
-| render timechart
-
-
-// Is there any missing data for the solar plants that feed solar grid 'pl_solar_gen'? 
-let ADTendpoint = <your_ADT_endpoint>;
-let ADTquery = "SELECT PLANT.$dtId as tid FROM DIGITALTWINS PLANT JOIN GRID RELATED PLANT.feeds WHERE GRID.$dtId = 'pl_solar_gen' AND IS_PRIMITIVE(PLANT.$dtId)";
-let weekNumber = 10;
-let startDate = datetime_add('week',weekNumber - 1, make_datetime(2021,1,1));
-let endDate = datetime_add('week',1, startDate);
-evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)
-| extend twinId = tostring(tid)
-| join kind=inner (SamplePowerRequirementHistorizedData) on twinId
-| project timestamp, twinId, value
-| where timestamp between (startDate .. endDate)
-| make-series AvgPower=avg(value) on timestamp step 5m by twinId
-// missing datapoints will be denoted by zero values on the timechart
-| render timechart
-
-
-// Fill in the missing values
-let ADTendpoint = <your_ADT_endpoint>;
-let ADTquery = "SELECT PLANT.$dtId as tid FROM DIGITALTWINS PLANT JOIN GRID RELATED PLANT.feeds WHERE GRID.$dtId = 'pl_solar_gen' AND IS_PRIMITIVE(PLANT.$dtId)";
-let weekNumber = 10;
-let startDate = datetime_add('week',weekNumber - 1, make_datetime(2021,1,1));
-let endDate = datetime_add('week',1, startDate);
-evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)
-| extend twinId = tostring(tid)
-| join kind=inner (SamplePowerRequirementHistorizedData) on twinId
-| project timestamp, twinId, value
-| where timestamp between (startDate .. endDate)
-| make-series AvgPower=avg(value) default=real(null) on timestamp step 5m by twinId
-// missing datapoints will be denoted by zero values on the timechart
-| extend NoGapsTemp=series_fill_linear(AvgPower)
-| project timestamp, NoGapsTemp, twinId
-| render timechart
+| extend twinId = tostring(tid) 
+| join kind=inner (SamplePowerRequirementHistorizedData) on twinId 
+| project timestamp, twinId, value 
+| where timestamp between (startDate .. endDate) 
+| make-series AvgPower=avg(value) on timestamp step 10m by twinId 
+| extend NoGapsTemp=series_fill_linear(AvgPower) 
+| project timestamp, NoGapsTemp, twinId 
+| extend anomalies = series_decompose_anomalies(NoGapsTemp,4) 
+| render anomalychart with(anomalycolumns=anomalies) 
  
-
-// Identify any anomalies in the data
-let ADTendpoint = <your_ADT_endpoint>;
-let ADTquery = "SELECT PLANT.$dtId as tid FROM DIGITALTWINS PLANT JOIN GRID RELATED PLANT.feeds WHERE GRID.$dtId = 'pl_solar_gen' AND IS_PRIMITIVE(PLANT.$dtId)";
-let weekNumber = 10;
-let startDate = datetime_add('week',weekNumber - 1, make_datetime(2021,1,1));
-let endDate = datetime_add('week',1, startDate);
-evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)
-| extend twinId = tostring(tid)
-| join kind=inner (SamplePowerRequirementHistorizedData) on twinId
-| project timestamp, twinId, value
-| where timestamp between (startDate .. endDate)
-| make-series AvgPower=avg(value) on timestamp step 10m by twinId
-| extend NoGapsTemp=series_fill_linear(AvgPower)
-| project timestamp, NoGapsTemp, twinId
-| extend anomalies = series_decompose_anomalies(NoGapsTemp,4)
-| render anomalychart with(anomalycolumns=anomalies)
+// Identify any anomalies in the data 
+let ADTendpoint = <your_ADT_endpoint>; 
+let ADTquery = ```SELECT plant.$dtId as tid, plant.ManufacturerInfo.Location.Latitude as lat, plant.ManufacturerInfo.Location.Longitude as lon FROM DIGITALTWINS  
+   MATCH (plant)-[:feeds]->(grid) 
+   WHERE grid.$dtId = 'pl_solar_gen' ```; 
+let weekNumber = 10; 
+let startDate = datetime_add('week',weekNumber - 1, make_datetime(2021,1,1)); 
+let endDate = datetime_add('week',1, startDate); 
+evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery) 
+| extend twinId = tostring(tid) 
+| join kind=inner (SamplePowerRequirementHistorizedData) on twinId 
+| project timestamp, twinId, value 
+| where timestamp between (startDate .. endDate) 
+| make-series AvgPower=avg(value) on timestamp step 10m by twinId 
+| extend NoGapsTemp=series_fill_linear(AvgPower) 
+| project timestamp, NoGapsTemp, twinId 
+| extend anomalies = series_decompose_anomalies(NoGapsTemp,4) 
+| render anomalychart with(anomalycolumns=anomalies) 
+ 
