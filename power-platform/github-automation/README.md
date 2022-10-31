@@ -1,15 +1,15 @@
 
 # Table of Contents
 
-1.  [Introduction](#orgfafc9b0)
-2.  [GitHub Setup](#orgef2fe15)
-    1.  [Authenticating GitHub Repository](#org23c1a61)
-    2.  [Actions Workflow](#org21d06c5)
-3.  [Power Automate Flow](#orgc1d2132)
+1.  [Introduction](#org8fff04e)
+2.  [GitHub Setup](#orgdfafabc)
+    1.  [Authenticating GitHub Repository](#orgbb0376e)
+    2.  [Actions Workflow](#orgca588bb)
+3.  [Power Automate Flow](#org42e76f0)
 
 
 
-<a id="orgfafc9b0"></a>
+<a id="org8fff04e"></a>
 
 # Introduction
 
@@ -27,14 +27,14 @@ This writeup assumes the following:
 -   You have ownership over the GitHub repository that you will be using.
 
 
-<a id="orgef2fe15"></a>
+<a id="orgdfafabc"></a>
 
 # GitHub Setup
 
 This section configures the authentication needed for your GitHub repository and defines a GitHub action that uploads models to Azure Digital Twins upon a commit.
 
 
-<a id="org23c1a61"></a>
+<a id="orgbb0376e"></a>
 
 ## Authenticating GitHub Repository
 
@@ -71,7 +71,7 @@ Now fill out the following fields:
 <tbody>
 <tr>
 <td class="org-left">Organization</td>
-<td class="org-left">Your GitHub organization name or GitHub username.</td>
+<td class="org-left">Your GitHub organization anme or GitHub username.</td>
 <td class="org-left"><b>contoso</b></td>
 </tr>
 
@@ -132,22 +132,22 @@ Lastly, retrieve the following values from your Azure AD application and add the
 <tbody>
 <tr>
 <td class="org-left">AZURE_URL</td>
-<td class="org-left">The endpoint for your Azure Digital Twins instance</td>
+<td class="org-left">The endpoint for your Digital Twins instance</td>
 </tr>
 </tbody>
 </table>
 
 Additional Resources:
 
--   [Use the portal to create an Azure AD Application](https://learn.microsoft.com/azure/active-directory/develop/howto-create-service-principal-portal)
--   [Use GitHub Actions to connect to Azure](https://learn.microsoft.com/azure/active-directory/develop/howto-create-service-principal-portal)
+-   [Use the portal to create an Azure AD Applicaiton](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)
+-   [Use GitHub Actions to connect to Azure](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)
 
 
-<a id="org21d06c5"></a>
+<a id="orgca588bb"></a>
 
 ## Actions Workflow
 
-In order to setup GitHub Actions you need to first create a **YAML** file in the **.github/workflows** path of your repository that defines the workflow. Copy in the following file body.
+In order to setup GitHub Actions you need to first create a **YAML** file in the **.github/workflows** path of your repository that defines the workflow. Copy in the following file body:
 
     name: CI
     on:
@@ -200,11 +200,11 @@ For more information on GitHub Actions, visit the official [documentation.](http
 The script that gets executed can be found [here](./PowerPlantModels/.pipeline/UploadModels/main.py).
 
 
-<a id="orgc1d2132"></a>
+<a id="org42e76f0"></a>
 
 # Power Automate Flow
 
-Below is a diagram of the flow, which is triggered when the PR for the model commit is closed in GitHub.
+Below is a diagram of the flow, which is triggered then the PR for the model commit is closed in GitHub.
 
 ![img](./images/sequence_diagram.png)
 
@@ -218,7 +218,7 @@ Authenticate the connectors in this sample by choosing **Select during import** 
 
 ![img](./images/import_connections.png)
 
-Next, select Import and go to your newly added flow.
+Next, select Import and navigate to your newly added flow.
 
 ![img](./images/flow.png)
 
