@@ -8,7 +8,6 @@ evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)
 
 // Get the twin ID of all consumers fed by the Fall Street substation 
 let ADTendpoint = <your_ADT_endpoint>; 
-//let ADTquery = "SELECT CSMR.$dtId as tid FROM DIGITALTWINS SUB JOIN CSMR RELATED SUB.feeds WHERE SUB.$dtId = 'sub_fall_street'"; 
 let ADTquery = ```SELECT consumer.$dtId as tid FROM DIGITALTWINS  
    MATCH (substation)-[:feeds]->(consumer)  
    WHERE substation.$dtId = 'sub_fall_street'```; 
@@ -67,7 +66,6 @@ evaluate azure_digital_twins_query_request(ADTendpoint, ADTquery)
 
 // Identify which Spring Blvd Substation ('sub_spring_blvd') consumers used the most power during March 2021 
 let ADTendpoint = <your_ADT_endpoint>; 
-//let ADTquery = "SELECT CSMR.$dtId as tid FROM DIGITALTWINS SUB JOIN CSMR RELATED SUB.feeds WHERE SUB.$dtId = 'sub_spring_blvd' AND IS_PRIMITIVE(CSMR.$dtId)"; 
 let ADTquery = ```SELECT consumer.$dtId as tid FROM DIGITALTWINS  
    MATCH (substation)-[:feeds]->(consumer)  
    WHERE substation.$dtId = 'sub_spring_blvd'```; 
