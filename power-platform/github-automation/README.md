@@ -61,66 +61,69 @@ Pictured below is a diagram outlining what the directory structure for the repos
 ![img](images/directory-tree.png)
 
 Take note of the `DeploymentRecord.json` file in this structure. This model is essential for keeping track of changes made to the ontology whenever a pull request is merged. Below is an example of what this model could look like:
-
+``` json
+{
+  "@context": "dtmi:dtdl:context;2",
+  "@id": "dtmi:deployment:DeploymentRecord;1",
+  "@type": "Interface",
+  "displayName": "Git Deployment Record",
+  "contents": [
     {
-      "@context": "dtmi:dtdl:context;2",
-      "@id": "dtmi:deployment:DeploymentRecord;1",
-      "@type": "Interface",
-      "displayName": "Git Deployment Record",
-      "contents": [
-        {
-          "@type": "Property",
-          "name": "Author",
-          "schema": "string"
-        },
-        {
-          "@type": "Property",
-          "name": "CommitId",
-          "schema": "string"
-        },
-        {
-          "@type": "Property",
-          "name": "ChangeURL",
-          "schema": "string"
-        }
-      ]
+      "@type": "Property",
+      "name": "Author",
+      "schema": "string"
+    },
+    {
+      "@type": "Property",
+      "name": "CommitId",
+      "schema": "string"
+    },
+    {
+      "@type": "Property",
+      "name": "ChangeURL",
+      "schema": "string"
     }
+  ]
+}
+```
 
 ![img](./images/deployment_record.png)
 
-In order for **pre-commit** to work, hooks need to get added in `.git/hooks`. However, hooks are ignored by the source control system. This is why the inclusion of `./.scripts/.init.sh` is necessary:
-
-    echo "Installing dependencies for pre-commit."
+In order for **pre-commit** to work, hooks need to get added in `.git/hooks`. However, hooks are ignored by the source control system. This is why the inclusion of 
+`./.scripts/.init.sh` is necessary:
+``` shell
+echo "Installing dependencies for pre-commit."
     
-    pip install pre-commit
+pip install pre-commit
     
-    pre-commit install
+pre-commit install
     
-    echo "Finished configuring pre-commit hooks."
-
+echo "Finished configuring pre-commit hooks."
+ ```
 Verify that `.git/hooks/pre-commit` has been added. At which point, additional hooks can easily be added and configured in `./.pre-commit-config.yaml` Below is an example config file that includes the a validator for DTDL syntax.
+``` yaml
+repos:
+  - repo: local
+    hooks:
+      - id: dtdl-validator
+        name: dtdl-validator
+        files: ".json"
+        language: script
+        entry: ./.scripts/validate.sh
 
-    repos:
-      - repo: local
-        hooks:
-          - id: dtdl-validator
-            name: dtdl-validator
-            files: ".json"
-            language: script
-            entry: ./.scripts/validate.sh
-
+```
 Follow the steps to include the DTDL validator as a [global tool.](https://github.com/Azure-Samples/DTDL-Validator)
 Once complete, ensure that `.scripts/validator.sh` contains the following:
-
-    #!/usr/bin/env sh
-    set -e
+``` shell
+#!/usr/bin/env sh
+set -e
     
-    if dtdl-validator --files "$@"; then
-        echo "Validation Success"
-    else
-        exit 1
-    fi
-
+if dtdl-validator --files "$@"; then
+    echo "Validation Success"
+else
+    exit 1
+fi
+```
 Now whenever an attempt is made to push code upstream, the validator will run and prevent invalid DTDL modesl from being pushed.
 ![img](./images/pre-commit.png )
 
@@ -131,7 +134,7 @@ Now whenever an attempt is made to push code upstream, the validator will run an
 
 Power Automate has first class GitHub and DigitalTwins connectors that empower users by enabling them to manage an ontology using an automated process. For more information explaining ontologies and their benefits [visit](https://learn.microsoft.com/en-us/azure/digital-twins/concepts-ontologies).
 
-In this example, the steps involved when the flow get triggered are as follows:
+In this example, the steps involved when the flow is triggered are as follows:
 
 ![img](images/sequence_diagram.png)
 
