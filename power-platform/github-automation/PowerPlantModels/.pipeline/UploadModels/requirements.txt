@@ -1,4 +1,0 @@
-azure-digitaltwins-core>=1.2.0
-azure-identity>=1.11.0
-tqdm>=4.64.1
-halo>=0.0.31

@@ -1,212 +1,144 @@
 
 # Table of Contents
 
-1.  [Introduction](#org8fff04e)
-2.  [GitHub Setup](#orgdfafabc)
-    1.  [Authenticating GitHub Repository](#orgbb0376e)
-    2.  [Actions Workflow](#orgca588bb)
-3.  [Power Automate Flow](#org42e76f0)
+1.  [Introduction](#org96b5ea3)
+2.  [Pre-Commit](#orgaba53a1)
+    1.  [Setup](#org670901f)
+        1.  [Prequisites](#orgac15989)
+        2.  [Repository Setup](#org0486423)
+3.  [Power Automate Flow](#org28a1352)
+    1.  [Importing the Flow](#orge1d12d9)
 
 
 
-<a id="org8fff04e"></a>
+<a id="org96b5ea3"></a>
 
 # Introduction
 
-This example demonstrates two automated processes. The first processs uploads DTDL models from a GitHub repo to Azure Digital Twins. The second process updates any digital twins that reference the previous model version to use the new model version. The first process is automated via GitHub actions, while the second process is automated through a Power Automate flow.
+This example demonstrates an automated process that can be used to upload DTDL models from a GitHub repo to Azure Digital Twins, upon the successful completion of a pull request. Additionally, this sample will also demonstrate how to use pre-commit to ensure that the models contained GitHub repository adhere to valid DTDL syntax.
 
-Note that there are two strategies for updating models in Azure Digital Twins. This example follows follows strategy 1. Should you decide to follow strategy 2, you can modify the below example as needed:
+Note that there are three strategies for updating models in Azure Digital Twins. This example follows follows strategy 3. Should you decide to follow any other strategy, you can modify the below example as needed:
 
 -   Strategy 1: Upload new model version, then update digital twins referencing previous model version
 -   Strategy 2: Delete current model, then upload new model with the same model ID.
+-   Strategy 3: Delete entire model ontology and reupload all models with every change.
 
-This writeup assumes the following:
+**Note:** This writeup assumes the following:
 
 -   You have the **Owner** role for the Azure Digital Twins instance you are using (for assigning roles).
 -   Your instance has a **system managed identity** assigned to it.
 -   You have ownership over the GitHub repository that you will be using.
 
 
-<a id="orgdfafabc"></a>
+<a id="orgaba53a1"></a>
 
-# GitHub Setup
+# Pre-Commit
 
-This section configures the authentication needed for your GitHub repository and defines a GitHub action that uploads models to Azure Digital Twins upon a commit.
+The inclusion of a linter that validates DTDL syntax for models contained in a GitHub repository is essential for preventing defect leakage along with reducing the workload Power Automate Flow has to carry out, as such checks would not have to be performed during the flow execution. Such functionality can be achieved using **pre-commit** in combination with the DTDL Validator.
 
-
-<a id="orgbb0376e"></a>
-
-## Authenticating GitHub Repository
-
-First create an [Azure AD application](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal) and assign the **Azure Digital Twins Owner Role** to the newly registered AD application.
-
-Next, generate federated credentials that your GitHub repository will use. To do this, navigate in the **Azure portal** to the AD application you registered, and select the **Certificates & Secrets** tab on the left.
-
-Select the **Federated credentials** tab and select **Add credential**.
-![img](./images/add_credential.png)
-
-Select **Github Actions deploying Azure resources**
-![img](./images/add_scenerio.png)
-
-Now fill out the following fields:
-
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+For more information on **pre-commit** visit the offical [documentation](https://pre-commit.com/).
 
 
-<colgroup>
-<col  class="org-left" />
+<a id="org670901f"></a>
 
-<col  class="org-left" />
-
-<col  class="org-left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">Field</th>
-<th scope="col" class="org-left">Description</th>
-<th scope="col" class="org-left">Example</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td class="org-left">Organization</td>
-<td class="org-left">Your GitHub organization anme or GitHub username.</td>
-<td class="org-left"><b>contoso</b></td>
-</tr>
+## Setup
 
 
-<tr>
-<td class="org-left">Repository</td>
-<td class="org-left">Your repository name.</td>
-<td class="org-left"><b>contoso-models</b></td>
-</tr>
+<a id="orgac15989"></a>
+
+### Prequisites
+
+-   Install [**Python**](https://www.python.org/downloads/) >= 3.10
+-   Install [**.NET core**](https://dotnet.microsoft.com/en-us/download) >= 3.1
 
 
-<tr>
-<td class="org-left">Entity Type</td>
-<td class="org-left">The filter used to scope the OIDC requests from GitHub workflows. In our case, we&rsquo;ve set it to filter based on our main branches.</td>
-<td class="org-left"><b>Environment</b>, <b>Branch</b>, <b>Pull Request</b>, <b>Tag</b></td>
-</tr>
-</tbody>
-</table>
+<a id="org0486423"></a>
 
-Lastly, retrieve the following values from your Azure AD application and add them as secrets to your GitHub repository:
+### Repository Setup
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+Pictured below is a diagram outlining what the directory structure for the repository should look like:
 
+![img](images/directory-tree.png)
 
-<colgroup>
-<col  class="org-left" />
+Take note of the `DeploymentRecord.json` file in this structure. This model is essential for keeping track of changes made to the ontology whenever a pull request is merged. Below is an example of what this model could look like:
 
-<col  class="org-left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">GitHub Secret</th>
-<th scope="col" class="org-left">Value from Azure AD Application</th>
-</tr>
-</thead>
+    {
+      "@context": "dtmi:dtdl:context;2",
+      "@id": "dtmi:deployment:DeploymentRecord;1",
+      "@type": "Interface",
+      "displayName": "Git Deployment Record",
+      "contents": [
+        {
+          "@type": "Property",
+          "name": "Author",
+          "schema": "string"
+        },
+        {
+          "@type": "Property",
+          "name": "CommitId",
+          "schema": "string"
+        },
+        {
+          "@type": "Property",
+          "name": "ChangeURL",
+          "schema": "string"
+        }
+      ]
+    }
 
-<tbody>
-<tr>
-<td class="org-left">AZURE_CLIENT_ID</td>
-<td class="org-left">Application (client) ID</td>
-</tr>
-</tbody>
+![img](./images/deployment_record.png)
 
-<tbody>
-<tr>
-<td class="org-left">AZURE_TENANT_ID</td>
-<td class="org-left">Directory (tenant) ID</td>
-</tr>
-</tbody>
+In order for **pre-commit** to work, hooks need to get added in `.git/hooks`. However, hooks are ignored by the source control system. This is why the inclusion of `./.scripts/.init.sh` is necessary:
 
-<tbody>
-<tr>
-<td class="org-left">AZURE_SUBSCRIPTION_ID</td>
-<td class="org-left">Subscription ID</td>
-</tr>
-</tbody>
-
-<tbody>
-<tr>
-<td class="org-left">AZURE_URL</td>
-<td class="org-left">The endpoint for your Digital Twins instance</td>
-</tr>
-</tbody>
-</table>
-
-Additional Resources:
-
--   [Use the portal to create an Azure AD Applicaiton](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)
--   [Use GitHub Actions to connect to Azure](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)
-
-
-<a id="orgca588bb"></a>
-
-## Actions Workflow
-
-In order to setup GitHub Actions you need to first create a **YAML** file in the **.github/workflows** path of your repository that defines the workflow. Copy in the following file body:
-
-    name: CI
-    on:
-      push:
-        branches: [ "main" ]                                                  # Action triggered on push to main branch
-      # pull_request:
-        # branches: [ "main" ]
-      # workflow_dispatch:
-      # Allows you to run this workflow manually from the Actions tab​
+    echo "Installing dependencies for pre-commit."
     
-    permissions:
-      id-token: write
-      contents: read
+    pip install pre-commit
     
-    jobs:
-      build:
-        runs-on: ubuntu-latest
-        steps
-          - uses: actions/checkout@v3                                         # Checks out repository content​
+    pre-commit install
     
-          - name: AZ Login                                                    # Logins in to Azure CLI using secrets that are managed by GitHub
-            uses: azure/login@v1
-            with:
-              client-id: ${{ secrets.AZURE_CLIENT_ID }}
-              tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-              subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-    
-          - name: Changed Files                                               # Stores changed files in a variable that can be referenced in later steps.
-            id: changed_files
-            uses: tj-actions/changed-files@v32.1.2
-            with:
-              separator: " "
-    
-          - name: Setup Python Environment                                    # We're using a Python script to upload models. If using a different language different steps would be required to
-            uses: actions/setup-python@v4.3.0                                 # Setup execution environment
-            with:
-              python-version: 3.11.0-rc.2
-    
-          - name: Install dependencies
-            run: |
-              python -m pip install --upgrade pip
-              python -m pip install -r ./.pipeline/UploadModels/requirements.txt
-    
-          - name: Run Script to Upload Models                                 # Executes script that uploads models.
-            run: |
-              python ./.pipeline/UploadModels/main.py ${{ secrets.AZURE_URL }} ${{ steps.changed_files.outputs.all_changed_files }}
+    echo "Finished configuring pre-commit hooks."
 
-For more information on GitHub Actions, visit the official [documentation.](https://docs.github.com/en/actions)
+Verify that `.git/hooks/pre-commit` has been added. At which point, additional hooks can easily be added and configured in `./.pre-commit-config.yaml` Below is an example config file that includes the a validator for DTDL syntax.
 
-The script that gets executed can be found [here](./PowerPlantModels/.pipeline/UploadModels/main.py).
+    repos:
+      - repo: local
+        hooks:
+          - id: dtdl-validator
+            name: dtdl-validator
+            files: ".json"
+            language: script
+            entry: ./.scripts/validate.sh
+
+Follow the steps to include the DTDL validator as a [global tool.](https://github.com/Azure-Samples/DTDL-Validator)
+Once complete, ensure that `.scripts/validator.sh` contains the following:
+
+    #!/usr/bin/env sh
+    set -e
+    
+    if dtdl-validator --files "$@"; then
+        echo "Validation Success"
+    else
+        exit 1
+    fi
+
+Now whenever an attempt is made to push code upstream, the validator will run and prevent invalid DTDL modesl from being pushed.
+![img](./images/pre-commit.png )
 
 
-<a id="org42e76f0"></a>
+<a id="org28a1352"></a>
 
 # Power Automate Flow
 
-Below is a diagram of the flow, which is triggered then the PR for the model commit is closed in GitHub.
+Power Automate has first class GitHub and DigitalTwins connectors that empower users by enabling them to manage an ontology using an automated process. For more information explaining ontologies and their benefits [visit](https://learn.microsoft.com/en-us/azure/digital-twins/concepts-ontologies).
 
-![img](./images/sequence_diagram.png)
+In this example, the steps involved when the flow get triggered are as follows:
+
+![img](images/sequence_diagram.png)
+
+
+<a id="orge1d12d9"></a>
+
+## Importing the Flow
 
 To begin, navigate to the **My flows** tab in Power Automate and select the **Import Package** option.
 
