@@ -17,20 +17,19 @@ var iss_grafana_server_farm_name = 'iss-grafana-asp-${url_safe_suffix}'
 var iss_signalr_broadcaster_name = 'iss-signalr-broadcaster-${url_safe_suffix}'
 var iss_io_server_farm_name = 'iss-io-asp-${url_safe_suffix}'
 
-module twins 'iss.digitaltwins.bicep' = {
-  name: '${deployment().name}-twins'
-  params: {
-    resource_location: resource_location
-    iss_digital_twins_name: iss_digital_twins_name
-  }
-}
-
 module adx 'iss.adx.bicep' = {
   name: '${deployment().name}-adx'
   params: {
     resource_location: resource_location
     iss_digital_twins_adx_name: 'issadx${storage_safe_suffix}'
     iss_digital_twins_db_name: 'db${storage_safe_suffix}'
+  }
+}
+module twins 'iss.digitaltwins.bicep' = {
+  name: '${deployment().name}-twins'
+  params: {
+    resource_location: resource_location
+    iss_digital_twins_name: iss_digital_twins_name
   }
 }
 

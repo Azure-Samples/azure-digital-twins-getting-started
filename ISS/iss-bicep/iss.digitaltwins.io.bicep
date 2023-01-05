@@ -172,7 +172,7 @@ resource iss_ground_position_adapter 'Microsoft.Web/sites@2021-03-01' = {
         }
         {
           name: 'EVENT_HUB_NAME'
-          value: '${iss_ingest_eventhub.name}'
+          value: iss_ingest_eventhub.name
         }
         {
           name: 'LLH_PROPAGATION_INTERVAL'
@@ -240,7 +240,7 @@ resource iss_adapter 'Microsoft.Web/sites@2021-03-01' = {
         }
         {
           name: 'EVENT_HUB_NAME'
-          value: '${iss_ingest_eventhub.name}'
+          value: iss_ingest_eventhub.name
         }
         {
           name: 'MAX_UPDATE_FREQUENCY'
@@ -320,7 +320,7 @@ resource iss_adt_ingestor 'Microsoft.Web/sites@2021-03-01' = {
         }
         {
           name: 'INGESTION_EVENTHUB_NAME'
-          value: '${iss_ingest_eventhub.name}'
+          value: iss_ingest_eventhub.name
         }
         {
           name: 'INGESTION_GENERIC_ENABLED'

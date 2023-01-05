@@ -43,6 +43,10 @@ This directory contains all the scripts and code to track the [International Spa
 
         az bicep install
 
+    > :information_source: If you've already got the Bicep CLI installed, you can update it by running the following command
+    >
+    >    az bicep upgrade
+
 7. **Powershell**
 
     You will also need to make sure you have Powershell installed, you can do this [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-windows?view=powershell-6).

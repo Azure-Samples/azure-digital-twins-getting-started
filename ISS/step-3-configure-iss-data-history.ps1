@@ -21,10 +21,6 @@ Write-Output 'Making current user owner of  '$iss_adt_instance_name
 $Azcontext = Get-AzContext    
 $myId = $Azcontext[0].Account
 
-## Assigne current user as Azure Digital Twins Data Owner
-az dt role-assignment create -n $iss_adt_instance_name --assignee $iss_digital_twins_history_identity_id --role "Azure Digital Twins Data Owner"
-az dt role-assignment create -n $iss_adt_instance_name --assignee $myId --role "Azure Digital Twins Data Owner"
-
 ## Add App Registration for Grafana to the correct database as a reader so our queries work
 
 az kusto database add-principal --cluster-name $iss_adx_history_cluster --database-name $iss_adx_history_cluster_db --value name=$iss_adt_instance_name type="App" app-id=$iss_adt_principal_id role="Admin" fqn="aadapp=$iss_adt_principal_id" --resource-group $ResourceGroupName
@@ -37,5 +33,5 @@ az dt route create -n $iss_adt_instance_name --en $iss_adt_egress_event_hub --ro
 Write-Output 'Configuring Azure Digital Twins Data History'
 
 ## Setup Azure Digital Twins Data History
-az dt data-history create adx -n $iss_adt_instance_name --cn "adtdatahistory" --adx-cluster-name $iss_adx_history_cluster --adx-database-name $iss_adx_history_cluster_db --adx-table-name $iss_data_history_table_name --eventhub $iss_adt_egress_event_hub --eventhub-namespace $iss_adt_ingress_event_hub_namespace
+az dt data-history connection create adx -n $iss_adt_instance_name --cn "adtdatahistory" --adx-cluster-name $iss_adx_history_cluster --adx-database-name $iss_adx_history_cluster_db --adx-table-name $iss_data_history_table_name --eventhub $iss_adt_egress_event_hub --eventhub-namespace $iss_adt_ingress_event_hub_namespace
 

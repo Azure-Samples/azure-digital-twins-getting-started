@@ -41,6 +41,7 @@ az ad app permission add --id $iss_app_id  --api 00000003-0000-0000-c000-0000000
 az ad app permission add --id $iss_app_id  --api 00000003-0000-0000-c000-000000000000 --api-permissions 14dad69e-099b-42c9-810b-d002981feec1=Scope
 
 ## Grant permissions to the app
+az ad app permission grant --id 90f678d9-289f-4b52-bb02-5567ab6c2ca9 --api 00000003-0000-0000-c000-000000000000
 az ad app permission grant --id 5c4bab6b-3347-4507-9b74-4441cda3ea98 --api 00000003-0000-0000-c000-000000000000
 
 Write-Output 'Assigning permissions to ISS ADT Service Principal as Reader'
