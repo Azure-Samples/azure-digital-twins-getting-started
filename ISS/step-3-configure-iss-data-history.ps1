@@ -21,14 +21,7 @@ Write-Output 'Making current user owner of  '$iss_adt_instance_name
 $Azcontext = Get-AzContext    
 $myId = $Azcontext[0].Account
 
-## Add App Registration for Grafana to the correct database as a reader so our queries work
-
 az kusto database add-principal --cluster-name $iss_adx_history_cluster --database-name $iss_adx_history_cluster_db --value name=$iss_adt_instance_name type="App" app-id=$iss_adt_principal_id role="Admin" fqn="aadapp=$iss_adt_principal_id" --resource-group $ResourceGroupName
-
-Write-Output 'Creating property update event route for '$iss_adt_instance_name
-
-## Create Event Route for Property Update Event to Event Hub Endpoint
-az dt route create -n $iss_adt_instance_name --en $iss_adt_egress_event_hub --route-name 'TwinPropertyUpdatesRoute' --filter "type = 'Microsoft.DigitalTwins.Twin.Update'"
 
 Write-Output 'Configuring Azure Digital Twins Data History'
 
