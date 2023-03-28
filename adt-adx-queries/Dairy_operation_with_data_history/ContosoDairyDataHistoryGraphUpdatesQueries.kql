@@ -1,4 +1,4 @@
-// Open Azure Data Explorer web UI, and click on the cluster that your slected when you created the data history connection.
+// Open Azure Data Explorer web UI, and click on the database you slected when you created the data history connection.
 // Copy and paste each query below into Azure Data Explorer. To run a query, click on the query to highlight it and press the Run button.  
 // In each query, replace <twin property updates table-name> with the table name of your twin property updates table name (default table name) in your data history connection
 // In each query, replace <twin lifecycle events table-name> with the table name of your twin lifecycle events table name in your data history connection
@@ -121,7 +121,7 @@ let twins = <relationship lifecycle events table-name>
   | where TimeStamp < ts
   | summarize arg_max(TimeStamp, *) by RelationshipId
   | where Action != "Delete" and Name == relationshipName and Source == technicianName
-  | join kind=inner adt_dh_{instance_name}_{region_name}_twinevents on $left.Target == $right.TwinId
+  | join kind=inner <twin lifecycle events table-name> on $left.Target == $right.TwinId
   | where ModelId has machineType
   | project TwinId;
 twins
