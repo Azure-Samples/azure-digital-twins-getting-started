@@ -1,0 +1,144 @@
+// Open Azure Data Explorer web UI, and click on the cluster that your slected when you created the data history connection.
+// Copy and paste each query below into Azure Data Explorer. To run a query, click on the query to highlight it and press the Run button.  
+// In each query, replace <twin property updates table-name> with the table name of your twin property updates table name (default table name) in your data history connection
+// In each query, replace <twin lifecycle events table-name> with the table name of your twin lifecycle events table name in your data history connection
+// In each query, replace <relationship lifecycle events table-name> with the table name of your relationship lifecycle events table name in your data history connection
+
+// Get all active relationships at time ts.
+let ts = now(); // set ts to a time of interest, e.g. datetime(2022-08-22T09:26:00-07)
+<relationship lifecycle events table-name>
+| where TimeStamp < ts
+| summarize arg_max(TimeStamp, *) by RelationshipId
+| where Action != "Delete"
+| project RelationshipId, creationTimestamp=TimeStamp, Source, Target, Name
+
+// List all active twins at time ts. 
+Let ts = now(); // set ts to a time of interest, e.g. datetime(2022-08-22T09:26:00-07)
+<twin lifecycle events table-name>
+| where TimeStamp < ts
+| summarize arg_max(TimeStamp, *) by TwinId 
+| where Action != “Delete”
+| project TwinId, creationTimestamp=TimeStamp, ModelId
+
+// List all active twins and their property values (if any) at time ts. 
+let ts = now(); // set ts to a time of interest, e.g. datetime(2022-08-22T09:26:00-07)
+<twin lifecycle events table-name>
+| where TimeStamp < ts
+| summarize arg_max(TimeStamp, *) by TwinId
+| where Action != "Delete"
+| join hint.strategy=broadcast kind=leftouter <twin property updates table name> on $left.TwinId == $right.Id
+| where TimeStamp1 < ts or isnull(TimeStamp1)
+| summarize arg_max(TimeStamp1, *) by TwinId, Key
+| extend p = pack("name", Key, "value", Value, "TimeStamp", TimeStamp1)
+| summarize properties=make_list_if(p, isnotempty(Key)) by TwinId
+
+// Get deleted SaltMachine twins during an interval along with twins that were related to them before the twin deletion event. 
+// Related twins are determined by identifying the youngest deleted relationships that targeted the deleted twins 
+// (all relationships to/from a twin before you can delete a twin).
+// Knowing the related source twins can provide additional context regarding the deleted twins.
+// Update startTime and endTime accordingly.
+let startTime=datetime(2022-08-23);
+let endTime=now();
+<twin lifecycle events table-name>
+| where TimeStamp between (startTime..endTime) and Action == "Delete" and ModelId has "SaltMachine"
+| summarize arg_max(TimeStamp, *) by TwinId 
+| join kind=inner <relationship lifecycle events table-name> on $left.TwinId == $right.Target
+| where TimeStamp1 < TimeStamp and Action1 == "Delete"
+| summarize arg_max(RelationshipDeletionTS=TimeStamp1, RelationshipId) by SourceTwin=Source, RelationshipName=Name, DeletedTwin=Target, TwinDeletionTS=TimeStamp
+| sort by DeletedTwin asc
+
+// Find all unrooted 5-hop traversals present in the graph at time ts. Qualifying paths can start from any twin (unrooted).
+let ts = now(); // set ts to a time of interest, e.g. datetime(2022-08-22T09:26:00-07)
+let E = materialize(<relationship lifecycle events table-name>
+  | where TimeStamp < ts
+  | summarize arg_max(TimeStamp, *) by RelationshipId
+  | where Action != "Delete");
+E
+| join hint.strategy=broadcast kind=inner (E) on $left.Target == $right.Source | project path = pack_array(Source, Target, Target1), current = Target1
+| join hint.strategy=broadcast kind=inner (E) on $left.current == $right.Source | project path = array_concat(path, pack_array(Target)), current = Target
+| join hint.strategy=broadcast kind=inner (E) on $left.current == $right.Source | project path = array_concat(path, pack_array(Target))
+
+// Find all unrooted 3-5 traversals at time ts. Qualifying paths can start from any twin (unrooted).
+let ts = now(); // set ts to a time of interest, e.g. datetime(2022-08-22T09:26:00-07)
+let E = materialize(<relationship lifecycle events table-name>
+  | where TimeStamp < ts
+  | summarize arg_max(TimeStamp, *) by RelationshipId
+  | where Action != "Delete");
+E
+| join hint.strategy=broadcast kind=inner (E) on $left.Target == $right.Source | project path = pack_array(Source, Target, Target1), current = Target1
+| join hint.strategy=broadcast kind=leftouter (E) on $left.current == $right.Source | project path = array_concat(path, pack_array(Target)), current = Target
+| join hint.strategy=broadcast kind=leftouter (E) on $left.current == $right.Source | project path = array_concat(path, pack_array(Target))
+
+// Find all rooted 5-hop traversals starting from the "Norway" twin at time ts. Qualifying paths can start from any twin (unrooted).
+let ts = now(); // set ts to a time of interest, e.g. datetime(2022-08-22T09:26:00-07)
+let E = materialize(<relationship lifecycle events table-name>
+  | where TimeStamp < ts
+  | summarize arg_max(TimeStamp, *) by RelationshipId
+  | where Action != "Delete");
+E
+| where Source == "Norway"
+| join hint.strategy=broadcast kind=inner (E) on $left.Target == $right.Source | project path = pack_array(Source, Target, Target1), current = Target1
+| join hint.strategy=broadcast kind=inner (E) on $left.current == $right.Source | project path = array_concat(path, pack_array(Target)), current = Target
+| join hint.strategy=broadcast kind=inner (E) on $left.current == $right.Source | project path = array_concat(path, pack_array(Target))
+
+// Last Known Value (LKV) of all properties of twin SaltMachine_C1 at time ts
+let point_lookup_id = 'SaltMachine_C1';
+let ts = now(); // set ts to a time of interest, e.g. datetime(2022-08-22T09:26:00-07)
+<twin property updates table name>
+| where Id == point_lookup_id
+| where TimeStamp < ts
+| summarize arg_max(TimeStamp, Value) by Key, Id
+| extend p = pack("name", Key, "value", Value, "TimeStamp", TimeStamp)
+| summarize make_list(p) by Id
+
+// Find all rooted 5-hop traversals starting from the "Norway" twin along with the LKV's for the twin at end of the traversal, at time ts
+let ts = now(); // set ts to a time of interest, e.g. datetime(2022-08-22T09:26:00-07)
+let traversalSource = "Norway";
+let E = materialize(<relationship lifecycle events table-name>
+  | where TimeStamp < ts
+  | summarize arg_max(TimeStamp, *) by RelationshipId
+  | where Action != "Delete");
+let traversals = materialize(E
+  | where Source == traversalSource
+  | join hint.strategy=broadcast kind=inner (E) on $left.Target == $right.Source | project path = pack_array(Source, Target, Target1), current = Target1
+  | join hint.strategy=broadcast kind=inner (E) on $left.current == $right.Source | project path = array_concat(path, pack_array(Target)), current = Target
+  | join hint.strategy=broadcast kind=inner (E) on $left.current == $right.Source | project path = array_concat(path, pack_array(Target)), current = Target);
+traversals
+| join hint.strategy=broadcast kind=rightsemi <twin property updates table name> on $left.current == $right.Id
+| where TimeStamp < ts
+| summarize arg_max(TimeStamp, Value) by Key, Id
+| extend p = pack("name", Key, "value", Value, "TimeStamp", TimeStamp)
+| summarize make_list(p) by Id
+| join hint.strategy=broadcast kind=inner traversals on $left.Id == $right.current
+| project path, Id, properties=list_p
+
+// Find the state of salt machines maintained by Xenia at time ts
+let ts = now(); // set ts to a time of interest, e.g. datetime(2022-08-22T09:26:00-07)
+let technicianName = "Xenia";
+let relationshipName = "maintains";
+let machineType = "SaltMachine";
+let twins = <relationship lifecycle events table-name>
+  | where TimeStamp < ts
+  | summarize arg_max(TimeStamp, *) by RelationshipId
+  | where Action != "Delete" and Name == relationshipName and Source == technicianName
+  | join kind=inner adt_dh_{instance_name}_{region_name}_twinevents on $left.Target == $right.TwinId
+  | where ModelId has machineType
+  | project TwinId;
+twins
+| join hint.strategy=broadcast kind=rightsemi <twin property updates table name> on $left.TwinId == $right.Id
+| where TimeStamp < ts
+| summarize arg_max(TimeStamp, Value) by Key, Id
+| extend p = pack("name", Key, "value", Value, "TimeStamp", TimeStamp)
+| summarize make_list(p) by Id
+
+// Find paths with an "employs" relationship followed by a "maintains" relationship ( similar to MATCH (factory)-[:employs]->(person)-[:maintains]->(machine) ), at time ts
+let ts = now(); // set ts to a time of interest, e.g. datetime(2022-08-22T09:26:00-07)
+let realtionship1 = "employs";
+let relationship2 = "maintains";
+let E = materialize(<relationship lifecycle events table-name>
+  | where TimeStamp < ts
+  | summarize arg_max(TimeStamp, *) by RelationshipId
+  | where Action != "Delete");
+E
+| where Name == realtionship1
+| join hint.strategy=broadcast kind=inner (E) on $left.Target == $right.Source | where Name1 == relationship2| project path = pack_array(Source, strcat("-[:", Name,"]->"), Target, strcat("-[:", Name1,"]->"), Target1)
