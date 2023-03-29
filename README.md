@@ -25,9 +25,8 @@ This project contains the following folders.
 | [ISS](/ISS) | Project to track the International Space Station with Azure Digital Twins and Azure Data Explorer |
 | [bulk-import](/ndjson-generator) | Contains helper code to generate ndjson files that can be used for bulk import |
 
-
 ## Resources
 
-- [Azure Digital Twins documentation](https://docs.microsoft.com/azure/digital-twins/)
-- [**DTDL Models** in the Azure Digital Twins documentation](https://docs.microsoft.com/azure/digital-twins/concepts-models)
+- [Azure Digital Twins documentation](https://learn.microsoft.com/azure/digital-twins/)
+- [**DTDL Models** in the Azure Digital Twins documentation](https://learn.microsoft.com/azure/digital-twins/concepts-models)
 - [DTDL v2 spec](https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md)

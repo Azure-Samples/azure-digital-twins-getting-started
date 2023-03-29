@@ -1,15 +1,15 @@
-# Creating dashboards with Azure Digital Twins, Azure Data Explorer, and Grafana 
+# Creating dashboards with Azure Digital Twins, Azure Data Explorer, and Grafana
 
-This article shows how to create dashboards to visualize the performance of the dairy operation example in [Use data history with Azure Data Explorer](https://docs.microsoft.com/azure/digital-twins/how-to-use-data-history). The dashboards feature dropdown menus, charts, gauges, and other elements that allow end users to inspect the behavior of various digital twins. Dropdown menu selections drive dynamic queries that query the twin graph based on twin type, twin name, and twin relationships. You can use these examples to build dashboards for your own Azure Digital Twins environments.
+This article shows how to create dashboards to visualize the performance of the dairy operation example in [Use data history with Azure Data Explorer](https://learn.microsoft.com/azure/digital-twins/how-to-use-data-history). The dashboards feature dropdown menus, charts, gauges, and other elements that allow end users to inspect the behavior of various digital twins. Dropdown menu selections drive dynamic queries that query the twin graph based on twin type, twin name, and twin relationships. You can use these examples to build dashboards for your own Azure Digital Twins environments.
 
 ## Prerequisites
 
-* Complete the [Use data history with Azure Data Explorer](https://docs.microsoft.com/azure/digital-twins/how-to-use-data-history) exercise
+* Complete the [Use data history with Azure Data Explorer](https://learn.microsoft.com/azure/digital-twins/how-to-use-data-history) exercise
 * Gain access to your own [Grafana](https://grafana.com/grafana/) resource
 
-## Connect Grafana to an Azure Data Explorer data source 
+## Connect Grafana to an Azure Data Explorer data source
 
-The data history feature for Azure Digital Twins historizes twin changes to an Azure Data Explorer database.  You can connect this database to Grafana by following the steps in [Visualize data from Azure Data Explorer in Grafana](https://docs.microsoft.com/azure/data-explorer/grafana) (the video included in the guide is a great place to start). When installing the Azure Data Explorer plugin, make sure that the plugin is version 3.6.1 or higher.
+The data history feature for Azure Digital Twins historizes twin changes to an Azure Data Explorer database.  You can connect this database to Grafana by following the steps in [Visualize data from Azure Data Explorer in Grafana](https://learn.microsoft.com/azure/data-explorer/grafana) (the video included in the guide is a great place to start). When installing the Azure Data Explorer plugin, make sure that the plugin is version 3.6.1 or higher.
 
 ## Assign your app registration the Azure Digital Twins Data Reader role
 
@@ -53,7 +53,7 @@ You can also view the KQL queries that fetch data for a panel. Click on **Edit**
 
 ![Screenshot of panel query in Grafana.](images/grafana-5.png)
 
-In the editor, you can view the query for each tile that uses Grafana variables. These variables are driven by the menu queries discussed above. 
+In the editor, you can view the query for each tile that uses Grafana variables. These variables are driven by the menu queries discussed above.
 
 ![Screenshot of edit panel in Grafana.](images/grafana-6.png)
 

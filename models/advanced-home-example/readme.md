@@ -10,7 +10,7 @@
 
 In the `Sensor` model, both the Humidity property and Temperature telemetry are semantic type (from basic double).
 
-<img src="../../images/adv-home-semantic.png" style="max-width: 400px" alt="screen shot of semantic types dtdl example" />
+![Screenshot of semantic types DTDL example](../../images/adv-home-semantic.png)
 
 The same is true for the `Room` model's Humidity property.
 
@@ -18,25 +18,26 @@ The same is true for the `Room` model's Humidity property.
 
 Added a new address complex type to collect address information on the `Home` model.
 
-<img src="../../images/adv-home-object.png" style="max-width: 400px" alt="screen shot of a complex type dtdl example" />
+![Screenshot of a complex type DTDL example](../../images/adv-home-object.png)
 
 ## Inheritance
-Added the ICore.json to include an id and name. 
 
-<img src="../../images/adv-home-core.png" style="max-width: 400px" alt="screen shot of inheritance dtdl example" />
+Added the ICore.json to include an id and name.
+
+![Screenshot of inheritance DTDL example](../../images/adv-home-core.png)
 
 The `dtmi:com:adt:dtsample:core;1` is extended by the `Home`, `Floor`, and `Room` models.
 
-<img src="../../images/adv-home-inheritance.png" style="max-width: 400px" alt="screen shot of inheritance extended dtdl example" />
+![Screenshot of inheritance extended DTDL example](../../images/adv-home-inheritance.png)
 
 ## Relationship Properties
 
 Relationship `dtmi:com:adt:dtsample:home:rel_has_floors;1` on the `Home` model has a newly added property.
 
-<img src="../../images/adv-home-rel.png" style="max-width: 400px" alt="screen shot of relationship properties dtdl example" />
+![Screenshot of relationship properties DTDL example](../../images/adv-home-rel.png)
 
 ## Non-Targeted Relationship
 
 Removed the target property on the `dtmi:com:adt:dtsample:room:rel_has_sensors;1` on the `Room` model.
 
-<img src="../../images/adv-home-nontarget.png" style="max-width: 400px" alt="screen shot of non-targeted relationship dtdl example" />
+![Screenshot of non-targeted relationship DTDL example](../../images/adv-home-nontarget.png)

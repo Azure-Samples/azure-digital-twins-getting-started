@@ -8,7 +8,7 @@ To get you up and running with the plugin, these instructions provide an example
 
 1. Create an Azure Digital Twins instance using the CLI commands below or via the Azure portal. Copy the instance's URL once it is online.
 
-    ```
+    ```azure-cli
     az account set --subscription <your-subscription-ID>
     az dt create -n <instance-name> -g <resource-group> 
     ```
@@ -17,9 +17,9 @@ To get you up and running with the plugin, these instructions provide an example
   
 1. Grant yourself the **Azure Digital Twins Data Owner** role on the instance. It may take up to five minutes for this RBAC change to apply.
   
-    ```
+    ```azure-cli
     az dt role-assignment create -n <instance-name> --assignee "<owneruser@microsoft.com>" --role "Azure Digital Twins Data Owner" 
-    ``` 
+    ```
 
 1. Download the sample models and graph from the [energy-grid-example](../../models/energy-grid-example) folder to your local computer. You can do this by cloning this repository or downloading it as a ZIP, and then navigating to the energy-grid-example folder on your machine.
 
@@ -61,7 +61,7 @@ To get you up and running with the plugin, these instructions provide an example
 
     ![Screenshot of running a query with the Azure Digital Twins query plugin for Azure Data Explorer in the Azure portal.](../../images/adt-adx-queries/adx-query.png)
 
-Want even more fun? Build an Azure Data Explorer dashboard with charts from your new Azure Digital Twins/Azure Data Explorer queries! Azure Data Explorer also offers integrations with third party visualization packages such as [Power BI](https://docs.microsoft.com/azure/data-explorer/power-bi-best-practices), Grafana, Tableau and others.
+Want even more fun? Build an Azure Data Explorer dashboard with charts from your new Azure Digital Twins/Azure Data Explorer queries! Azure Data Explorer also offers integrations with third party visualization packages such as [Power BI](https://learn.microsoft.com/azure/data-explorer/power-bi-best-practices), Grafana, Tableau and others.
 
 ![Screenshot of the Import Graph icon in Azure Digital Twins Explorer.](../../images/adt-adx-queries/adx-dashboard.png)
 
@@ -71,7 +71,7 @@ When you're finished, follow these steps to delete the resources used in this wa
 
 1. Delete your Azure Digital Twins instance using the following CLI command. This will also delete the twins and models associated with the instance.
 
-    ```
+    ```azure-cli
     az dt delete -n <instance-name>
     ```
 

@@ -10,7 +10,6 @@ This directory contains all the scripts and code to track the [International Spa
 - [x] Add Hololens src into [iss-hololens](./iss-hololens) directory with [string replacable parameters] which can be replaced by the powershell.
 - [ ] Add Option to deploy with IoT Hub ingestion rather than event hub ingestion
 
-
 ## Prerequisites
 
 1. **Azure Subcription**
@@ -19,23 +18,23 @@ This directory contains all the scripts and code to track the [International Spa
 
 2. **Azure Command Line Interface**
 
-   You'll also need to make sure you have the latest Azure cli installed, you can do this [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest).
+   You'll also need to make sure you have the latest Azure cli installed, you can do this [here](https://learn.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest).
 
    You will also need the Azure Powershell Module using the following command
 
         Install-Module -Name Az -AllowClobber -Scope CurrentUser -Force
 
 3. **Git Command Line Interface**
-   
+
     You will also need to make sure you have git installed, you can do this following instructions [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 
 4. **dotnet SDK**
 
-    The dotnet 6 SDK is required to run this quickstart. You can install it [here](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script).
+    The dotnet 6 SDK is required to run this quickstart. You can install it [here](https://learn.microsoft.com/dotnet/core/tools/dotnet-install-script).
 
 5. **Azure Function Core tools**
 
-    Azure Function Core tools are also required to run this quickstart. You can install it [here](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Ccsharp%2Cportal%2Cbash).
+    Azure Function Core tools are also required to run this quickstart. You can install it [here](https://learn.microsoft.com/azure/azure-functions/functions-run-local).
 
 6. **Bicep CLI**
 
@@ -49,12 +48,12 @@ This directory contains all the scripts and code to track the [International Spa
 
 7. **Powershell**
 
-    You will also need to make sure you have Powershell installed, you can do this [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-windows?view=powershell-6).
+    You will also need to make sure you have Powershell installed, you can do this [here](https://learn.microsoft.com/powershell/scripting/install/installing-powershell-core-on-windows?view=powershell-6).
 
 ## Getting started
 
 Once you've got your Azure Suscription, and have the azure cli installed, you can start by running the following commands to setup the entire environment.
-    
+
     az login
 
 You'll then need to set the scope of your subscription.
@@ -65,7 +64,7 @@ Then run the command below to create deploy the entire environment.
 
     ./iss-digitaltwins.ps1 <your-subscription-id> <location> <your-digitaltwins-name> <your-aad-login-domain e.g. https://login.microsoft.com>
 
-The above script will prompt you for to allow some changes for Azure Digital Twins Data History. 
+The above script will prompt you for to allow some changes for Azure Digital Twins Data History.
 
 The script above will do the following
 
@@ -73,8 +72,8 @@ The script above will do the following
 2. Configure Grafana Dashboards and connect it to the Azure Active Directory and Azure Data Explorer
 3. Configure Azure Digital Twins Data History
 4. Deploy All custom code for the applications
-5. Configure the Hololens App to point at the deployed environment    
-5. Generate Links for the applications
+5. Configure the Hololens App to point at the deployed environment
+6. Generate Links for the applications
 
 >☕  This script takes around 15-20 minutes to run while to run - so you'll want to go boil the kettle.
 
@@ -83,8 +82,6 @@ The script above will do the following
 Once the scripts (steps 1-5) are completed you should have the following architecture deployed in your Azure subscription.
 
 ![ISS Architecture with event hub](../images/ISS/iss-architecture-event-hub-ingest.png)
-
-
 
 ## The code
 
@@ -111,9 +108,9 @@ You will see that you have a number of sensor twins already configured (this sho
 
 ![auto provisioned twins](../images/ISS/iss-auto-provisioned-twins.png)
 
-At the moment there's not much graphical context to the sensors. This means the Dashboard called "Mission Control Panels" won't work as there's no Structure for you to browse through. 
+At the moment there's not much graphical context to the sensors. This means the Dashboard called "Mission Control Panels" won't work as there's no Structure for you to browse through.
 
-So let's group the sensors by their discipline (Mission Control Callsigns) by running the following script 
+So let's group the sensors by their discipline (Mission Control Callsigns) by running the following script.
 
     ./step-7-organize-iss-sensors.ps1 <your-digitaltwins-name> <your-resource-group-name>
 
@@ -123,7 +120,6 @@ This will create a new twin for each disicpline and add the sensors to those twi
 
 ![Organized twins](../images/ISS/iss-organized-twins.png)
 
-
 ## Clean up
 
 When you want to remove all the azure resources which this project setup simply run the following script
@@ -131,4 +127,3 @@ When you want to remove all the azure resources which this project setup simply 
     ./step-10-teardown.ps1 <your-resource-group-name> iss.azure
 
 This command will delete everything deployed by the bicep deployment you ran earlier.
-
