@@ -1,7 +1,7 @@
 {
   "@id": "dtmi:com:adt:dtsample:sensor;1",
   "@type": "Interface",
-  "@context": "dtmi:dtdl:context;2",
+  "@context": "dtmi:dtdl:context;3",
   "displayName": "Sensor",
   "contents": [
     {

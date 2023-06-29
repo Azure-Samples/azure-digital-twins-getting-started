@@ -1,6 +1,6 @@
 {
     "@id": "dtmi:example:grid:plants:IndustrialPlant;1",
-    "@context": "dtmi:dtdl:context;2",
+    "@context": "dtmi:dtdl:context;3",
     "@type": "Interface",
     "extends": ["dtmi:example:grid:plants:basePlant;1"],
     "displayName": "Industrial Plant"
