@@ -1,8 +1,8 @@
 {
-  "@id": "dtmi:com:adt:dtsample:sensor;1",
+  "@id": "dtmi:com:adt:dtsample:v2sensor;1",
   "@type": "Interface",
   "@context": "dtmi:dtdl:context;2",
-  "displayName": "Sensor",
+  "displayName": "Sensor (v2 model)",
   "contents": [
     {
       "@type": ["Telemetry", "Temperature"],
