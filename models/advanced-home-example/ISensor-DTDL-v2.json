@@ -1,0 +1,20 @@
+{
+  "@id": "dtmi:com:adt:dtsample:sensor;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Sensor",
+  "contents": [
+    {
+      "@type": ["Telemetry", "Temperature"],
+      "name": "temperature",
+      "schema": "double",
+      "unit": "degreeFahrenheit"    
+    },
+    {
+      "@type": ["Property", "Humidity"],
+      "name": "humidity",
+      "schema": "double",
+      "unit": "gramPerCubicMetre" 
+    }
+  ]
+}
