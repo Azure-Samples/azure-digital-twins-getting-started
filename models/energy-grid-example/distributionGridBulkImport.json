@@ -1,0 +1,117 @@
+{"Section": "Header"}
+{"fileVersion": "1.0.0", "author": "john", "organization": "ContosoEnergyGrid"}
+{"Section": "Models"}
+{"@id":"dtmi:example:grid:consumer:baseConsumer;1","@context":"dtmi:dtdl:context;3","@type":"Interface","displayName":"Base consumer","contents":[{"@type":"Property","name":"PowerRequirement","schema":"double"}]}
+{"@id":"dtmi:example:grid:plants:basePlant;1","@context":"dtmi:dtdl:context;3","@type":"Interface","displayName":"Base plant","contents":[{"@type":"Property","name":"Output","schema":"double"},{"@type":"Relationship","name":"feeds","target":"dtmi:example:grid:transmission:powerLine;1"},{"@type":"Property","name":"EmissionType","comment":"[GLOBALTYPE]","schema":{"@type":"Enum","valueSchema":"string","enumValues":[{"name":"Renewable","displayName":"Renewable","enumValue":"Renewable"},{"name":"Traditional","displayName":"Traditional","enumValue":"Traditional"}]}},{"@type":"Property","name":"ManufacturerInfo","comment":"[GLOBALTYPE]","schema":{"@type":"Object","comment":"[GLOBALTYPE]","fields":[{"name":"Name","schema":"string"},{"name":"Address","schema":{"@type":"Object","comment":"[GLOBALTYPE]","fields":[{"name":"Street","schema":"string"},{"name":"City","schema":"string"},{"name":"Zip","schema":"string"},{"name":"Country","schema":"string"}]}}]}}]}
+{"@id":"dtmi:example:grid:plants:domesticConsumer;1","@context":"dtmi:dtdl:context;3","@type":"Interface","displayName":"Domestic consumer","extends": ["dtmi:example:grid:consumer:baseConsumer;1"]}
+{"@id":"dtmi:example:grid:plants:farmConsumer;1","@context":"dtmi:dtdl:context;3","@type":"Interface","displayName":"Farm consumer","extends": ["dtmi:example:grid:consumer:baseConsumer;1"]}
+{"@id":"dtmi:example:grid:plants:industrialConsumer;1","@context":"dtmi:dtdl:context;3","@type":"Interface","displayName":"Industrial consumer","extends": ["dtmi:example:grid:consumer:baseConsumer;1"],"contents":[{"@type":"Relationship","name":"hasGenerator","target":"dtmi:example:grid:plants:basePlant;1"}]}
+{"@id":"dtmi:example:grid:transmission:baseReceiver;1","@context":"dtmi:dtdl:context;3","@type":"Interface","displayName":"Base receiver"}
+{"@id":"dtmi:example:grid:transmission:deliverySubStation;1","@context":"dtmi:dtdl:context;3","@type":"Interface","displayName":"Delivery substation","extends": ["dtmi:example:grid:transmission:baseReceiver;1"],"contents":[{"@type":"Property","name":"Capacity","schema":"double"},{"@type":"Relationship","name":"feeds","target":"dtmi:example:grid:consumer:baseConsumer;1"}]}
+{"@id":"dtmi:example:grid:plants:IndustrialPlant;1","@context":"dtmi:dtdl:context;3","@type":"Interface","displayName":"Industrial plant","extends": ["dtmi:example:grid:plants:basePlant;1"]}
+{"@id":"dtmi:example:grid:transmission:powerLine;1","@context":"dtmi:dtdl:context;3","@type":"Interface","displayName":"Power Line","contents":[{"@type":"Property","name":"Capacity","schema":"double"},{"@type":"Relationship","name":"feeds","target":"dtmi:example:grid:transmission:baseReceiver;1"},{"@type":"Property","name":"GridType","schema":"dtmi:example:grid:gridTypeEnum;1"}],"schemas":[{"@type":"Enum","valueSchema":"string","@id":"dtmi:example:grid:gridTypeEnum;1","enumValues":[{"name":"ExtraHighVoltage","enumValue":"ExtraHighVoltage"},{"name":"HighVoltage","enumValue":"HighVoltage"},{"name":"Distribution","enumValue":"Distribution"}]}]}
+{"@id":"dtmi:example:grid:transmission:generatorSubStation;1","@context":"dtmi:dtdl:context;3","@type":"Interface","extends":["dtmi:example:grid:transmission:baseReceiver;1"],"displayName":"Generator SubStation","contents":[{"@type":"Property","name":"Capacity","schema":"double"},{"@type":"Relationship","name":"feeds","target":"dtmi:example:grid:transmission:powerLine;1"}]}
+{"@id":"dtmi:example:grid:plants:windPlant;1","@context":"dtmi:dtdl:context;3","@type":"Interface","extends":["dtmi:example:grid:plants:basePlant;1"],"displayName":"Wind Plant"}
+{"@id":"dtmi:example:grid:plants:solarPlant;1","@context":"dtmi:dtdl:context;3","@type":"Interface","extends":["dtmi:example:grid:plants:basePlant;1"],"displayName":"Solar Plant"}
+{"@id":"dtmi:example:grid:plants:cityPlant;1","@context":"dtmi:dtdl:context;3","@type":"Interface","extends":["dtmi:example:grid:plants:basePlant;1"],"displayName":"City Plant"}
+{"Section": "Twins"}
+{"$dtId":"c_main_street_02","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"pl_corp_gen","$metadata":{"$model":"dtmi:example:grid:transmission:powerLine;1"}}
+{"$dtId":"p_foo","Output":3000,"$metadata":{"$model":"dtmi:example:grid:plants:IndustrialPlant;1"}}
+{"$dtId":"c_main_street_04","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"c_main_street_03","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"c_main_street_05","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"c_farm_02","PowerRequirement":4000,"$metadata":{"$model":"dtmi:example:grid:plants:farmConsumer;1"}}
+{"$dtId":"c_main_street_01","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"c_farm_06","PowerRequirement":4000,"$metadata":{"$model":"dtmi:example:grid:plants:farmConsumer;1"}}
+{"$dtId":"c_farm_01","PowerRequirement":4000,"$metadata":{"$model":"dtmi:example:grid:plants:farmConsumer;1"}}
+{"$dtId":"sub_farmcluster_2","Capacity":0,"$metadata":{"$model":"dtmi:example:grid:transmission:deliverySubStation;1"}}
+{"$dtId":"sub_main_street","Capacity":0,"$metadata":{"$model":"dtmi:example:grid:transmission:deliverySubStation;1"}}
+{"$dtId":"c_farm_03","PowerRequirement":4000,"$metadata":{"$model":"dtmi:example:grid:plants:farmConsumer;1"}}
+{"$dtId":"sub_farmcluster_1","Capacity":0,"$metadata":{"$model":"dtmi:example:grid:transmission:deliverySubStation;1"}}
+{"$dtId":"c_farm_05","PowerRequirement":4000,"$metadata":{"$model":"dtmi:example:grid:plants:farmConsumer;1"}}
+{"$dtId":"c_spring_blvd_02","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"c_spring_blvd_01","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"c_spring_blvd_04","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"c_spring_blvd_05","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"c_spring_blvd_08","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"c_farm_04","PowerRequirement":4000,"$metadata":{"$model":"dtmi:example:grid:plants:farmConsumer;1"}}
+{"$dtId":"c_spring_blvd_06","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"c_spring_blvd_03","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"c_spring_blvd_07","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"c_fall_street_01","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"c_fall_street_02","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"sub_spring_blvd","Capacity":0,"$metadata":{"$model":"dtmi:example:grid:transmission:deliverySubStation;1"}}
+{"$dtId":"c_fall_street_04","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"c_barcorp_03","PowerRequirement":10000,"$metadata":{"$model":"dtmi:example:grid:plants:industrialConsumer;1"}}
+{"$dtId":"sub_fall_street","Capacity":0,"$metadata":{"$model":"dtmi:example:grid:transmission:deliverySubStation;1"}}
+{"$dtId":"c_fall_street_03","PowerRequirement":5,"$metadata":{"$model":"dtmi:example:grid:plants:domesticConsumer;1"}}
+{"$dtId":"c_contoso_01","PowerRequirement":10000,"$metadata":{"$model":"dtmi:example:grid:plants:industrialConsumer;1"}}
+{"$dtId":"sub_corp","Capacity":0,"$metadata":{"$model":"dtmi:example:grid:transmission:deliverySubStation;1"}}
+{"$dtId":"p_contoso","Output":3000,"$metadata":{"$model":"dtmi:example:grid:plants:IndustrialPlant;1"}}
+{"$dtId":"c_foocorp_02","PowerRequirement":10000,"$metadata":{"$model":"dtmi:example:grid:plants:industrialConsumer;1"}}
+{"$dtId":"pl_wind_gen","$metadata":{"$model":"dtmi:example:grid:transmission:powerLine;1"}}
+{"$dtId":"p_wind_01","Output":3000,"$metadata":{"$model":"dtmi:example:grid:plants:windPlant;1"}}
+{"$dtId":"p_wind_03","Output":3000,"$metadata":{"$model":"dtmi:example:grid:plants:windPlant;1"}}
+{"$dtId":"p_wind_02","Output":3000,"$metadata":{"$model":"dtmi:example:grid:plants:windPlant;1"}}
+{"$dtId":"pl_solar_gen","$metadata":{"$model":"dtmi:example:grid:transmission:powerLine;1"}}
+{"$dtId":"sub_solar_gen","Capacity":0,"$metadata":{"$model":"dtmi:example:grid:transmission:generatorSubStation;1"}}
+{"$dtId":"sub_corp_gen","Capacity":0,"$metadata":{"$model":"dtmi:example:grid:transmission:generatorSubStation;1"}}
+{"$dtId":"sub_wind_gen","Capacity":0,"$metadata":{"$model":"dtmi:example:grid:transmission:generatorSubStation;1"}}
+{"$dtId":"p_sol_01","Output":3000,"$metadata":{"$model":"dtmi:example:grid:plants:solarPlant;1"}}
+{"$dtId":"p_sol_02","Output":3000,"$metadata":{"$model":"dtmi:example:grid:plants:solarPlant;1"}}
+{"$dtId":"pl_city_gen","$metadata":{"$model":"dtmi:example:grid:transmission:powerLine;1"}}
+{"$dtId":"p_city","$metadata":{"$model":"dtmi:example:grid:plants:cityPlant;1"}}
+{"$dtId":"sub_city_gen","Capacity":0,"$metadata":{"$model":"dtmi:example:grid:transmission:generatorSubStation;1"}}
+{"$dtId":"pl_distribute","Capacity":0,"GridType":"Distribution","$metadata":{"$model":"dtmi:example:grid:transmission:powerLine;1"}}
+{"Section": "Relationships"}
+{"$relationshipId":"ce5cd7ea-42f8-43b2-b24b-8a66d92fddfa","$dtId":"pl_corp_gen","$targetId":"sub_corp_gen","$relationshipName":"feeds"}
+{"$relationshipId":"c1a2b17d-0e71-4d5b-8b2d-8170e9834b0e","$dtId":"p_foo","$targetId":"pl_corp_gen","$relationshipName":"feeds"}
+{"$relationshipId":"9c2cc5f4-5fbf-4b24-87a5-41c151b83654","$dtId":"sub_farmcluster_2","$targetId":"c_farm_04","$relationshipName":"feeds"}
+{"$relationshipId":"57becd45-1391-45e8-b127-ff3fdc5d0175","$dtId":"sub_farmcluster_2","$targetId":"c_farm_05","$relationshipName":"feeds"}
+{"$relationshipId":"d6960832-4e5a-4696-8ef0-93154089c17d","$dtId":"sub_farmcluster_2","$targetId":"c_farm_06","$relationshipName":"feeds"}
+{"$relationshipId":"21ca01c1-ce75-4c82-b724-61110c7cb15a","$dtId":"sub_main_street","$targetId":"c_main_street_02","$relationshipName":"feeds"}
+{"$relationshipId":"48fe4398-6626-415b-9d43-07226f147e6a","$dtId":"sub_main_street","$targetId":"c_main_street_01","$relationshipName":"feeds"}
+{"$relationshipId":"3e567f0d-a846-4a8e-955a-02e7b9d5fb5a","$dtId":"sub_main_street","$targetId":"c_main_street_04","$relationshipName":"feeds"}
+{"$relationshipId":"5892ad53-7410-4ab1-9d02-9bb37b29bc61","$dtId":"sub_main_street","$targetId":"c_main_street_03","$relationshipName":"feeds"}
+{"$relationshipId":"531c72ad-e34c-409a-bdc1-71d7fccb2a66","$dtId":"sub_main_street","$targetId":"c_main_street_05","$relationshipName":"feeds"}
+{"$relationshipId":"0442ae8a-1581-42e0-9955-777359942144","$dtId":"sub_farmcluster_1","$targetId":"c_farm_01","$relationshipName":"feeds"}
+{"$relationshipId":"e6b26672-2f17-4611-9bba-b0289cfec38d","$dtId":"sub_farmcluster_1","$targetId":"c_farm_02","$relationshipName":"feeds"}
+{"$relationshipId":"59064983-f4cd-42a2-a156-759b544e04c9","$dtId":"sub_farmcluster_1","$targetId":"c_farm_03","$relationshipName":"feeds"}
+{"$relationshipId":"524dd5c2-b055-44b8-8d9f-e9c548e2e194","$dtId":"sub_spring_blvd","$targetId":"c_spring_blvd_03","$relationshipName":"feeds"}
+{"$relationshipId":"0851add3-59f1-4e26-9edb-a692d0d5a834","$dtId":"sub_spring_blvd","$targetId":"c_spring_blvd_04","$relationshipName":"feeds"}
+{"$relationshipId":"d4aaa8aa-c3db-45db-8263-20bcc46eb7ad","$dtId":"sub_spring_blvd","$targetId":"c_spring_blvd_01","$relationshipName":"feeds"}
+{"$relationshipId":"df8d2c2e-e8f7-4ae5-abb9-f701c92437e4","$dtId":"sub_spring_blvd","$targetId":"c_spring_blvd_02","$relationshipName":"feeds"}
+{"$relationshipId":"15a29a0e-45a8-47e1-a42f-c75f6a5fd46c","$dtId":"sub_spring_blvd","$targetId":"c_spring_blvd_07","$relationshipName":"feeds"}
+{"$relationshipId":"b29f4c20-9155-4e25-99c6-9e7b01205cf2","$dtId":"sub_spring_blvd","$targetId":"c_spring_blvd_05","$relationshipName":"feeds"}
+{"$relationshipId":"0a89ab3b-549c-41d7-ac22-7676e09420bd","$dtId":"sub_spring_blvd","$targetId":"c_spring_blvd_06","$relationshipName":"feeds"}
+{"$relationshipId":"912db227-bf93-40df-b6bb-1400b438d164","$dtId":"sub_spring_blvd","$targetId":"c_spring_blvd_08","$relationshipName":"feeds"}
+{"$relationshipId":"7d3bcfa6-3e5b-4956-99e9-c415cd027f0c","$dtId":"sub_fall_street","$targetId":"c_fall_street_02","$relationshipName":"feeds"}
+{"$relationshipId":"1f2b7856-96a6-4dc5-b9b2-f5593e0302a1","$dtId":"sub_fall_street","$targetId":"c_fall_street_04","$relationshipName":"feeds"}
+{"$relationshipId":"0a9dab66-9e7c-4e4b-a19c-f6391ae8d7d9","$dtId":"sub_fall_street","$targetId":"c_fall_street_03","$relationshipName":"feeds"}
+{"$relationshipId":"457c54bc-efa9-4de9-a298-b82c4dd852f8","$dtId":"sub_fall_street","$targetId":"c_fall_street_01","$relationshipName":"feeds"}
+{"$relationshipId":"0beed983-6655-4828-96c8-cdfe93ce6569","$dtId":"c_contoso_01","$targetId":"p_contoso","$relationshipName":"hasGenerator"}
+{"$relationshipId":"fc2c6106-96cb-498f-b019-8def3c0037fd","$dtId":"p_contoso","$targetId":"pl_corp_gen","$relationshipName":"feeds"}
+{"$relationshipId":"98b55982-8f8c-4683-a336-2d82f1b16441","$dtId":"sub_corp","$targetId":"c_contoso_01","$relationshipName":"feeds"}
+{"$relationshipId":"86b0bfd8-2608-48d9-9354-a4e6802e615f","$dtId":"sub_corp","$targetId":"c_foocorp_02","$relationshipName":"feeds"}
+{"$relationshipId":"6bc70064-7071-4b4f-875f-9351ccdaa63e","$dtId":"sub_corp","$targetId":"c_barcorp_03","$relationshipName":"feeds"}
+{"$relationshipId":"133ccba3-0bb4-4f57-84d9-5f32ee355a8e","$dtId":"c_foocorp_02","$targetId":"p_foo","$relationshipName":"hasGenerator"}
+{"$relationshipId":"e82be058-1feb-46a9-bd80-5c8d765b6eb3","$dtId":"pl_wind_gen","$targetId":"sub_wind_gen","$relationshipName":"feeds"}
+{"$relationshipId":"fea2ec72-e6aa-4fca-a65a-ae8765e811d8","$dtId":"p_wind_01","$targetId":"pl_wind_gen","$relationshipName":"feeds"}
+{"$relationshipId":"e5ade78d-835f-4c37-a114-639e99534248","$dtId":"p_wind_03","$targetId":"pl_wind_gen","$relationshipName":"feeds"}
+{"$relationshipId":"36a847d0-eb89-4441-a2b5-fd52ee3df647","$dtId":"p_wind_02","$targetId":"pl_wind_gen","$relationshipName":"feeds"}
+{"$relationshipId":"cefc34de-52fc-4e62-9f32-92b522d804f7","$dtId":"pl_solar_gen","$targetId":"sub_solar_gen","$relationshipName":"feeds"}
+{"$relationshipId":"522736e6-3625-4a20-8e40-aff184657d95","$dtId":"sub_solar_gen","$targetId":"pl_distribute","$relationshipName":"feeds"}
+{"$relationshipId":"3faae587-fb73-40ca-8ba0-37ccf5a77fab","$dtId":"sub_corp_gen","$targetId":"pl_distribute","$relationshipName":"feeds"}
+{"$relationshipId":"488f98a5-455c-4d89-92ff-125a68fcde16","$dtId":"p_sol_01","$targetId":"pl_solar_gen","$relationshipName":"feeds"}
+{"$relationshipId":"f1980f89-6364-41cf-9dce-efaa38ccfe0d","$dtId":"sub_wind_gen","$targetId":"pl_distribute","$relationshipName":"feeds"}
+{"$relationshipId":"3d757554-aee5-4175-a267-1569e784e384","$dtId":"pl_city_gen","$targetId":"sub_city_gen","$relationshipName":"feeds"}
+{"$relationshipId":"1a1f46d1-0a80-4b77-a8f4-2198618800a3","$dtId":"p_sol_02","$targetId":"pl_solar_gen","$relationshipName":"feeds"}
+{"$relationshipId":"34b034e1-6c5e-4a7e-a7cf-960565573a74","$dtId":"pl_distribute","$targetId":"sub_main_street","$relationshipName":"feeds"}
+{"$relationshipId":"a770a1ef-ff3e-416e-bdd1-35587cde93be","$dtId":"pl_distribute","$targetId":"sub_farmcluster_1","$relationshipName":"feeds"}
+{"$relationshipId":"f36bdc9b-aaae-429f-99f3-f0404897be0d","$dtId":"pl_distribute","$targetId":"sub_farmcluster_2","$relationshipName":"feeds"}
+{"$relationshipId":"69d6f968-4bc1-41fc-a603-9673522e0e78","$dtId":"pl_distribute","$targetId":"sub_fall_street","$relationshipName":"feeds"}
+{"$relationshipId":"3d72b899-5760-443c-83a3-a7ef4756f104","$dtId":"pl_distribute","$targetId":"sub_corp","$relationshipName":"feeds"}
+{"$relationshipId":"eede493d-97dc-4aeb-a421-d97bfe942d4a","$dtId":"pl_distribute","$targetId":"sub_spring_blvd","$relationshipName":"feeds"}
+{"$relationshipId":"2c72b9ab-869a-4127-9f4c-6369c9682cb8","$dtId":"p_city","$targetId":"pl_city_gen","$relationshipName":"feeds"}
+{"$relationshipId":"cc27096f-5fbc-43f0-84f3-d2218621d3bd","$dtId":"sub_city_gen","$targetId":"pl_distribute","$relationshipName":"feeds"}
