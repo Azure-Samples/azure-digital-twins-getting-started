@@ -11,5 +11,7 @@ They were just created to quickly test and demonstrate digital-twins-explorer an
 This directory also contains two spreadsheet files (*.xlsx) that you can use to create a twin graph in your Azure Digital Twins instance with digital-twins-explorer.
 See the [main readme](https://github.com/Azure-Samples/digital-twins-explorer/tree/main/README.md) for instructions. The file you want to start with is `distributionGrid.xlsx`.
 
+It also contains a json file, `distributionGridBulkImport.json`, that can be used to import models, twins, and relationships for the distribution grid scenario in bulk, using the [Import Jobs API](https://learn.microsoft.com/rest/api/digital-twins/dataplane/jobs/import-jobs-add).
+
 
 
