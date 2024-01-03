@@ -8,7 +8,7 @@
   "displayName": "Sensor",
   "contents": [
     {
-      "@type": ["Telemetry", "Temperature"],
+      "@type": ["Property", "Temperature"],
       "name": "temperature",
       "schema": "double",
       "unit": "degreeFahrenheit"    

@@ -5,13 +5,13 @@
   "displayName": "Sensor",
   "contents": [
     {
-    "@type": "Telemetry",
+    "@type": "Property",
     "name": "Temperature",
     "schema": "double"      
     },
     {
       "@type": "Property",
-      "name": "humidity",
+      "name": "Humidity",
       "schema": "double"      
     }
   ]
