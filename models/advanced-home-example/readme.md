@@ -8,7 +8,7 @@
 
 ## Semantic Types
 
-In the `Sensor` model, both the Humidity property and Temperature telemetry are semantic type (from basic double).
+In the `Sensor` model, both the Humidity and Temperature properties are semantic type (from basic double).
 
 ![Screenshot of semantic types DTDL example](../../images/adv-home-semantic.png)
 

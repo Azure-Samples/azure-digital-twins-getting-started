@@ -5,14 +5,14 @@
   "displayName": "Sensor (v2 model)",
   "contents": [
     {
-      "@type": ["Telemetry", "Temperature"],
-      "name": "temperature",
+      "@type": ["Property", "Temperature"],
+      "name": "Temperature",
       "schema": "double",
       "unit": "degreeFahrenheit"    
     },
     {
       "@type": ["Property", "Humidity"],
-      "name": "humidity",
+      "name": "Humidity",
       "schema": "double",
       "unit": "gramPerCubicMetre" 
     }
