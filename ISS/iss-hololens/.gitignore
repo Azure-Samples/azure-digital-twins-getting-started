@@ -40,3 +40,6 @@ Logs/
 *.pfx
 *.pfx.meta
 Assets/ScriptableObjects/AzureDigitalTwin/Credentials/*
+
+# Include unity meta files
+!*.meta
