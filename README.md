@@ -20,7 +20,6 @@ This project contains the following folders.
 | Folder | Description |
 | --- | --- |
 | [3dscenes](/3dscenes/) | Sample files to be used with 3D Scenes Studio. |
-| [ISS](/ISS) | Project to track the International Space Station with Azure Digital Twins and Azure Data Explorer. |
 | [adt-adx-queries](/adt-adx-queries) | Contains sample queries that can be run with the Azure Digital Twins query plugin for Azure Data Explorer. |
 | [azure-functions](/azure-functions) | Contains sample Azure functions that can be used (as an example) with Azure Digital Twins for managing data ingress and twin updates. |
 | [bulk-import](/ndjson-generator) | Contains helper code to generate *ndjson* files that can be used for bulk import. |
