@@ -11,6 +11,9 @@ urlFragment: digital-twins-getting-started
 
 # Azure Digital Twins getting started samples
 
+>[!IMPORTANT]
+>This repository has been archived and no longer receives active updates.
+
 These samples can help you get started with Azure Digital Twins.
 
 ## Contents
